@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicBinder.Application", "MagicBinder.Application\MagicBinder.Application.csproj", "{26EAD31F-698D-4D8D-9C27-175F1E616E80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicBinder.WebApi", "MagicBinder.WebApi\MagicBinder.WebApi.csproj", "{4137E74C-05DC-490C-9FA4-AA892069B9DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{D041CD9B-80B6-4B96-9415-2485BBC1C81C}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26EAD31F-698D-4D8D-9C27-175F1E616E80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26EAD31F-698D-4D8D-9C27-175F1E616E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26EAD31F-698D-4D8D-9C27-175F1E616E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26EAD31F-698D-4D8D-9C27-175F1E616E80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4137E74C-05DC-490C-9FA4-AA892069B9DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4137E74C-05DC-490C-9FA4-AA892069B9DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4137E74C-05DC-490C-9FA4-AA892069B9DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4137E74C-05DC-490C-9FA4-AA892069B9DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
