@@ -16,6 +16,9 @@ public class HealthCheckController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        return Ok("OK");
+        var result = "OK";
+        _logger.LogInformation("Returning \"{result}\" result.", result);
+
+        return Ok(result);
     }
 }
