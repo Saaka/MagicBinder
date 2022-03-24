@@ -1,4 +1,10 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using MagicBinder.WebApi.CompositionRoots;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(cb => cb.RegisterAppModules());
 
 // Add services to the container.
 
