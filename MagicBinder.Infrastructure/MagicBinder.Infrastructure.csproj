@@ -10,4 +10,14 @@
       <Compile Remove="Class1.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MagicBinder.Core\MagicBinder.Core.csproj" />
+      <ProjectReference Include="..\MagicBinder.Domain\MagicBinder.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac" Version="6.3.0" />
+      <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
+    </ItemGroup>
+
 </Project>

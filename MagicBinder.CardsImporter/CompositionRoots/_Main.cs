@@ -1,13 +1,13 @@
-﻿using Autofac;
+using Autofac;
 using MagicBinder.Infrastructure.CompositionRoots;
 
-namespace MagicBinder.WebApi.CompositionRoots;
+namespace MagicBinder.CardsImporter.CompositionRoots;
 
 public static class Main
 {
     public static ContainerBuilder RegisterAppModules(this ContainerBuilder builder)
     {
-        builder.RegisterModule<WebApiCompositionRoot>();
+        builder.RegisterModule<CardsImporterCompositionRoot>();
         builder.RegisterModule<InfrastructureCompositionRoot>();
 
         return builder;
