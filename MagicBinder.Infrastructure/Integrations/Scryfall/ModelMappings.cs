@@ -4,6 +4,12 @@ namespace MagicBinder.Infrastructure.Integrations.Scryfall;
 
 public static class ModelMappings
 {
+    public static Dictionary<string, string> GetFullCardMapping() =>
+        CardsMapping
+            .Concat(ImageUrisMapping)
+            .GroupBy(x => x.Key)
+            .ToDictionary(x => x.Key, v => v.First().Value);
+
     public static Dictionary<string, string> CardsMapping { get; } = new()
     {
         { nameof(CardModel.CardId), "id" },
@@ -15,6 +21,8 @@ public static class ModelMappings
         { nameof(CardModel.ManaCost), "mana_cost" },
         { nameof(CardModel.TypeLine), "type_line" },
         { nameof(CardModel.OracleText), "oracle_text" },
+        { nameof(CardModel.Rarity), "rarity" },
+        { nameof(CardModel.ReleasedAt), "released_at" },
         { nameof(CardModel.Power), "power" },
         { nameof(CardModel.Toughness), "toughness" },
         { nameof(CardModel.Colors), "colors" },

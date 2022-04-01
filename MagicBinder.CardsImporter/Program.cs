@@ -4,6 +4,8 @@ using Autofac;
 using MagicBinder.CardsImporter;
 using MagicBinder.Domain.Aggregates;
 using MagicBinder.Domain.Aggregates.Entities;
+using MagicBinder.Infrastructure.Integrations.Scryfall;
+using MagicBinder.Infrastructure.Integrations.Scryfall.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -14,27 +16,16 @@ var builder = new ContainerBuilder();
 // Container = builder.Build();
 
 Console.WriteLine("Hello, World!");
-var fileName = Console.ReadLine();
-
-var dict = new Dictionary<string, string>()
-{
-    { nameof(Card.OracleId), "oracle_id" },
-    { nameof(Card.Name), "name" },
-    { nameof(Card.CardId), "id" },
-    { nameof(Card.ImageUris), "image_uris" },
-    { nameof(ImageUris.Small), "small" },
-    { nameof(ImageUris.Normal), "normal" },
-    { nameof(ImageUris.Large), "large" },
-};
+var fileName = "cards.json";
 
 Console.WriteLine(fileName);
 using var streamReader = File.OpenText(fileName);
 var jsonSerializerSettings = new JsonSerializerSettings
 {
-    ContractResolver = new CustomJsonContractResolver(dict)
+    ContractResolver = new CustomJsonContractResolver(ModelMappings.GetFullCardMapping())
 };
 
-var result = JsonConvert.DeserializeObject<List<Card>>(streamReader.ReadToEnd(), jsonSerializerSettings);
+var result = JsonConvert.DeserializeObject<List<CardModel>>(streamReader.ReadToEnd(), jsonSerializerSettings);
 
 var card = result.FirstOrDefault();
 Console.WriteLine(" Press return to exit");

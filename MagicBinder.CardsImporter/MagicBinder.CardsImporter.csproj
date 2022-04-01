@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MagicBinder.Domain\MagicBinder.Domain.csproj" />
+      <ProjectReference Include="..\MagicBinder.Infrastructure\MagicBinder.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
