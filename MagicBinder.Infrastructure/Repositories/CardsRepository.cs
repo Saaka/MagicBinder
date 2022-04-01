@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace MagicBinder.Infrastructure.Repositories;
 
-public class CardsRepository
+public class CardsRepository : IMongoRepository
 {
     private readonly IMongoDatabase _database;
 
