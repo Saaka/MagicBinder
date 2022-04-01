@@ -2,6 +2,7 @@
 
 using Autofac;
 using MagicBinder.CardsImporter;
+using MagicBinder.Core.Json;
 using MagicBinder.Domain.Aggregates;
 using MagicBinder.Domain.Aggregates.Entities;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
@@ -15,7 +16,6 @@ var builder = new ContainerBuilder();
 // builder.RegisterType<TodayWriter>().As<IDateWriter>();
 // Container = builder.Build();
 
-Console.WriteLine("Hello, World!");
 var fileName = "cards.json";
 
 Console.WriteLine(fileName);

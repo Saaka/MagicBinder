@@ -1,6 +1,6 @@
 using Newtonsoft.Json.Serialization;
 
-namespace MagicBinder.CardsImporter;
+namespace MagicBinder.Core.Json;
 
 public class CustomJsonContractResolver : DefaultContractResolver
 {
@@ -13,7 +13,7 @@ public class CustomJsonContractResolver : DefaultContractResolver
 
     protected override string ResolvePropertyName(string propertyName)
     {
-        var resolved = this.PropertyMappings.TryGetValue(propertyName, out var resolvedName);
+        var resolved = PropertyMappings.TryGetValue(propertyName, out var resolvedName);
         return (resolved && resolvedName != null) ? resolvedName : base.ResolvePropertyName(propertyName);
     }
 }
