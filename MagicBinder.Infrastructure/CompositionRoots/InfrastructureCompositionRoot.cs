@@ -1,6 +1,7 @@
 using Autofac;
 using MagicBinder.Core.CompositionRoots;
 using MagicBinder.Infrastructure.Configurations;
+using MagicBinder.Infrastructure.Integrations.Scryfall;
 using MagicBinder.Infrastructure.Repositories;
 using MongoDB.Driver;
 
@@ -9,6 +10,15 @@ namespace MagicBinder.Infrastructure.CompositionRoots;
 public class InfrastructureCompositionRoot : Module
 {
     protected override void Load(ContainerBuilder builder)
+    {
+        RegisterMongo(builder);
+
+        builder.RegisterType<JsonCardsParser>()
+            .AsSelf()
+            .InstancePerLifetimeScope();
+    }
+
+    private static void RegisterMongo(ContainerBuilder builder)
     {
         builder
             .RegisterConfigurationsForAssemblyOfType<MongoConfig>();
