@@ -1,25 +1,30 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Autofac;
-using MagicBinder.CardsImporter;
+using MagicBinder.CardsImporter.CompositionRoots;
+using MagicBinder.CardsImporter.Services;
 using MagicBinder.Core.Json;
-using MagicBinder.Domain.Aggregates;
-using MagicBinder.Domain.Aggregates.Entities;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
 using MagicBinder.Infrastructure.Integrations.Scryfall.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-// IContainer Container = null;
-var builder = new ContainerBuilder();
-// builder.RegisterType<ConsoleOutput>().As<IOutput>();
-// builder.RegisterType<TodayWriter>().As<IDateWriter>();
-// Container = builder.Build();
+try
+{
+    var builder = new ContainerBuilder()
+        .RegisterAppModules();
+    var container = builder.Build();
 
-var fileName = "cards.json";
+    await using var scope = container.BeginLifetimeScope();
+    var jsonService = scope.Resolve<CardsJsonService>();
+    var fileName = Console.ReadLine();
+    var json = jsonService.GetJson(fileName ?? "import.json");
+    
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine(ex);
+}
 
-Console.WriteLine(fileName);
-using var streamReader = File.OpenText(fileName);
 var jsonSerializerSettings = new JsonSerializerSettings
 {
     ContractResolver = new CustomJsonContractResolver(ModelMappings.GetFullCardMapping())
@@ -28,10 +33,5 @@ var jsonSerializerSettings = new JsonSerializerSettings
 var result = JsonConvert.DeserializeObject<List<CardModel>>(streamReader.ReadToEnd(), jsonSerializerSettings);
 
 var card = result.FirstOrDefault();
-Console.WriteLine(" Press return to exit");
-Console.ReadLine();
-// using (var scope = Container.BeginLifetimeScope())
-// {
-//     var writer = scope.Resolve<XX>();
-//     writer.WriteDate();
-// }
+
+Console.WriteLine(card.Name);
