@@ -22,7 +22,9 @@ var dict = new Dictionary<string, string>()
     { nameof(Card.Name), "name" },
     { nameof(Card.CardId), "id" },
     { nameof(Card.ImageUris), "image_uris" },
-    { nameof(ImageUris.Small), "small" }
+    { nameof(ImageUris.Small), "small" },
+    { nameof(ImageUris.Normal), "normal" },
+    { nameof(ImageUris.Large), "large" },
 };
 
 Console.WriteLine(fileName);
