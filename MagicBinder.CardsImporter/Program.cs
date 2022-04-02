@@ -5,6 +5,7 @@ using MagicBinder.CardsImporter.CompositionRoots;
 using MagicBinder.CardsImporter.Services;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
 
+const string defaultFileName = "import.json";
 try
 {
     var builder = new ContainerBuilder()
@@ -12,10 +13,15 @@ try
     var container = builder.Build();
 
     await using var scope = container.BeginLifetimeScope();
-    var jsonService = scope.Resolve<CardsJsonService>();
+    
+    Console.WriteLine("Please provide file name to import (default is '{0}'):", defaultFileName);
     var fileName = Console.ReadLine();
-    var json = await jsonService.GetJson(fileName ?? "import.json");
-
+    fileName = string.IsNullOrWhiteSpace(fileName) ? defaultFileName : fileName;
+    
+    var jsonService = scope.Resolve<CardsJsonService>();
+    Console.WriteLine("Reading file '{0}'...", fileName);
+    var json = await jsonService.GetJson(fileName);
+    
     var parser = scope.Resolve<JsonCardsParser>();
     var cards = parser.ParseCards(json);
     Console.WriteLine("Found {0} cards", cards.Count);
