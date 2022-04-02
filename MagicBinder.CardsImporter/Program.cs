@@ -1,9 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Autofac;
+using MagicBinder.Application.Commands.Cards;
 using MagicBinder.CardsImporter.CompositionRoots;
 using MagicBinder.CardsImporter.Services;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
+using MediatR;
 
 const string defaultFileName = "import.json";
 try
@@ -21,10 +23,9 @@ try
     var jsonService = scope.Resolve<CardsJsonService>();
     Console.WriteLine("Reading file '{0}'...", fileName);
     var json = await jsonService.GetJson(fileName);
-    
-    var parser = scope.Resolve<JsonCardsParser>();
-    var cards = parser.ParseCards(json);
-    Console.WriteLine("Found {0} cards", cards.Count);
+
+    var mediator = scope.Resolve<IMediator>();
+    await mediator.Send(new ImportCardsFromScryfallFile(json));
 }
 catch (Exception ex)
 {
