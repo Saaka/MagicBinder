@@ -44,6 +44,7 @@ public static class CardMapper
             CollectorNumber = model.CollectorNumber,
             FlavorText = model.FlavorText,
             Artist = model.Artist,
+            Lang = model.Lang,
             CardImages = model.ImageUris.MapToCardImages()
         };
 

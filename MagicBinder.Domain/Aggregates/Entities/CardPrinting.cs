@@ -16,6 +16,7 @@ public class CardPrinting
     public string CollectorNumber { get; set; }
     public string FlavorText { get; set; }
     public string Artist { get; set; }
+    public string Lang { get; set; }
 
     public CardImages? CardImages { get; set; }
 }
