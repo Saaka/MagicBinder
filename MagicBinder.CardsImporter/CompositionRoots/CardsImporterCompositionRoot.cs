@@ -8,8 +8,11 @@ public class CardsImporterCompositionRoot : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
+        var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        
         IConfiguration config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
+            .AddJsonFile($"appsettings.{environmentName}.json", true)
             .AddEnvironmentVariables()
             .Build();
 

@@ -10,11 +10,13 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
 builder
     .AddLogging()
     .AddMvc()
-    .AddSwagger();
+    .AddSwagger()
+    .AddHangfire();
 
 var app = builder.Build();
 
 app.UseSwaggerWithUI();
+app.UseHangfire(app.Configuration);
 app.UseMvc();
 
 app.Run();

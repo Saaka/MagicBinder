@@ -18,9 +18,14 @@
     <ItemGroup>
       <PackageReference Include="Autofac" Version="6.3.0" />
       <PackageReference Include="Hangfire" Version="1.7.28" />
+      <PackageReference Include="HangFire.Autofac" Version="2.3.1" />
       <PackageReference Include="Hangfire.Mongo" Version="1.7.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
       <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="CompositionRoots\Extensions" />
     </ItemGroup>
 
 </Project>

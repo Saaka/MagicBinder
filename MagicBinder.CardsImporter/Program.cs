@@ -3,6 +3,7 @@
 using Autofac;
 using MagicBinder.Application.Commands.Cards;
 using MagicBinder.CardsImporter.CompositionRoots;
+using MagicBinder.CardsImporter.CompositionRoots.Extensions;
 using MagicBinder.CardsImporter.Services;
 using MediatR;
 
@@ -13,7 +14,8 @@ try
         .RegisterAppModules();
     var container = builder.Build();
 
-    await using var scope = container.BeginLifetimeScope();
+    await using var scope = container.BeginLifetimeScope()
+        .AddHangfire();
     
     Console.WriteLine("Please provide file name to import (default is '{0}'):", defaultFileName);
     var fileName = Console.ReadLine();

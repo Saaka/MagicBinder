@@ -16,6 +16,7 @@ public class InfrastructureCompositionRoot : Module
         builder.RegisterType<JsonCardsParser>()
             .AsSelf()
             .InstancePerLifetimeScope();
+        
     }
 
     private static void RegisterMongo(ContainerBuilder builder)
