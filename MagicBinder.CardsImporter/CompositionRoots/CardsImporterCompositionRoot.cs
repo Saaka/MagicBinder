@@ -1,6 +1,8 @@
 using Autofac;
 using MagicBinder.CardsImporter.Services;
 using Microsoft.Extensions.Configuration;
+using Serilog;
+using Serilog.Extensions.Autofac.DependencyInjection;
 
 namespace MagicBinder.CardsImporter.CompositionRoots;
 
@@ -22,5 +24,9 @@ public class CardsImporterCompositionRoot : Module
         builder.RegisterType<CardsJsonService>()
             .AsSelf()
             .InstancePerLifetimeScope();
+
+        var logConfig = new LoggerConfiguration()
+            .WriteTo.Console();
+        builder.RegisterSerilog(logConfig);
     }
 }
