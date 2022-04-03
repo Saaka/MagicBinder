@@ -7,9 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(cb => cb.RegisterAppModules());
 
-builder.AddLogging();
-builder.AddMvc();
-builder.AddSwagger();
+builder
+    .AddLogging()
+    .AddMvc()
+    .AddSwagger();
 
 var app = builder.Build();
 

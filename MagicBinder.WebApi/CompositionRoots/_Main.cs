@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MagicBinder.Application.CompositionRoots;
 using MagicBinder.Infrastructure.CompositionRoots;
 
 namespace MagicBinder.WebApi.CompositionRoots;
@@ -9,6 +10,7 @@ public static class Main
     {
         builder.RegisterModule<WebApiCompositionRoot>();
         builder.RegisterModule<InfrastructureCompositionRoot>();
+        builder.RegisterModule<ApplicationCompositionRoot>();
 
         return builder;
     }

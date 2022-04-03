@@ -4,7 +4,6 @@ using Autofac;
 using MagicBinder.Application.Commands.Cards;
 using MagicBinder.CardsImporter.CompositionRoots;
 using MagicBinder.CardsImporter.Services;
-using MagicBinder.Infrastructure.Integrations.Scryfall;
 using MediatR;
 
 const string defaultFileName = "import.json";
