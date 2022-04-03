@@ -6,15 +6,48 @@ namespace MagicBinder.Application.Mappers;
 
 public static class CardMapper
 {
-    public static Card MapToCard(this CardModel cardModel, Card? card = null)
+    public static Card MapToCard(this CardModel model, Card? card = null)
     {
-        card ??= new Card();
-        card.CardId = cardModel.CardId;
-        card.OracleId = cardModel.OracleId;
-        card.Name = cardModel.Name;
-        card.CardImages = cardModel.ImageUris.MapToCardImages();
-
+        card ??= new Card
+        {
+            OracleId = model.OracleId,
+            Name = model.Name,
+            Rarity = model.Rarity,
+            Cmc = model.Cmc,
+            ManaCost = model.ManaCost,
+            TypeLine = model.TypeLine,
+            OracleText = model.OracleText,
+            Power = model.Power,
+            Toughness = model.Toughness,
+            Colors = model.Colors,
+            ColorIdentity = model.ColorIdentity,
+            Keywords =model.Keywords,
+            Games = model.Games,
+        };
+        
         return card;
+    }
+
+    public static CardPrinting MapToCardPrinting(this CardModel model, CardPrinting? printing = null)
+    {
+        printing ??= new CardPrinting
+        {
+            CardId = model.CardId,
+            OracleId = model.OracleId,
+            Name = model.Name,
+            ReleasedAt = model.ReleasedAt,
+            ScryfallUri = model.ScryfallUri,
+            OracleText = model.OracleText,
+            SetId = model.SetId,
+            Set = model.Set,
+            SetName = model.SetName,
+            CollectorNumber = model.CollectorNumber,
+            FlavorText = model.FlavorText,
+            Artist = model.Artist,
+            CardImages = model.ImageUris.MapToCardImages()
+        };
+
+        return printing;
     }
 
     public static CardImages? MapToCardImages(this ImageUrisModel? imageUris) => imageUris == null ? null :  new CardImages

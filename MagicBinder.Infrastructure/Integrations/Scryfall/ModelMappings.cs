@@ -28,7 +28,15 @@ public static class ModelMappings
         { nameof(CardModel.Colors), "colors" },
         { nameof(CardModel.ColorIdentity), "color_identity" },
         { nameof(CardModel.Keywords), "keywords" },
+        { nameof(CardModel.Games), "games" },
         { nameof(CardModel.ImageUris), "image_uris" },
+        { nameof(CardModel.Set), "set" },
+        { nameof(CardModel.SetId), "set_id" },
+        { nameof(CardModel.SetName), "set_name" },
+        { nameof(CardModel.CollectorNumber), "collector_number" },
+        { nameof(CardModel.FlavorText), "flavor_text" },
+        { nameof(CardModel.Artist), "artist" },
+        { nameof(CardModel.Oversized), "oversized" },
     };
 
     public static Dictionary<string, string> ImageUrisMapping { get; } = new()

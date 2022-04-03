@@ -15,8 +15,16 @@ public record CardModel
     public string Lang { get; init; }
     public string Power { get; init; }
     public string Toughness { get; init; }
+    public Guid SetId { get; init; }
+    public string Set { get; init; }
+    public string SetName { get; init; }
+    public string CollectorNumber { get; init; }
+    public string FlavorText { get; init; }
+    public string Artist { get; init; }
+    public bool Oversized { get; init; }
     public string[] Colors { get; init; } = Array.Empty<string>();
     public string[] ColorIdentity { get; init; } = Array.Empty<string>();
     public string[] Keywords { get; init; } = Array.Empty<string>();
+    public string[] Games { get; init; } = Array.Empty<string>();
     public ImageUrisModel ImageUris { get; init; }
 }

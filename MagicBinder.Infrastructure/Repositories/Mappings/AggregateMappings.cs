@@ -11,8 +11,8 @@ public static class AggregateMappings
         BsonClassMap.RegisterClassMap<Card>(cm =>
         {
             cm.AutoMap();
-            cm.GetMemberMap(x => x.CardId).SetIgnoreIfDefault(false);
-            cm.SetIdMember(cm.GetMemberMap(c => c.CardId));
+            cm.GetMemberMap(x => x.OracleId).SetIgnoreIfDefault(false);
+            cm.SetIdMember(cm.GetMemberMap(c => c.OracleId));
             cm.IdMemberMap.SetIdGenerator(GuidGenerator.Instance);
         });
     }
