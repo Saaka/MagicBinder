@@ -9,9 +9,9 @@ public static class CardMapper
     public static Card MapToCard(this CardModel cardModel, Card? card = null)
     {
         card ??= new Card();
-        card.Name = cardModel.Name;
         card.CardId = cardModel.CardId;
         card.OracleId = cardModel.OracleId;
+        card.Name = cardModel.Name;
         card.CardImages = cardModel.ImageUris.MapToCardImages();
 
         return card;

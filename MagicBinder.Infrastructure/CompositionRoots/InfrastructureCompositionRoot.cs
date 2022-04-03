@@ -3,6 +3,7 @@ using MagicBinder.Core.CompositionRoots;
 using MagicBinder.Infrastructure.Configurations;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
 using MagicBinder.Infrastructure.Repositories;
+using MagicBinder.Infrastructure.Repositories.Mappings;
 using MongoDB.Driver;
 
 namespace MagicBinder.Infrastructure.CompositionRoots;
@@ -16,7 +17,8 @@ public class InfrastructureCompositionRoot : Module
         builder.RegisterType<JsonCardsParser>()
             .AsSelf()
             .InstancePerLifetimeScope();
-        
+
+        AggregateMappings.RegisterClassMaps();
     }
 
     private static void RegisterMongo(ContainerBuilder builder)

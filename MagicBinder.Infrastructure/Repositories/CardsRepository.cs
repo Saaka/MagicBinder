@@ -15,7 +15,7 @@ public class CardsRepository : IMongoRepository
 
     public virtual async Task InsertAsync(Card card) => await Cards.InsertOneAsync(card);
 
-    public virtual async Task UpdateAsync(Card card) => await Cards.ReplaceOneAsync(x => x.Id == card.Id, card);
+    public virtual async Task UpdateAsync(Card card) => await Cards.ReplaceOneAsync(x => x.CardId == card.CardId, card);
 
     public virtual async Task UpsertManyAsync(ICollection<Card> cards)
     {
@@ -29,8 +29,7 @@ public class CardsRepository : IMongoRepository
         await Cards.BulkWriteAsync(models);
     }
 
-    public virtual async Task<Card?> GetAsync(Guid id) => await Cards.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);
-    public virtual async Task<Card?> GetByCardIdAsync(Guid cardId) => await Cards.AsQueryable().FirstOrDefaultAsync(x => x.CardId == cardId);
+    public virtual async Task<Card?> GetAsync(Guid id) => await Cards.AsQueryable().FirstOrDefaultAsync(x => x.CardId == id);
 
     public IMongoCollection<Card> Cards => _database.GetCollection<Card>("Cards");
 }

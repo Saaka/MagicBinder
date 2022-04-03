@@ -33,8 +33,7 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
             var cardBatch = cards.Skip(batchNumber * MaxBatchSize).Take(MaxBatchSize).ToList();
             foreach (var cardModel in cardBatch)
             {
-                var card = await _cardsRepository.GetByCardIdAsync(cardModel.CardId);
-                card = cardModel.MapToCard(card);
+                var card = cardModel.MapToCard();
                 cardsToSave.Add(card);
             }
 
