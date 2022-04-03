@@ -18,6 +18,8 @@ public record CardModel
     public Guid SetId { get; init; }
     public string Set { get; init; }
     public string SetName { get; init; }
+    public string SetType { get; init; }
+    public string Layout { get; init; }
     public string CollectorNumber { get; init; }
     public string FlavorText { get; init; }
     public string Artist { get; init; }

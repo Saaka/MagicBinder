@@ -33,6 +33,8 @@ public static class ModelMappings
         { nameof(CardModel.Set), "set" },
         { nameof(CardModel.SetId), "set_id" },
         { nameof(CardModel.SetName), "set_name" },
+        { nameof(CardModel.SetType), "set_type" },
+        { nameof(CardModel.Layout), "layout" },
         { nameof(CardModel.CollectorNumber), "collector_number" },
         { nameof(CardModel.FlavorText), "flavor_text" },
         { nameof(CardModel.Artist), "artist" },

@@ -1,6 +1,7 @@
 using MagicBinder.Application.Mappers;
 using MagicBinder.Domain.Aggregates;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
+using MagicBinder.Infrastructure.Integrations.Scryfall.Models;
 using MagicBinder.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -26,8 +27,7 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
     public async Task<Unit> Handle(ImportCardsFromScryfallFile request, CancellationToken cancellationToken)
     {
         var cards = _jsonCardsParser.ParseCards(request.JsonFileContent);
-        var groupedCards = cards.Where(x => (string.IsNullOrEmpty(x.TypeLine) || !x.TypeLine.Contains("Token")) && x.SetName != "token" && !x.Oversized)
-            .GroupBy(x => x.OracleId).ToList();
+        var groupedCards = ReturnedFilteredGroups(cards);
         var cardsToSave = new List<Card>();
         var batchNumber = 0;
         while (true)
@@ -59,4 +59,12 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
         _logger.LogInformation("Import finished");
         return Unit.Value;
     }
+
+    private static List<IGrouping<Guid, CardModel>> ReturnedFilteredGroups(List<CardModel> cards) =>
+        cards.Where(x => (string.IsNullOrEmpty(x.TypeLine) || !x.TypeLine.Contains("Token"))
+                         && x.SetName != "token"
+                         && !x.Oversized &&
+                         x.SetType != "memorabilia"
+                         && x.Layout != "token")
+            .GroupBy(x => x.OracleId).ToList();
 }
