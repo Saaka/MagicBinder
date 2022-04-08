@@ -1,0 +1,9 @@
+@import "src/assets/style";
+
+.app-container {
+  min-height: 100vh;
+  
+  .app-container-content {
+    padding: 1em;
+  }
+}
