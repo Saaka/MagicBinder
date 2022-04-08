@@ -1,0 +1,56 @@
+@mixin anime($kf, $time, $timf, $del, $count, $dir, $fill) {
+  -webkit-animation:  $kf $time $timf $del $count $dir $fill;
+  -moz-animation:     $kf $time $timf $del $count $dir $fill;
+  -ms-animation:      $kf $time $timf $del $count $dir $fill;
+  -o-animation:       $kf $time $timf $del $count $dir $fill;
+  animation:          $kf $time $timf $del $count $dir $fill;
+}
+
+@mixin trans($tran) {
+  -webkit-transform:  $tran;
+  -moz-transform:     $tran;
+  -ms-transform:      $tran;
+  -o-transform:       $tran;
+  transform:          $tran;
+}
+
+.popup {
+  @include anime(popup, 300ms, ease-in-out, 0s, 1, normal, forwards);
+}
+
+.fadein {
+  @include anime(fadein, 300ms, ease-in-out, 0s, 1, normal, forwards);
+}
+
+.fadeout {
+  @include anime(fadeout, 300ms, ease-in-out, 0s, 1, normal, forwards);
+}
+
+@keyframes popup {
+  0% {
+    @include trans(scale(0));
+    opacity: 0;
+  }
+  100% {
+    @include trans(scale(1));
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

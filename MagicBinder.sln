@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B7834D13
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicBinder.CardsImporter", "MagicBinder.CardsImporter\MagicBinder.CardsImporter.csproj", "{7140DEA3-D03D-4867-A722-8813B044B83A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicBinder.WebUI", "MagicBinder.WebUI\MagicBinder.WebUI.csproj", "{9D53716D-E48F-478E-A235-D4D693DF7493}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{7140DEA3-D03D-4867-A722-8813B044B83A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7140DEA3-D03D-4867-A722-8813B044B83A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7140DEA3-D03D-4867-A722-8813B044B83A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D53716D-E48F-478E-A235-D4D693DF7493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D53716D-E48F-478E-A235-D4D693DF7493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D53716D-E48F-478E-A235-D4D693DF7493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D53716D-E48F-478E-A235-D4D693DF7493}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7140DEA3-D03D-4867-A722-8813B044B83A} = {B7834D13-D9BF-40A2-AEA0-1E1335967BDA}

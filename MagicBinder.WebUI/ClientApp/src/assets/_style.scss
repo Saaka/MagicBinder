@@ -1,0 +1,27 @@
+@import "theme";
+@import "overrides";
+@import "~bulma/bulma";
+@import "components/_components";
+@import "animations";
+@import "forms";
+
+html {
+  overflow-y: auto;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.has-background-gradient {
+  background: $primary-dark;
+  background: linear-gradient(180deg, $primary-dark 0%, $primary 100%);
+}
+
+.is-responsive {
+  @extend .is-half-fullhd;
+  @extend .is-three-quarters-widescreen;
+  @extend .is-four-fifths-desktop;
+}
