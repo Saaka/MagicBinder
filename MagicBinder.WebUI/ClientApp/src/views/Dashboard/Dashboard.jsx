@@ -9,10 +9,10 @@ function Dashboard(props) {
         <section className="section columns is-centered">
             <div className="column is-half-desktop">
                 <div className="tile is-parent">
-                    <div className="tile box" onClick={() => console.log("tst") /*redirectTo(RouteNames.Tst)*/}>
+                    <div className="tile box" onClick={() => console.log("Clicked on component") /*redirectTo(RouteNames.Tst)*/}>
                         <div className="content">
-                            <p className="title">Tst</p>
-                            <p className="subtitle">Manage Tst</p>
+                            <p className="title">Welcome {props.user.name}!</p>
+                            <p className="subtitle">Here you will have access to your dashboard. Stay tuned!</p>
                         </div>
                     </div>
                 </div>
