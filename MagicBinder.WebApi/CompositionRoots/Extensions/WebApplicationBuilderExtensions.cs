@@ -4,6 +4,7 @@ using Hangfire.Mongo.Migration.Strategies;
 using MagicBinder.Core.CompositionRoots;
 using MagicBinder.Infrastructure.Configurations;
 using MagicBinder.WebApi.Filters;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using ILogger = Serilog.ILogger;
 
@@ -27,6 +28,10 @@ public static class WebApplicationBuilderExtensions
                 });
             })
             .AddControllers(opt => { opt.Filters.Add<CustomExceptionFilter>(); });
+
+        builder.Services
+            .Configure<ApiBehaviorOptions>(opt => opt.SuppressModelStateInvalidFilter = true)
+            .AddHttpContextAccessor();
 
         return builder;
     }

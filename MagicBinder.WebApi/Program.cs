@@ -15,6 +15,7 @@ builder
 
 var app = builder.Build();
 
+app.UseCors(app.Configuration);
 app.UseSwaggerWithUI();
 app.UseHangfire(app.Configuration);
 app.UseMvc();
