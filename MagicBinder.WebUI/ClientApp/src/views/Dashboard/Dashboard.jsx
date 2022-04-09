@@ -17,7 +17,7 @@ function Dashboard(props) {
                                         <img className="is-rounded" src={props.user.avatar} alt="Logo" style={{maxWidth: "256px"}} />
                                     </figure>
                                 </div>
-                                <div className="column">
+                                <div className="column title-column">
                                     <p className="title">Welcome {props.user.name}!</p>
                                 </div>
                             </div>

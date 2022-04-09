@@ -3,3 +3,12 @@
     margin: 0;
   }
 }
+
+div.title-column {
+  display: flex;
+  justify-content: left; 
+  align-items: center; 
+  p.title{
+    text-align: center;
+  }  
+}
