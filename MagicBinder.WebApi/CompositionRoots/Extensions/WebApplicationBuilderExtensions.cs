@@ -3,6 +3,7 @@ using Hangfire.Mongo;
 using Hangfire.Mongo.Migration.Strategies;
 using MagicBinder.Core.CompositionRoots;
 using MagicBinder.Infrastructure.Configurations;
+using MagicBinder.WebApi.Filters;
 using Serilog;
 using ILogger = Serilog.ILogger;
 
@@ -12,10 +13,24 @@ public static class WebApplicationBuilderExtensions
 {
     public static WebApplicationBuilder AddMvc(this WebApplicationBuilder builder)
     {
-        builder.Services.AddControllers();
-        
+        var config = builder.Configuration.GetOptions<AuthConfig>();
+
+        builder.Services
+            .AddCors(opt =>
+            {
+                opt.AddDefaultPolicy(b =>
+                {
+                    b.AllowCredentials()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins(config.AllowedOrigin);
+                });
+            })
+            .AddControllers(opt => { opt.Filters.Add<CustomExceptionFilter>(); });
+
         return builder;
     }
+
     public static WebApplicationBuilder AddLogging(this WebApplicationBuilder builder)
     {
         builder.Logging.ClearProviders();
@@ -40,7 +55,7 @@ public static class WebApplicationBuilderExtensions
     {
         var mongoConfig = builder.Configuration.GetOptions<MongoConfig>();
         var hangfireConfig = builder.Configuration.GetOptions<HangfireConfig>();
-        
+
         builder.Services.AddHangfire(config =>
         {
             config
@@ -57,7 +72,7 @@ public static class WebApplicationBuilderExtensions
         });
 
         builder.Services.AddHangfireServer();
-        
+
         return builder;
     }
 }
