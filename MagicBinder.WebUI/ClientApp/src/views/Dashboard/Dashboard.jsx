@@ -11,7 +11,16 @@ function Dashboard(props) {
                 <div className="tile is-parent">
                     <div className="tile box" onClick={() => console.log("Clicked on component") /*redirectTo(RouteNames.Tst)*/}>
                         <div className="content">
-                            <p className="title">Welcome {props.user.name}!</p>
+                            <div className="columns">
+                                <div className="column is-narrow">
+                                    <figure className="image is-64x64">
+                                        <img className="is-rounded" src={props.user.avatar} alt="Logo" style={{maxWidth: "256px"}} />
+                                    </figure>
+                                </div>
+                                <div className="column">
+                                    <p className="title">Welcome {props.user.name}!</p>
+                                </div>
+                            </div>
                             <p className="subtitle">Here you will have access to your dashboard. Stay tuned!</p>
                         </div>
                     </div>
