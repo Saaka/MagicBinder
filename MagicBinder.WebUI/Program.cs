@@ -20,4 +20,6 @@ app.UseSpa(spa =>
         spa.UseReactDevelopmentServer(npmScript: "start");
 });
 
+app.MapFallbackToFile("index.html");
+
 app.Run();
