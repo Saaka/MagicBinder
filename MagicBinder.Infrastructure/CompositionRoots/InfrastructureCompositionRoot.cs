@@ -1,6 +1,7 @@
 using Autofac;
 using MagicBinder.Core.CompositionRoots;
 using MagicBinder.Infrastructure.Configurations;
+using MagicBinder.Infrastructure.Integrations.IdentityIssuer;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
 using MagicBinder.Infrastructure.Repositories;
 using MagicBinder.Infrastructure.Repositories.Mappings;
@@ -18,7 +19,9 @@ public class InfrastructureCompositionRoot : Module
             .AsSelf()
             .InstancePerLifetimeScope();
 
-        AggregateMappings.RegisterClassMaps();
+        builder.RegisterType<IdentityIssuerClient>()
+            .AsSelf()
+            .SingleInstance();
     }
 
     private static void RegisterMongo(ContainerBuilder builder)
@@ -48,5 +51,7 @@ public class InfrastructureCompositionRoot : Module
             .AsImplementedInterfaces()
             .AsSelf()
             .InstancePerLifetimeScope();
+        
+        AggregateMappings.RegisterClassMaps();
     }
 }
