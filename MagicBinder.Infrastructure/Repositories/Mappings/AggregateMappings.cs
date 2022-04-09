@@ -15,5 +15,13 @@ public static class AggregateMappings
             cm.SetIdMember(cm.GetMemberMap(c => c.OracleId));
             cm.IdMemberMap.SetIdGenerator(GuidGenerator.Instance);
         });
+
+        BsonClassMap.RegisterClassMap<User>(cm =>
+        {
+            cm.AutoMap();
+            cm.GetMemberMap(x => x.UserGuid).SetIgnoreIfDefault(false);
+            cm.SetIdMember(cm.GetMemberMap(c => c.UserGuid));
+            cm.IdMemberMap.SetIdGenerator(GuidGenerator.Instance);
+        });
     }
 }
