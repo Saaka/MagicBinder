@@ -18,10 +18,10 @@ function Dashboard(props) {
                                     </figure>
                                 </div>
                                 <div className="column title-column">
-                                    <p className="title">Welcome {props.user.name}!</p>
+                                    <p className="title is-size-5-mobile">Welcome {props.user.name}!</p>
                                 </div>
                             </div>
-                            <p className="subtitle">Here you will have access to your dashboard. Stay tuned!</p>
+                            <p className="subtitle is-size-6-mobile">Here you will have access to your dashboard. Stay tuned!</p>
                         </div>
                     </div>
                 </div>
