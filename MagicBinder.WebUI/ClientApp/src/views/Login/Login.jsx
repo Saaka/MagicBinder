@@ -4,6 +4,7 @@ import queryString from "query-string";
 import {GoogleLogin} from "components/auth";
 import {Loader} from "components/common";
 import {AuthService} from "Services";
+import {RouteNames} from "routes/names";
 import "./Login.scss";
 
 function Login(props) {
@@ -25,7 +26,7 @@ function Login(props) {
     }
     
     function redirectToMainPage() {
-        props.history.replace("/");
+        props.history.replace(RouteNames.Dashboard);
     }
 
     function redirectToPath(path) {
