@@ -5,6 +5,7 @@ import {RouteNames} from "routes/names";
 import {Login, Logout} from "views/exports";
 import {App} from "layouts/exports";
 import {AuthService} from "Services";
+import {useDocumentTitle} from "Hooks";
 import {User} from "Models";
 import "./Index.scss";
 
@@ -12,7 +13,9 @@ function Index(props) {
     const authService = new AuthService();
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState(new User(false));
-
+    
+    useDocumentTitle("")
+    
     useEffect(() => {
         if (authService.isLoggedIn())
             loadUserData();
