@@ -41,9 +41,12 @@ const appRoutes = [
         name: "Unauthorized"
     },
     {
-        redirect: true,
+        requireAuth: false,
+        requireAdmin: false,
         path: RouteNames.App,
-        to: RouteNames.About,
+        component: About,
+        name: "About",
+        icon: "about"
     }
 ];
 
