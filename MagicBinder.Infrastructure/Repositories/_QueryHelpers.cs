@@ -6,13 +6,13 @@ namespace MagicBinder.Infrastructure.Repositories;
 
 public static class QueryHelpers
 {
-    public static async Task<PagedList<T>> ToPagedListAsync<T>(this IMongoQueryable<T> query, int pageNumber, int pageSize)
+    public static async Task<PagedList<T>> ToPagedListAsync<T>(this IMongoQueryable<T> dbQuery, IPageableRequest request)
     {
-        var totalItemsCount = await query.CountAsync();
-        var pagedQuery = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+        var totalItemsCount = await dbQuery.CountAsync();
+        var pagedDbQuery = dbQuery.Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize);
 
-        var items = await pagedQuery.ToListAsync();
+        var items = await pagedDbQuery.ToListAsync();
 
-        return new PagedList<T>(items, pageNumber, pageSize, totalItemsCount);
+        return new PagedList<T>(items, request.PageNumber, request.PageSize, totalItemsCount);
     }
 }

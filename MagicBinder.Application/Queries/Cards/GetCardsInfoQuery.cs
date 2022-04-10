@@ -6,7 +6,7 @@ using MediatR;
 
 namespace MagicBinder.Application.Queries.Cards;
 
-public record GetCardsInfoQuery : IRequest<PagedList<CardInfoModel>>
+public record GetCardsInfoQuery : IRequest<PagedList<CardInfoModel>>, IPageableRequest
 {
     public string Filter { get; set; }
     public int PageSize { get; set; }
@@ -24,7 +24,7 @@ public class GetCardsInfoQueryHandler : IRequestHandler<GetCardsInfoQuery, Paged
 
     public async Task<PagedList<CardInfoModel>> Handle(GetCardsInfoQuery request, CancellationToken cancellationToken)
     {
-        var cardsList = await _cardsRepository.GetCardsListAsync(request.Filter, request.PageNumber, request.PageSize);
+        var cardsList = await _cardsRepository.GetCardsListAsync(request.Filter, request);
 
         return cardsList.MapToResponse(CardMapper.MapToCardInfo);
     }
