@@ -1,4 +1,7 @@
+using System.Text.RegularExpressions;
+using MagicBinder.Core.Models;
 using MagicBinder.Domain.Aggregates;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
@@ -32,4 +35,22 @@ public class CardsRepository : IMongoRepository
     public virtual async Task<Card?> GetAsync(Guid id) => await Cards.AsQueryable().FirstOrDefaultAsync(x => x.OracleId == id);
 
     public IMongoCollection<Card> Cards => _database.GetCollection<Card>("Cards");
+
+    public async Task<PagedList<Card>> GetCardsListAsync(string queryFilter, int pageNumber, int pageSize)
+    {
+        var builder = Builders<Card>.Filter;
+        var nameFilter = builder.Regex(x => x.Name, BsonRegularExpression.Create(new Regex(queryFilter, RegexOptions.IgnoreCase)));
+        var typeFilter = builder.Regex(x => x.TypeLine, BsonRegularExpression.Create(new Regex(queryFilter, RegexOptions.IgnoreCase)));
+
+        var filter = builder.Or(nameFilter, typeFilter);
+
+        var query = Cards.AsQueryable().OrderBy(x => x.Name).Where(x => filter.Inject());
+
+        var totalItemsCount = await query.CountAsync();
+
+        query = query.OrderBy(x => x.Name).Skip((pageNumber - 1) * pageSize).Take(pageSize);
+        var items = await query.ToListAsync();
+
+        return new PagedList<Card>(items, pageNumber, pageSize, totalItemsCount);
+    }
 }

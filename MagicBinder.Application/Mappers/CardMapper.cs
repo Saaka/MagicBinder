@@ -1,4 +1,5 @@
-﻿using MagicBinder.Domain.Aggregates;
+﻿using MagicBinder.Application.Models.Cards;
+using MagicBinder.Domain.Aggregates;
 using MagicBinder.Domain.Aggregates.Entities;
 using MagicBinder.Infrastructure.Integrations.Scryfall.Models;
 
@@ -21,10 +22,10 @@ public static class CardMapper
             Toughness = model.Toughness,
             Colors = model.Colors,
             ColorIdentity = model.ColorIdentity,
-            Keywords =model.Keywords,
+            Keywords = model.Keywords,
             Games = model.Games,
         };
-        
+
         return card;
     }
 
@@ -51,12 +52,21 @@ public static class CardMapper
         return printing;
     }
 
-    public static CardImages? MapToCardImages(this ImageUrisModel? imageUris) => imageUris == null ? null :  new CardImages
+    public static CardImages? MapToCardImages(this ImageUrisModel? imageUris) => imageUris == null
+        ? null
+        : new CardImages
+        {
+            Small = imageUris.Small,
+            Normal = imageUris.Normal,
+            Large = imageUris.Large,
+            Art = imageUris.Art,
+            PngRounded = imageUris.PngRounded
+        };
+
+    public static CardInfoModel MapToCardInfo(Card card) => new()
     {
-        Small = imageUris.Small,
-        Normal = imageUris.Normal,
-        Large = imageUris.Large,
-        Art = imageUris.Art,
-        PngRounded = imageUris.PngRounded
+        OracleId = card.OracleId,
+        Name = card.Name,
+        Image = card.LatestPrinting.CardImages?.Normal ?? string.Empty
     };
 }

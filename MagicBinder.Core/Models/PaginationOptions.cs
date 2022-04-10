@@ -1,6 +1,6 @@
 ﻿namespace MagicBinder.Core.Models;
 
-public class PaginationOptions
+public record PaginationOptions
 {
     public PaginationOptions(int pageNumber, int pageSize, int totalItemsCount)
     {
