@@ -46,11 +46,6 @@ public class CardsRepository : IMongoRepository
 
         var query = Cards.AsQueryable().OrderBy(x => x.Name).Where(x => filter.Inject());
 
-        var totalItemsCount = await query.CountAsync();
-
-        query = query.OrderBy(x => x.Name).Skip((pageNumber - 1) * pageSize).Take(pageSize);
-        var items = await query.ToListAsync();
-
-        return new PagedList<Card>(items, pageNumber, pageSize, totalItemsCount);
+        return await query.ToPagedListAsync(pageNumber, pageSize);
     }
 }
