@@ -11,7 +11,7 @@ function Dashboard(props) {
                 <div className="tile is-parent">
                     <div className="tile box" onClick={() => console.log("Clicked on component") /*redirectTo(RouteNames.Tst)*/}>
                         <div className="content">
-                            <div className="columns">
+                            <div className="columns is-mobile">
                                 <div className="column is-narrow">
                                     <figure className="image is-64x64">
                                         <img className="is-rounded" src={props.user.avatar} alt="Logo" style={{maxWidth: "256px"}} />
