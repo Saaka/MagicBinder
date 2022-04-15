@@ -18,4 +18,8 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MagicBinder.Domain\MagicBinder.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
