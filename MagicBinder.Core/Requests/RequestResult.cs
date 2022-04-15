@@ -1,4 +1,5 @@
-﻿using MagicBinder.Domain.Enums;
+﻿using MagicBinder.Core.Requests.Models;
+using MagicBinder.Domain.Enums;
 
 namespace MagicBinder.Core.Requests;
 

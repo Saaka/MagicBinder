@@ -1,4 +1,4 @@
-﻿namespace MagicBinder.Core.Requests;
+﻿namespace MagicBinder.Core.Requests.Models;
 
 public class RequestContext
 {
