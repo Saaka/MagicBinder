@@ -40,7 +40,9 @@ public class InfrastructureCompositionRoot : Module
             var client = cr.Resolve<MongoClient>();
             var config = cr.Resolve<MongoConfig>();
 
-            return client.GetDatabase(config.Database);
+            var database = client.GetDatabase(config.Database);
+
+            return database;
         }).As<IMongoDatabase>();
 
         var assembly = typeof(InfrastructureCompositionRoot)
@@ -51,6 +53,9 @@ public class InfrastructureCompositionRoot : Module
             .AsImplementedInterfaces()
             .AsSelf()
             .InstancePerLifetimeScope();
+
+        var services = builder.Build();
+        MongoIndexInitializer.CreateIndexes(services.Resolve<IMongoDatabase>());
         
         AggregateMappings.RegisterClassMaps();
     }
