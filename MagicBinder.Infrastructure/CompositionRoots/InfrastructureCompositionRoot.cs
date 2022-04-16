@@ -53,9 +53,6 @@ public class InfrastructureCompositionRoot : Module
             .AsImplementedInterfaces()
             .AsSelf()
             .InstancePerLifetimeScope();
-
-        var services = builder.Build();
-        MongoIndexInitializer.CreateIndexes(services.Resolve<IMongoDatabase>());
         
         AggregateMappings.RegisterClassMaps();
     }

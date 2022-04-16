@@ -5,8 +5,10 @@ using MagicBinder.Application.Commands.Cards;
 using MagicBinder.CardsImporter.CompositionRoots;
 using MagicBinder.CardsImporter.CompositionRoots.Extensions;
 using MagicBinder.CardsImporter.Services;
+using MagicBinder.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 
 const string defaultFileName = "import.json";
 try
@@ -15,6 +17,8 @@ try
         .RegisterAppModules();
     var container = builder.Build();
 
+    MongoIndexInitializer.CreateIndexes(container.Resolve<IMongoDatabase>());
+    
     await using var scope = container.BeginLifetimeScope()
         .AddHangfire();
 
