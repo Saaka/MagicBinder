@@ -1,6 +1,8 @@
 ﻿using MagicBinder.Application.Models.Cards;
 using MagicBinder.Domain.Aggregates;
 using MagicBinder.Domain.Aggregates.Entities;
+using MagicBinder.Domain.Enums;
+using MagicBinder.Infrastructure.Integrations.Scryfall;
 using MagicBinder.Infrastructure.Integrations.Scryfall.Models;
 
 namespace MagicBinder.Application.Mappers;
@@ -24,6 +26,7 @@ public static class CardMapper
             ColorIdentity = model.ColorIdentity,
             Keywords = model.Keywords,
             Games = model.Games,
+            Layout = MapToLayout(model.Layout)
         };
 
         return card;
@@ -69,4 +72,20 @@ public static class CardMapper
         Name = card.Name,
         Image = card.LatestPrinting.CardImages?.Normal ?? string.Empty
     };
+
+    public static LayoutType MapToLayout(string layoutType) =>
+        layoutType switch
+        {
+            ScryfallConstants.Layouts.Adventure => LayoutType.Adventure,
+            ScryfallConstants.Layouts.Class => LayoutType.Class,
+            ScryfallConstants.Layouts.Flip => LayoutType.Flip,
+            ScryfallConstants.Layouts.Leveler => LayoutType.Leveler,
+            ScryfallConstants.Layouts.Mdfc => LayoutType.Mdfc,
+            ScryfallConstants.Layouts.Meld => LayoutType.Meld,
+            ScryfallConstants.Layouts.Normal=> LayoutType.Normal,
+            ScryfallConstants.Layouts.Saga => LayoutType.Saga,
+            ScryfallConstants.Layouts.Split => LayoutType.Split,
+            ScryfallConstants.Layouts.Transform => LayoutType.Transform,
+            _ => LayoutType.Other
+        };
 }

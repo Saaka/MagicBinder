@@ -1,6 +1,4 @@
-﻿using MagicBinder.Domain.Aggregates.Entities;
-
-namespace MagicBinder.Domain.Aggregates;
+﻿namespace MagicBinder.Domain.Aggregates.Entities;
 
 public class CardPrinting
 {

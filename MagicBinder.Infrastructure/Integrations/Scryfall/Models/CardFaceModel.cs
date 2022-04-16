@@ -12,7 +12,7 @@ public record CardFaceModel
     public string[] Colors { get; init; } = Array.Empty<string>();
     public string Power { get; init; }
     public string Toughness { get; init; }
-    public string Loyality { get; init; }
+    public string Loyalty { get; init; }
     public string Artist { get; init; }
     public ImageUrisModel ImageUris { get; init; }
 }

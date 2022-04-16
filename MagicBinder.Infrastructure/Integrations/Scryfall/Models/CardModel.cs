@@ -14,7 +14,7 @@ public record CardModel
     public string ScryfallUri { get; init; }
     public string Lang { get; init; }
     public string Power { get; init; }
-    public string Loyality { get; init; }
+    public string Loyalty { get; init; }
     public string Toughness { get; init; }
     public Guid SetId { get; init; }
     public string Set { get; init; }

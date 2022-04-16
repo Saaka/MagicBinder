@@ -2,6 +2,7 @@
 
 public enum LayoutType
 {
+    Other = 0,
     Normal = 1,
     Split = 2,
     Flip = 3,

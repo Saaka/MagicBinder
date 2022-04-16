@@ -1,10 +1,12 @@
 using MagicBinder.Domain.Aggregates.Entities;
+using MagicBinder.Domain.Enums;
 
 namespace MagicBinder.Domain.Aggregates;
 
 public class Card
 {
     public Guid OracleId { get; set; }
+    public LayoutType Layout { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Rarity { get; set; }
     public decimal Cmc { get; set; }

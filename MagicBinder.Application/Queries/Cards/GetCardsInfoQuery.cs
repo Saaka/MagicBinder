@@ -17,7 +17,8 @@ public class GetCardsInfoQueryHandler : RequestHandler<GetCardsInfoQuery, PagedL
 {
     private readonly CardsRepository _cardsRepository;
 
-    public GetCardsInfoQueryHandler(CardsRepository cardsRepository)
+    public GetCardsInfoQueryHandler(CardsRepository cardsRepository) 
+    
     {
         _cardsRepository = cardsRepository;
     }
