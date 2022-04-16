@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using MagicBinder.Core.Models;
 using MagicBinder.Domain.Aggregates;
+using MagicBinder.Domain.Enums;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -41,12 +42,12 @@ public class CardsRepository : IMongoRepository
         var builder = Builders<Card>.Filter;
         var nameFilter = builder.Regex(x => x.Name, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
         var typeFilter = builder.Regex(x => x.TypeLine, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
-        
+
         var searchFilter = builder.Or(nameFilter, typeFilter);
-        var gameFilter = builder.Where(x => x.Games.Any(g => g == "paper"));
+        var gameFilter = builder.Where(x => x.Games.Contains(GameType.Paper));
 
         var filter = builder.And(searchFilter, gameFilter);
-        
+
         var query = Cards.AsQueryable().OrderBy(x => x.Name).Where(x => filter.Inject());
 
         return await query.ToPagedListAsync(request);

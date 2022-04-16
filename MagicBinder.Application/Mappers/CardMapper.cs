@@ -25,7 +25,7 @@ public static class CardMapper
             Colors = model.Colors,
             ColorIdentity = model.ColorIdentity,
             Keywords = model.Keywords,
-            Games = model.Games,
+            Games = MapToGames(model.Games).ToArray(),
             Layout = MapToLayout(model.Layout),
             LegalIn = MapToFormatLegality(model.Legalities)
         };
@@ -50,7 +50,8 @@ public static class CardMapper
             FlavorText = model.FlavorText,
             Artist = model.Artist,
             Lang = model.Lang,
-            CardImages = model.ImageUris.MapToCardImages()
+            CardImages = model.ImageUris.MapToCardImages(),
+            Games = MapToGames(model.Games).ToArray()
         };
 
         return printing;
@@ -100,5 +101,14 @@ public static class CardMapper
         if (legalities.Pioneer == LegalitiesModel.Legal) formatLegality.Add(FormatType.Pioneer);
 
         return formatLegality.ToArray();
+    }
+
+    private static IEnumerable<GameType> MapToGames(string[] games)
+    {
+        foreach (var game in games)
+        {
+            if (Enum.TryParse(game, true, out GameType gameEnum))
+                yield return gameEnum;
+        }
     }
 }

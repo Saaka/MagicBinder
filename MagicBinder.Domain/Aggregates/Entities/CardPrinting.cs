@@ -1,4 +1,6 @@
-﻿namespace MagicBinder.Domain.Aggregates.Entities;
+﻿using MagicBinder.Domain.Enums;
+
+namespace MagicBinder.Domain.Aggregates.Entities;
 
 public class CardPrinting
 {
@@ -15,6 +17,7 @@ public class CardPrinting
     public string FlavorText { get; set; }
     public string Artist { get; set; }
     public string Lang { get; set; }
+    public GameType[] Games { get; set; } = Array.Empty<GameType>();
 
     public CardImages? CardImages { get; set; }
 }

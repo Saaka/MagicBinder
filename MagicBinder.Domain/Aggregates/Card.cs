@@ -18,7 +18,7 @@ public class Card
     public string[] Colors { get; set; } = Array.Empty<string>();
     public string[] ColorIdentity { get; set; } = Array.Empty<string>();
     public string[] Keywords { get; set; } = Array.Empty<string>();
-    public string[] Games { get; set; } = Array.Empty<string>();
+    public GameType[] Games { get; set; } = Array.Empty<GameType>();
     public FormatType[] LegalIn { get; set; } = Array.Empty<FormatType>();
 
     public CardPrinting LatestPrinting { get; set; } = new();
