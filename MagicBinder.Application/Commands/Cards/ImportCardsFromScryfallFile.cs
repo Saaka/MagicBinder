@@ -65,6 +65,8 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
                          && x.SetName != "token"
                          && !x.Oversized &&
                          x.SetType != "memorabilia"
-                         && x.Layout != "token")
+                         && Layouts.Contains(x.Layout))
             .GroupBy(x => x.OracleId).ToList();
+
+    private static string[] Layouts = { "normal", "split", "flip", "transform", "modal_dfc", "meld", "leveler", "class", "adventure", "saga", "class", "class", "class", "class" };
 }
