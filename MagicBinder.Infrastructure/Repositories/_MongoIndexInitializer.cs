@@ -16,8 +16,8 @@ public class MongoIndexInitializer
 
         var indexModels = new CreateIndexModel<Card>[]
         {
-            new CreateIndexModel<Card>(ascIndex, new CreateIndexOptions { Background = true }),
-            new CreateIndexModel<Card>(descIndex, new CreateIndexOptions { Background = true })
+            new CreateIndexModel<Card>(ascIndex, new CreateIndexOptions { Background = true, Name = "Cards_Name_Asc"}),
+            new CreateIndexModel<Card>(descIndex, new CreateIndexOptions { Background = true, Name = "Cards_Name_Desc" })
         };
 
         await cards.Indexes.CreateManyAsync(indexModels);

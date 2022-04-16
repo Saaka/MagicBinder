@@ -20,4 +20,6 @@ app.UseSwaggerWithUI();
 app.UseHangfire(app.Configuration);
 app.UseMvc();
 
+await app.RunInitializationAsync();
+
 app.Run();
