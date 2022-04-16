@@ -36,14 +36,14 @@ public class CardsRepository : IMongoRepository
 
     public IMongoCollection<Card> Cards => _database.GetCollection<Card>("Cards");
 
-    public async Task<PagedList<Card>> GetCardsListAsync(string queryFilter, IPageableRequest request)
+    public async Task<PagedList<Card>> GetCardsListAsync(string search, IPageableRequest request)
     {
         var builder = Builders<Card>.Filter;
-        var nameFilter = builder.Regex(x => x.Name, BsonRegularExpression.Create(new Regex(queryFilter, RegexOptions.IgnoreCase)));
-        var typeFilter = builder.Regex(x => x.TypeLine, BsonRegularExpression.Create(new Regex(queryFilter, RegexOptions.IgnoreCase)));
-
+        var nameFilter = builder.Regex(x => x.Name, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
+        var typeFilter = builder.Regex(x => x.TypeLine, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
         var filter = builder.Or(nameFilter, typeFilter);
-
+        filter &= builder.Where(x => x.Games.Any(g => g == "paper"));
+        
         var query = Cards.AsQueryable().OrderBy(x => x.Name).Where(x => filter.Inject());
 
         return await query.ToPagedListAsync(request);
