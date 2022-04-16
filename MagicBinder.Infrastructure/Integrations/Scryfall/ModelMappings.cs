@@ -7,6 +7,7 @@ public static class ModelMappings
     public static Dictionary<string, string> GetFullCardMapping() =>
         CardsMapping
             .Concat(ImageUrisMapping)
+            .Concat(LegalitiesMapping)
             .GroupBy(x => x.Key)
             .ToDictionary(x => x.Key, v => v.First().Value);
 
@@ -39,6 +40,7 @@ public static class ModelMappings
         { nameof(CardModel.FlavorText), "flavor_text" },
         { nameof(CardModel.Artist), "artist" },
         { nameof(CardModel.Oversized), "oversized" },
+        { nameof(CardModel.Legalities), "legalities" },
     };
 
     public static Dictionary<string, string> ImageUrisMapping { get; } = new()
@@ -48,5 +50,16 @@ public static class ModelMappings
         { nameof(ImageUrisModel.Large), "large" },
         { nameof(ImageUrisModel.Art), "art_crop" },
         { nameof(ImageUrisModel.PngRounded), "png" },
+    };
+
+    public static Dictionary<string, string> LegalitiesMapping { get; } = new()
+    {
+        { nameof(LegalitiesModel.Alchemy), "alchemy" },
+        { nameof(LegalitiesModel.Commander), "commander" },
+        { nameof(LegalitiesModel.Historic), "historic" },
+        { nameof(LegalitiesModel.Modern), "modern" },
+        { nameof(LegalitiesModel.Pauper), "pauper" },
+        { nameof(LegalitiesModel.Pioneer), "pioneer" },
+        { nameof(LegalitiesModel.Standard), "standard" },
     };
 }

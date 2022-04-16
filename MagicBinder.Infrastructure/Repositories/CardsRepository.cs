@@ -41,8 +41,11 @@ public class CardsRepository : IMongoRepository
         var builder = Builders<Card>.Filter;
         var nameFilter = builder.Regex(x => x.Name, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
         var typeFilter = builder.Regex(x => x.TypeLine, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
-        var filter = builder.Or(nameFilter, typeFilter);
-        filter &= builder.Where(x => x.Games.Any(g => g == "paper"));
+        
+        var searchFilter = builder.Or(nameFilter, typeFilter);
+        var gameFilter = builder.Where(x => x.Games.Any(g => g == "paper"));
+
+        var filter = builder.And(searchFilter, gameFilter);
         
         var query = Cards.AsQueryable().OrderBy(x => x.Name).Where(x => filter.Inject());
 

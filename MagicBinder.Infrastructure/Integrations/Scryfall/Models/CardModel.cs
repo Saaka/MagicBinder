@@ -29,4 +29,5 @@ public record CardModel
     public string[] Keywords { get; init; } = Array.Empty<string>();
     public string[] Games { get; init; } = Array.Empty<string>();
     public ImageUrisModel ImageUris { get; init; }
+    public LegalitiesModel Legalities { get; init; }
 }
