@@ -17,17 +17,17 @@ try
         .RegisterAppModules();
     var container = builder.Build();
 
-    MongoIndexInitializer.CreateIndexes(container.Resolve<IMongoDatabase>());
-    
+    await MongoIndexInitializer.CreateIndexes(container.Resolve<IMongoDatabase>());
+
     await using var scope = container.BeginLifetimeScope()
         .AddHangfire();
 
     var logger = container.Resolve<ILogger<Program>>();
-    
+
     logger.LogInformation("Please provide file name to import (default is '{0}'):", defaultFileName);
     var fileName = Console.ReadLine();
     fileName = string.IsNullOrWhiteSpace(fileName) ? defaultFileName : fileName;
-    
+
     var jsonService = scope.Resolve<CardsJsonService>();
     logger.LogInformation("Reading file '{0}'...", fileName);
     var json = await jsonService.GetJson(fileName);

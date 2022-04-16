@@ -5,7 +5,7 @@ namespace MagicBinder.Infrastructure.Repositories;
 
 public class MongoIndexInitializer
 {
-    public static void CreateIndexes(IMongoDatabase mongoDatabase)
+    public static async Task CreateIndexes(IMongoDatabase mongoDatabase)
     {
         var cards = mongoDatabase.GetCollection<Card>("Cards");
 
@@ -20,6 +20,6 @@ public class MongoIndexInitializer
             new CreateIndexModel<Card>(descIndex, new CreateIndexOptions { Background = true })
         };
 
-        cards.Indexes.CreateMany(indexModels);
+        await cards.Indexes.CreateManyAsync(indexModels);
     }
 }
