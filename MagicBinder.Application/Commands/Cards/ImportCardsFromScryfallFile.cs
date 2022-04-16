@@ -1,5 +1,7 @@
+using System.Linq;
 using MagicBinder.Application.Mappers;
 using MagicBinder.Domain.Aggregates;
+using MagicBinder.Domain.Enums;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
 using MagicBinder.Infrastructure.Integrations.Scryfall.Models;
 using MagicBinder.Infrastructure.Repositories;
@@ -41,7 +43,7 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
 
                 var card = latestPrintingModel.MapToCard();
                 var printings = printingModels.Select(x => x.MapToCardPrinting()).ToList();
-                card.LatestPrinting = printings.First();
+                card.LatestPrinting = printings.First(x => x.Games.Contains(GameType.Paper));
                 card.CardPrintings = printings;
 
                 cardsToSave.Add(card);
