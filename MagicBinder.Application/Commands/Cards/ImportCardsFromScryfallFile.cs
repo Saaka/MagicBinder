@@ -68,5 +68,5 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
                          && Layouts.Contains(x.Layout))
             .GroupBy(x => x.OracleId).ToList();
 
-    private static string[] Layouts = { "normal", "split", "flip", "transform", "modal_dfc", "meld", "leveler", "class", "adventure", "saga", "class", "class", "class", "class" };
+    private static string[] Layouts => typeof(ScryfallConstants.Layouts).GetFields().Select(x => x.GetValue(x).ToString()).ToArray();
 }
