@@ -27,8 +27,7 @@ public static class CardMapper
             Keywords = model.Keywords,
             Games = model.Games,
             Layout = MapToLayout(model.Layout),
-            LegalIn = MapToFormatLegality(model.Legalities, LegalitiesModel.Legal),
-            NotLegalIn = MapToFormatLegality(model.Legalities, LegalitiesModel.NotLegal)
+            LegalIn = MapToFormatLegality(model.Legalities)
         };
 
         return card;
@@ -91,14 +90,14 @@ public static class CardMapper
             _ => LayoutType.Other
         };
 
-    private static FormatType[] MapToFormatLegality(LegalitiesModel legalities, string legalityValue)
+    private static FormatType[] MapToFormatLegality(LegalitiesModel legalities)
     {
         var formatLegality = new List<FormatType>();
-        if (legalities.Commander == legalityValue) formatLegality.Add(FormatType.Commander);
-        if (legalities.Standard == legalityValue) formatLegality.Add(FormatType.Standard);
-        if (legalities.Modern == legalityValue) formatLegality.Add(FormatType.Modern);
-        if (legalities.Pauper == legalityValue) formatLegality.Add(FormatType.Pauper);
-        if (legalities.Pioneer == legalityValue) formatLegality.Add(FormatType.Pioneer);
+        if (legalities.Commander == LegalitiesModel.Legal) formatLegality.Add(FormatType.Commander);
+        if (legalities.Standard == LegalitiesModel.Legal) formatLegality.Add(FormatType.Standard);
+        if (legalities.Modern == LegalitiesModel.Legal) formatLegality.Add(FormatType.Modern);
+        if (legalities.Pauper == LegalitiesModel.Legal) formatLegality.Add(FormatType.Pauper);
+        if (legalities.Pioneer == LegalitiesModel.Legal) formatLegality.Add(FormatType.Pioneer);
 
         return formatLegality.ToArray();
     }
