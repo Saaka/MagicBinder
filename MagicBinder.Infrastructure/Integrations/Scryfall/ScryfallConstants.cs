@@ -15,4 +15,11 @@ public class ScryfallConstants
         public const string Saga = "saga";
         public const string Adventure = "adventure";
     }
+
+    public class Games
+    {
+        public const string Paper = "paper";
+        public const string Arena = "arena";
+        public const string Mtgo = "mtgo";
+    }
 }

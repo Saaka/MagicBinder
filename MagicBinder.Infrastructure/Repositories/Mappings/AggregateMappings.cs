@@ -19,6 +19,8 @@ public static class AggregateMappings
             cm.SetIdMember(cm.GetMemberMap(c => c.OracleId));
             cm.IdMemberMap.SetIdGenerator(GuidGenerator.Instance);
             cm.MapMember(x => x.Layout).SetSerializer(new EnumSerializer<LayoutType>(BsonType.String));
+            cm.GetMemberMap(x => x.LegalIn).SetSerializer(new ArraySerializer<FormatType>(new EnumSerializer<FormatType>(BsonType.String)));
+            cm.GetMemberMap(x => x.NotLegalIn).SetSerializer(new ArraySerializer<FormatType>(new EnumSerializer<FormatType>(BsonType.String)));
         });
 
         BsonClassMap.RegisterClassMap<User>(cm =>

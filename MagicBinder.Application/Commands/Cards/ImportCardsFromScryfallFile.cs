@@ -65,7 +65,8 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
                          && x.SetName != "token"
                          && !x.Oversized &&
                          x.SetType != "memorabilia"
-                         && Layouts.Contains(x.Layout))
+                         && Layouts.Contains(x.Layout)
+                         && x.Games.Contains(ScryfallConstants.Games.Paper))
             .GroupBy(x => x.OracleId).ToList();
 
     private static string[] Layouts => typeof(ScryfallConstants.Layouts).GetFields().Select(x => x.GetValue(x).ToString()).ToArray();

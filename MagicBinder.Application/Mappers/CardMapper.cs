@@ -26,7 +26,9 @@ public static class CardMapper
             ColorIdentity = model.ColorIdentity,
             Keywords = model.Keywords,
             Games = model.Games,
-            Layout = MapToLayout(model.Layout)
+            Layout = MapToLayout(model.Layout),
+            LegalIn = MapToFormatLegality(model.Legalities, LegalitiesModel.Legal),
+            NotLegalIn = MapToFormatLegality(model.Legalities, LegalitiesModel.NotLegal)
         };
 
         return card;
@@ -82,10 +84,22 @@ public static class CardMapper
             ScryfallConstants.Layouts.Leveler => LayoutType.Leveler,
             ScryfallConstants.Layouts.Mdfc => LayoutType.Mdfc,
             ScryfallConstants.Layouts.Meld => LayoutType.Meld,
-            ScryfallConstants.Layouts.Normal=> LayoutType.Normal,
+            ScryfallConstants.Layouts.Normal => LayoutType.Normal,
             ScryfallConstants.Layouts.Saga => LayoutType.Saga,
             ScryfallConstants.Layouts.Split => LayoutType.Split,
             ScryfallConstants.Layouts.Transform => LayoutType.Transform,
             _ => LayoutType.Other
         };
+
+    private static FormatType[] MapToFormatLegality(LegalitiesModel legalities, string legalityValue)
+    {
+        var formatLegality = new List<FormatType>();
+        if (legalities.Commander == legalityValue) formatLegality.Add(FormatType.Commander);
+        if (legalities.Standard == legalityValue) formatLegality.Add(FormatType.Standard);
+        if (legalities.Modern == legalityValue) formatLegality.Add(FormatType.Modern);
+        if (legalities.Pauper == legalityValue) formatLegality.Add(FormatType.Pauper);
+        if (legalities.Pioneer == legalityValue) formatLegality.Add(FormatType.Pioneer);
+
+        return formatLegality.ToArray();
+    }
 }
