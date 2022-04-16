@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using MagicBinder.Application.Models.Cards;
+﻿using MagicBinder.Application.Models.Cards;
 using MagicBinder.Domain.Aggregates;
 using MagicBinder.Domain.Aggregates.Entities;
 using MagicBinder.Domain.Enums;
@@ -10,6 +9,13 @@ namespace MagicBinder.Application.Mappers;
 
 public static class CardMapper
 {
+    public static CardInfoModel MapToCardInfo(Card card) => new()
+    {
+        OracleId = card.OracleId,
+        Name = card.Name,
+        Image = card.LatestPrinting.CardImages?.Normal ?? string.Empty
+    };
+
     public static Card MapToCard(this CardModel model, Card? card = null)
     {
         card ??= new Card
@@ -23,12 +29,12 @@ public static class CardMapper
             OracleText = model.OracleText,
             Power = model.Power,
             Toughness = model.Toughness,
-            Colors = MapToColors(model.Colors),
-            ColorIdentity = MapToColors(model.ColorIdentity),
+            Colors = model.Colors.MapToColors(),
+            ColorIdentity = model.ColorIdentity.MapToColors(),
             Keywords = model.Keywords,
-            Games = MapToGames(model.Games).ToArray(),
-            Layout = MapToLayout(model.Layout),
-            LegalIn = MapToFormatLegality(model.Legalities)
+            Games = model.Games.MapToGames(),
+            Layout = model.Layout.MapToLayout(),
+            LegalIn = model.Legalities.MapToFormatLegality()
         };
 
         return card;
@@ -52,37 +58,32 @@ public static class CardMapper
             Artist = model.Artist,
             Lang = model.Lang,
             CardImages = model.ImageUris.MapToCardImages(),
-            Games = MapToGames(model.Games).ToArray(),
-            LegalIn = MapToFormatLegality(model.Legalities),
-            CardFaces = MapToCardFaces(model.CardFaces)
+            Games = model.Games.MapToGames(),
+            LegalIn = model.Legalities.MapToFormatLegality(),
+            CardFaces = model.CardFaces.Select(MapToCardFace).ToList()
         };
 
         return printing;
     }
-
-    private static ICollection<CardFace> MapToCardFaces(CardFaceModel[] cardFaces)
-        => !cardFaces.Any()
-            ? new List<CardFace>()
-            : cardFaces.Select(MapToCardFace).ToList();
 
     private static CardFace MapToCardFace(CardFaceModel face) => new()
     {
         Name = face.Name,
         Artist = face.Artist,
         Cmc = face.Cmc,
-        Colors = MapToColors(face.Colors),
-        Layout = MapToLayout(face.Layout, LayoutType.Normal),
+        Colors = face.Colors.MapToColors(),
+        Layout = face.Layout.MapToLayout(LayoutType.Normal),
         Loyalty = face.Loyalty,
         Power = face.Power,
         Toughness = face.Toughness,
-        CardImages = MapToCardImages(face.ImageUris),
+        CardImages = face.ImageUris.MapToCardImages(),
         FlavorText = face.FlavorText,
         ManaCost = face.ManaCost,
         OracleText = face.OracleText,
         TypeLine = face.TypeLine
     };
 
-    public static CardImages? MapToCardImages(this ImageUrisModel? imageUris) => imageUris == null
+    private static CardImages? MapToCardImages(this ImageUrisModel? imageUris) => imageUris == null
         ? null
         : new CardImages
         {
@@ -93,14 +94,7 @@ public static class CardMapper
             PngRounded = imageUris.PngRounded
         };
 
-    public static CardInfoModel MapToCardInfo(Card card) => new()
-    {
-        OracleId = card.OracleId,
-        Name = card.Name,
-        Image = card.LatestPrinting.CardImages?.Normal ?? string.Empty
-    };
-
-    public static LayoutType MapToLayout(string layoutType, LayoutType defaultLayout = LayoutType.Other) =>
+    private static LayoutType MapToLayout(this string layoutType, LayoutType defaultLayout = LayoutType.Other) =>
         layoutType switch
         {
             ScryfallConstants.Layouts.Adventure => LayoutType.Adventure,
@@ -116,7 +110,7 @@ public static class CardMapper
             _ => defaultLayout
         };
 
-    private static FormatType[] MapToFormatLegality(LegalitiesModel legalities)
+    private static FormatType[] MapToFormatLegality(this LegalitiesModel legalities)
     {
         var formatLegality = new List<FormatType>();
         if (legalities.Commander == LegalitiesModel.Legal) formatLegality.Add(FormatType.Commander);
@@ -128,22 +122,19 @@ public static class CardMapper
         return formatLegality.ToArray();
     }
 
-    private static IEnumerable<GameType> MapToGames(string[] games)
-    {
-        foreach (var game in games)
-        {
-            if (Enum.TryParse(game, true, out GameType gameEnum))
-                yield return gameEnum;
-        }
-    }
+    private static GameType[] MapToGames(this string[] games)
+        => games.Select(x => x.MapToGameType()).ToArray();
 
-    private static ColorType[] MapToColors(string[] modelColors)
+    private static GameType MapToGameType(this string gameType) =>
+        Enum.TryParse(gameType, true, out GameType gameEnum) ? gameEnum : GameType.Unknown;
+
+    private static ColorType[] MapToColors(this string[] modelColors)
         => !modelColors.Any()
             ? Array.Empty<ColorType>()
             : modelColors.Select(MapToColor).ToArray();
 
 
-    public static ColorType MapToColor(string color) =>
+    private static ColorType MapToColor(string color) =>
         color switch
         {
             ScryfallConstants.Colors.White => ColorType.White,
