@@ -51,11 +51,35 @@ public static class CardMapper
             Artist = model.Artist,
             Lang = model.Lang,
             CardImages = model.ImageUris.MapToCardImages(),
-            Games = MapToGames(model.Games).ToArray()
+            Games = MapToGames(model.Games).ToArray(),
+            LegalIn = MapToFormatLegality(model.Legalities),
+            CardFaces = MapToCardFaces(model.CardFaces)
         };
 
         return printing;
     }
+
+    private static ICollection<CardFace> MapToCardFaces(CardFaceModel[] cardFaces)
+        => !cardFaces.Any()
+            ? new List<CardFace>()
+            : cardFaces.Select(MapToCardFace).ToList();
+
+    private static CardFace MapToCardFace(CardFaceModel face) => new()
+    {
+        Name = face.Name,
+        Artist = face.Artist,
+        Cmc = face.Cmc,
+        Colors = face.Colors,
+        Layout = MapToLayout(face.Layout, LayoutType.Normal),
+        Loyalty = face.Loyalty,
+        Power = face.Power,
+        Toughness = face.Toughness,
+        CardImages = MapToCardImages(face.ImageUris),
+        FlavorText = face.FlavorText,
+        ManaCost = face.ManaCost,
+        OracleText = face.OracleText,
+        TypeLine = face.TypeLine
+    };
 
     public static CardImages? MapToCardImages(this ImageUrisModel? imageUris) => imageUris == null
         ? null
@@ -75,7 +99,7 @@ public static class CardMapper
         Image = card.LatestPrinting.CardImages?.Normal ?? string.Empty
     };
 
-    public static LayoutType MapToLayout(string layoutType) =>
+    public static LayoutType MapToLayout(string layoutType, LayoutType defaultLayout = LayoutType.Other) =>
         layoutType switch
         {
             ScryfallConstants.Layouts.Adventure => LayoutType.Adventure,
@@ -88,7 +112,7 @@ public static class CardMapper
             ScryfallConstants.Layouts.Saga => LayoutType.Saga,
             ScryfallConstants.Layouts.Split => LayoutType.Split,
             ScryfallConstants.Layouts.Transform => LayoutType.Transform,
-            _ => LayoutType.Other
+            _ => defaultLayout
         };
 
     private static FormatType[] MapToFormatLegality(LegalitiesModel legalities)

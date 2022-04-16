@@ -18,6 +18,8 @@ public class CardPrinting
     public string Artist { get; set; }
     public string Lang { get; set; }
     public GameType[] Games { get; set; } = Array.Empty<GameType>();
+    public FormatType[] LegalIn { get; set; } = Array.Empty<FormatType>();
 
+    public ICollection<CardFace> CardFaces { get; set; } = new List<CardFace>();
     public CardImages? CardImages { get; set; }
 }

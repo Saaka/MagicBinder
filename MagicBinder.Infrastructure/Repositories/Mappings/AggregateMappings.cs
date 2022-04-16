@@ -28,6 +28,13 @@ public static class AggregateMappings
         {
             cm.AutoMap();
             cm.GetMemberMap(x => x.Games).SetSerializer(new ArraySerializer<GameType>(new EnumSerializer<GameType>(BsonType.String)));
+            cm.GetMemberMap(x => x.LegalIn).SetSerializer(new ArraySerializer<FormatType>(new EnumSerializer<FormatType>(BsonType.String)));
+        });
+
+        BsonClassMap.RegisterClassMap<CardFace>(cm =>
+        {
+            cm.AutoMap();
+            cm.GetMemberMap(x => x.Layout).SetSerializer(new EnumSerializer<LayoutType>(BsonType.String));
         });
 
         BsonClassMap.RegisterClassMap<User>(cm =>
