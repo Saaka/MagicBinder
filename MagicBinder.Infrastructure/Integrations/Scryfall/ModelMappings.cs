@@ -8,6 +8,7 @@ public static class ModelMappings
         CardsMapping
             .Concat(ImageUrisMapping)
             .Concat(LegalitiesMapping)
+            .Concat(CardFacesMapping)
             .GroupBy(x => x.Key)
             .ToDictionary(x => x.Key, v => v.First().Value);
 
@@ -26,6 +27,7 @@ public static class ModelMappings
         { nameof(CardModel.ReleasedAt), "released_at" },
         { nameof(CardModel.Power), "power" },
         { nameof(CardModel.Toughness), "toughness" },
+        { nameof(CardModel.Loyality), "loyality" },
         { nameof(CardModel.Colors), "colors" },
         { nameof(CardModel.ColorIdentity), "color_identity" },
         { nameof(CardModel.Keywords), "keywords" },
@@ -41,6 +43,7 @@ public static class ModelMappings
         { nameof(CardModel.Artist), "artist" },
         { nameof(CardModel.Oversized), "oversized" },
         { nameof(CardModel.Legalities), "legalities" },
+        { nameof(CardModel.CardFaces), "card_faces" },
     };
 
     public static Dictionary<string, string> ImageUrisMapping { get; } = new()
@@ -61,5 +64,23 @@ public static class ModelMappings
         { nameof(LegalitiesModel.Pauper), "pauper" },
         { nameof(LegalitiesModel.Pioneer), "pioneer" },
         { nameof(LegalitiesModel.Standard), "standard" },
+    };
+
+    public static Dictionary<string, string> CardFacesMapping { get; } = new()
+    {
+        { nameof(CardFaceModel.Artist), "artist" },
+        { nameof(CardFaceModel.Cmc), "cmc" },
+        { nameof(CardFaceModel.Colors), "colors" },
+        { nameof(CardFaceModel.FlavorText), "flavor_text" },
+        { nameof(CardFaceModel.Layout), "layout" },
+        { nameof(CardFaceModel.Loyality), "loyality" },
+        { nameof(CardFaceModel.ManaCost), "mana_cost" },
+        { nameof(CardFaceModel.Name), "name" },
+        { nameof(CardFaceModel.Power), "power" },
+        { nameof(CardFaceModel.Toughness), "toughness" },
+        { nameof(CardFaceModel.ImageUris), "image_uris" },
+        { nameof(CardFaceModel.ManaCost), "mana_cost" },
+        { nameof(CardFaceModel.OracleText), "oracle_text" },
+        { nameof(CardFaceModel.TypeLine), "type_line" },
     };
 }
