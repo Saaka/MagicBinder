@@ -20,8 +20,9 @@ public static class AggregateMappings
             cm.IdMemberMap.SetIdGenerator(GuidGenerator.Instance);
             cm.GetMemberMap(x => x.Layout).SetSerializer(new EnumSerializer<LayoutType>(BsonType.String));
             cm.GetMemberMap(x => x.LegalIn).SetSerializer(new ArraySerializer<FormatType>(new EnumSerializer<FormatType>(BsonType.String)));
-            
             cm.GetMemberMap(x => x.Games).SetSerializer(new ArraySerializer<GameType>(new EnumSerializer<GameType>(BsonType.String)));
+            cm.GetMemberMap(x => x.Colors).SetSerializer(new ArraySerializer<ColorType>(new EnumSerializer<ColorType>(BsonType.String)));
+            cm.GetMemberMap(x => x.ColorIdentity).SetSerializer(new ArraySerializer<ColorType>(new EnumSerializer<ColorType>(BsonType.String)));
         });
 
         BsonClassMap.RegisterClassMap<CardPrinting>(cm =>
@@ -35,6 +36,7 @@ public static class AggregateMappings
         {
             cm.AutoMap();
             cm.GetMemberMap(x => x.Layout).SetSerializer(new EnumSerializer<LayoutType>(BsonType.String));
+            cm.GetMemberMap(x => x.Colors).SetSerializer(new ArraySerializer<ColorType>(new EnumSerializer<ColorType>(BsonType.String)));
         });
 
         BsonClassMap.RegisterClassMap<User>(cm =>

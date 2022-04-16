@@ -22,4 +22,13 @@ public class ScryfallConstants
         public const string Arena = "arena";
         public const string Mtgo = "mtgo";
     }
+    
+    public class Colors
+    {
+        public const string White = "W";
+        public const string Blue = "U";
+        public const string Black = "B";
+        public const string Red = "R";
+        public const string Green = "G";
+    }
 }

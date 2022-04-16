@@ -15,8 +15,8 @@ public class Card
     public string OracleText { get; set; } = string.Empty;
     public string Power { get; set; } = string.Empty;
     public string Toughness { get; set; } = string.Empty;
-    public string[] Colors { get; set; } = Array.Empty<string>();
-    public string[] ColorIdentity { get; set; } = Array.Empty<string>();
+    public ColorType[] Colors { get; set; } = Array.Empty<ColorType>();
+    public ColorType[] ColorIdentity { get; set; } = Array.Empty<ColorType>();
     public string[] Keywords { get; set; } = Array.Empty<string>();
     public GameType[] Games { get; set; } = Array.Empty<GameType>();
     public FormatType[] LegalIn { get; set; } = Array.Empty<FormatType>();

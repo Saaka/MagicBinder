@@ -1,4 +1,5 @@
-﻿using MagicBinder.Application.Models.Cards;
+﻿using System.Diagnostics;
+using MagicBinder.Application.Models.Cards;
 using MagicBinder.Domain.Aggregates;
 using MagicBinder.Domain.Aggregates.Entities;
 using MagicBinder.Domain.Enums;
@@ -22,8 +23,8 @@ public static class CardMapper
             OracleText = model.OracleText,
             Power = model.Power,
             Toughness = model.Toughness,
-            Colors = model.Colors,
-            ColorIdentity = model.ColorIdentity,
+            Colors = MapToColors(model.Colors),
+            ColorIdentity = MapToColors(model.ColorIdentity),
             Keywords = model.Keywords,
             Games = MapToGames(model.Games).ToArray(),
             Layout = MapToLayout(model.Layout),
@@ -69,7 +70,7 @@ public static class CardMapper
         Name = face.Name,
         Artist = face.Artist,
         Cmc = face.Cmc,
-        Colors = face.Colors,
+        Colors = MapToColors(face.Colors),
         Layout = MapToLayout(face.Layout, LayoutType.Normal),
         Loyalty = face.Loyalty,
         Power = face.Power,
@@ -135,4 +136,21 @@ public static class CardMapper
                 yield return gameEnum;
         }
     }
+
+    private static ColorType[] MapToColors(string[] modelColors)
+        => !modelColors.Any()
+            ? Array.Empty<ColorType>()
+            : modelColors.Select(MapToColor).ToArray();
+
+
+    public static ColorType MapToColor(string color) =>
+        color switch
+        {
+            ScryfallConstants.Colors.White => ColorType.White,
+            ScryfallConstants.Colors.Blue => ColorType.Blue,
+            ScryfallConstants.Colors.Black => ColorType.Black,
+            ScryfallConstants.Colors.Red => ColorType.Red,
+            ScryfallConstants.Colors.Green => ColorType.Green,
+            _ => ColorType.Colorless
+        };
 }

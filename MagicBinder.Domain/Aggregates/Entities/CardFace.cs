@@ -11,7 +11,7 @@ public class CardFace
     public string FlavorText { get; init; }
     public string TypeLine { get; init; }
     public string OracleText { get; init; }
-    public string[] Colors { get; init; } = Array.Empty<string>();
+    public ColorType[] Colors { get; init; } = Array.Empty<ColorType>();
     public string Power { get; init; }
     public string Toughness { get; init; }
     public string Loyalty { get; init; }
