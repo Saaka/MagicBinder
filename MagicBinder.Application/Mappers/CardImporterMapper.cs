@@ -32,8 +32,10 @@ public static class CardImporterMapper
         return card;
     }
 
-    public static Card MapFlipCardFields(this Card card)
+    private static Card MapFlipCardFields(this Card card)
     {
+        card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
+
         return card;
     }
 
@@ -41,13 +43,13 @@ public static class CardImporterMapper
     {
         var latestPrinting = card.LatestPrinting;
         var frontFace = latestPrinting.CardFaces.First();
-        
+
         card.ManaCost = latestPrinting.CardFaces.GetManaCost();
         card.Power = frontFace.Power;
         card.Toughness = frontFace.Toughness;
         card.Loyalty = frontFace.Loyalty;
         card.Colors = frontFace.Colors;
-        
+
         card.CardPrintings.ForEach(x =>
         {
             var printingFrontFace = x.CardFaces.First();
@@ -55,7 +57,7 @@ public static class CardImporterMapper
             x.CardImages = printingFrontFace.CardImages;
             x.FlavorText = printingFrontFace.FlavorText;
         });
-        
+
         return card;
     }
 
@@ -69,7 +71,7 @@ public static class CardImporterMapper
         card.Toughness = frontFace.Toughness;
         card.Loyalty = frontFace.Loyalty;
         card.Colors = frontFace.Colors;
-        
+
         card.CardPrintings.ForEach(x =>
         {
             var printingFrontFace = x.CardFaces.First();
