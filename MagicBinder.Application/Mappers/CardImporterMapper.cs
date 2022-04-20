@@ -22,7 +22,6 @@ public static class CardImporterMapper
 
     private static Card MapAdventureCardFields(this Card card)
     {
-        card.LatestPrinting.OracleText = card.LatestPrinting.CardFaces.GetOracleText();
         card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
 
         return card;
@@ -38,12 +37,29 @@ public static class CardImporterMapper
         return card;
     }
 
-    public static Card MapTransformCardFields(this Card card)
+    private static Card MapTransformCardFields(this Card card)
     {
+        var latestPrinting = card.LatestPrinting;
+        var frontFace = latestPrinting.CardFaces.First();
+        
+        card.ManaCost = latestPrinting.CardFaces.GetManaCost();
+        card.Power = frontFace.Power;
+        card.Toughness = frontFace.Toughness;
+        card.Loyalty = frontFace.Loyalty;
+        card.Colors = frontFace.Colors;
+        
+        card.CardPrintings.ForEach(x =>
+        {
+            var printingFrontFace = x.CardFaces.First();
+            x.OracleText = x.CardFaces.GetOracleText();
+            x.CardImages = printingFrontFace.CardImages;
+            x.FlavorText = printingFrontFace.FlavorText;
+        });
+        
         return card;
     }
 
-    public static Card MapMdfcCardFields(this Card card)
+    private static Card MapMdfcCardFields(this Card card)
     {
         var latestPrinting = card.LatestPrinting;
         var frontFace = latestPrinting.CardFaces.First();
@@ -53,10 +69,6 @@ public static class CardImporterMapper
         card.Toughness = frontFace.Toughness;
         card.Loyalty = frontFace.Loyalty;
         card.Colors = frontFace.Colors;
-
-        latestPrinting.OracleText = latestPrinting.CardFaces.GetOracleText();
-        latestPrinting.CardImages = frontFace.CardImages;
-        latestPrinting.FlavorText = frontFace.FlavorText;
         
         card.CardPrintings.ForEach(x =>
         {
