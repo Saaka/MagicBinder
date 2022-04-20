@@ -22,5 +22,5 @@ public class Card
     public FormatType[] LegalIn { get; set; } = Array.Empty<FormatType>();
 
     public CardPrinting LatestPrinting { get; set; } = new();
-    public ICollection<CardPrinting> CardPrintings { get; set; } = new List<CardPrinting>();
+    public List<CardPrinting> CardPrintings { get; set; } = new List<CardPrinting>();
 }
