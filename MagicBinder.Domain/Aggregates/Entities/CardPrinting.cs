@@ -9,6 +9,7 @@ public class CardPrinting
     public string Name { get; set; } = string.Empty;
     public string ReleasedAt { get; set; } = string.Empty;
     public string ScryfallUri { get; set; } = string.Empty;
+    public string TypeLine { get; set; } = string.Empty;
     public string OracleText { get; set; } = string.Empty;
     public Guid SetId { get; set; }
     public string Set { get; set; } = string.Empty;

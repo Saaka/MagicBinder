@@ -22,10 +22,7 @@ public static class CardImporterMapper
 
     private static Card MapAdventureCardFields(this Card card)
     {
-        var latestPrinting = card.LatestPrinting;
-        var oracleText = latestPrinting.CardFaces.GetOracleText();
-        card.OracleText = oracleText;
-        latestPrinting.OracleText = oracleText;
+        card.LatestPrinting.OracleText = card.LatestPrinting.CardFaces.GetOracleText();
         card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
 
         return card;
@@ -48,6 +45,27 @@ public static class CardImporterMapper
 
     public static Card MapMdfcCardFields(this Card card)
     {
+        var latestPrinting = card.LatestPrinting;
+        var frontFace = latestPrinting.CardFaces.First();
+
+        card.ManaCost = latestPrinting.CardFaces.GetManaCost();
+        card.Power = frontFace.Power;
+        card.Toughness = frontFace.Toughness;
+        card.Loyalty = frontFace.Loyalty;
+        card.Colors = frontFace.Colors;
+
+        latestPrinting.OracleText = latestPrinting.CardFaces.GetOracleText();
+        latestPrinting.CardImages = frontFace.CardImages;
+        latestPrinting.FlavorText = frontFace.FlavorText;
+        
+        card.CardPrintings.ForEach(x =>
+        {
+            var printingFrontFace = x.CardFaces.First();
+            x.OracleText = x.CardFaces.GetOracleText();
+            x.CardImages = printingFrontFace.CardImages;
+            x.FlavorText = printingFrontFace.FlavorText;
+        });
+
         return card;
     }
 
@@ -64,9 +82,21 @@ public static class CardImporterMapper
             .ToList();
 
         if (!oracleTexts.Any()) return string.Empty;
-        return oracleTexts.Count == 1 
-            ? oracleTexts.First() 
+        return oracleTexts.Count == 1
+            ? oracleTexts.First()
             : string.Join($"{Environment.NewLine}//{Environment.NewLine}", oracleTexts);
+    }
+
+    public static string GetManaCost(this ICollection<CardFace> cardFaces)
+    {
+        var manaCosts = cardFaces
+            .Where(x => !string.IsNullOrEmpty(x.ManaCost))
+            .Select(x => x.ManaCost)
+            .ToList();
+        if (!manaCosts.Any()) return string.Empty;
+        return manaCosts.Count == 1
+            ? manaCosts.First()
+            : string.Join(" // ", manaCosts);
     }
 
     public static Card MapToCard(this CardModel model, Card? card = null)
@@ -78,8 +108,6 @@ public static class CardImporterMapper
             Rarity = model.Rarity,
             Cmc = model.Cmc,
             ManaCost = model.ManaCost,
-            TypeLine = model.TypeLine,
-            OracleText = model.OracleText,
             Power = model.Power,
             Toughness = model.Toughness,
             Colors = model.Colors.MapToColors(),
@@ -87,7 +115,8 @@ public static class CardImporterMapper
             Keywords = model.Keywords,
             Games = model.Games.MapToGames(),
             Layout = model.Layout.MapToLayout(),
-            LegalIn = model.Legalities.MapToFormatLegality()
+            LegalIn = model.Legalities.MapToFormatLegality(),
+            Loyalty = model.Loyalty
         };
 
         return card;
@@ -100,6 +129,7 @@ public static class CardImporterMapper
             CardId = model.CardId,
             OracleId = model.OracleId,
             Name = model.Name,
+            TypeLine = model.TypeLine,
             ReleasedAt = model.ReleasedAt,
             ScryfallUri = model.ScryfallUri,
             OracleText = model.OracleText,

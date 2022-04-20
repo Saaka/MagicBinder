@@ -63,8 +63,7 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
     }
 
     private static List<IGrouping<Guid, CardModel>> ReturnedFilteredGroups(List<CardModel> cards) =>
-        cards.Where(x => (string.IsNullOrEmpty(x.TypeLine) || !x.TypeLine.Contains("Token"))
-                         && x.SetName != "token"
+        cards.Where(x => x.SetName != "token"
                          && !x.Oversized &&
                          x.SetType != "memorabilia"
                          && Layouts.Contains(x.Layout)

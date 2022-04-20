@@ -41,7 +41,7 @@ public class CardsRepository : IMongoRepository
     {
         var builder = Builders<Card>.Filter;
         var nameFilter = builder.Regex(x => x.Name, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
-        var typeFilter = builder.Regex(x => x.TypeLine, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
+        var typeFilter = builder.Regex(x => x.LatestPrinting.TypeLine, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
 
         var searchFilter = builder.Or(nameFilter, typeFilter);
         var gameFilter = builder.Where(x => x.Games.Contains(GameType.Paper));

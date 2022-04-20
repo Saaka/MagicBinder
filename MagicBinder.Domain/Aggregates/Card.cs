@@ -11,10 +11,9 @@ public class Card
     public string Rarity { get; set; }
     public decimal Cmc { get; set; }
     public string ManaCost { get; set; } = string.Empty;
-    public string TypeLine { get; set; } = string.Empty;
-    public string OracleText { get; set; } = string.Empty;
     public string Power { get; set; } = string.Empty;
     public string Toughness { get; set; } = string.Empty;
+    public string Loyalty { get; set; } = string.Empty;
     public ColorType[] Colors { get; set; } = Array.Empty<ColorType>();
     public ColorType[] ColorIdentity { get; set; } = Array.Empty<ColorType>();
     public string[] Keywords { get; set; } = Array.Empty<string>();
