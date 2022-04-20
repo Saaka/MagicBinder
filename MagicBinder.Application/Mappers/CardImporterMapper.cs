@@ -23,19 +23,18 @@ public static class CardImporterMapper
     private static Card MapAdventureCardFields(this Card card)
     {
         card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
-
         return card;
     }
 
-    public static Card MapSplitCardFields(this Card card)
+    private static Card MapSplitCardFields(this Card card)
     {
+        card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
         return card;
     }
 
     private static Card MapFlipCardFields(this Card card)
     {
         card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
-
         return card;
     }
 
