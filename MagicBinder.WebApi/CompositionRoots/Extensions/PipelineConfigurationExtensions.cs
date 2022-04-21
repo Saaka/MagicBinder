@@ -1,4 +1,6 @@
-﻿namespace MagicBinder.WebApi.CompositionRoots.Extensions;
+﻿using MagicBinder.WebApi.Middleware;
+
+namespace MagicBinder.WebApi.CompositionRoots.Extensions;
 
 public static class PipelineConfigurationExtensions
 {
@@ -7,6 +9,7 @@ public static class PipelineConfigurationExtensions
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseMiddleware<AuthenticatedRequestMiddleware>();
         app.MapControllers();
 
         return app;
