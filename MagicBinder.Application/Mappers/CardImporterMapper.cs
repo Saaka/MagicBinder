@@ -20,24 +20,6 @@ public static class CardImporterMapper
             _ => card
         };
 
-    private static Card MapAdventureCardFields(this Card card)
-    {
-        card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
-        return card;
-    }
-
-    private static Card MapSplitCardFields(this Card card)
-    {
-        card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
-        return card;
-    }
-
-    private static Card MapFlipCardFields(this Card card)
-    {
-        card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
-        return card;
-    }
-
     private static Card MapTransformCardFields(this Card card)
     {
         var latestPrinting = card.LatestPrinting;
@@ -79,6 +61,24 @@ public static class CardImporterMapper
             x.FlavorText = printingFrontFace.FlavorText;
         });
 
+        return card;
+    }
+
+    private static Card MapAdventureCardFields(this Card card)
+    {
+        card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
+        return card;
+    }
+
+    private static Card MapSplitCardFields(this Card card)
+    {
+        card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
+        return card;
+    }
+
+    private static Card MapFlipCardFields(this Card card)
+    {
+        card.CardPrintings.ForEach(x => x.OracleText = x.CardFaces.GetOracleText());
         return card;
     }
 
