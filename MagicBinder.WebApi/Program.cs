@@ -10,6 +10,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
 builder
     .AddLogging()
     .AddMvc()
+    .AddJwtTokenBearerAuthentication()
     .AddSwagger()
     .AddHangfire();
 

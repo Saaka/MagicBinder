@@ -1,10 +1,13 @@
-﻿using Hangfire;
+﻿using System.Text;
+using Hangfire;
 using Hangfire.Mongo;
 using Hangfire.Mongo.Migration.Strategies;
 using MagicBinder.Core.CompositionRoots;
 using MagicBinder.Infrastructure.Configurations;
 using MagicBinder.WebApi.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using ILogger = Serilog.ILogger;
 
@@ -33,6 +36,38 @@ public static class WebApplicationBuilderExtensions
             .Configure<ApiBehaviorOptions>(opt => opt.SuppressModelStateInvalidFilter = true)
             .AddHttpContextAccessor();
 
+        return builder;
+    }
+        
+    public static WebApplicationBuilder AddJwtTokenBearerAuthentication(this WebApplicationBuilder builder)
+    {
+        var config = builder.Configuration.GetOptions<AuthConfig>();
+        
+        var key = Encoding.ASCII.GetBytes(config.Secret);
+        
+        builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                
+                    ValidateIssuer = true,
+                    ValidIssuer = config.Issuer,
+                
+                    ValidateAudience = false
+                };
+            })
+            ;
+        
         return builder;
     }
 

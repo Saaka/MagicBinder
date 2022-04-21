@@ -5,6 +5,7 @@ public static class PipelineConfigurationExtensions
     public static IApplicationBuilder UseMvc(this WebApplication app)
     {
         app.UseHttpsRedirection();
+        app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
 
