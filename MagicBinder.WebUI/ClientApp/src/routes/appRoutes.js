@@ -1,8 +1,15 @@
-import {Admin, Dashboard, Unauthorized, About, Login} from "views/exports";
-import {Products as AdminProducts, ProductCategories, UnitsOfMeasures, ProductForm as AdminProduct} from "views/Admin/exports";
+import {Admin, Dashboard, Unauthorized, About, Login, CardsDatabase} from "views/exports";
 import {RouteNames} from "./names";
 
 const appRoutes = [
+    {
+        requireAuth: true,
+        requireAdmin: false,
+        path: RouteNames.CardsDatabase,
+        component: CardsDatabase,
+        name: "Dashboard",
+        icon: "home"
+    },
     {
         requireAuth: true,
         requireAdmin: false,

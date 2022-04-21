@@ -21,6 +21,11 @@ function AppNavbar(props) {
             requireAuth: true,
         },
         {
+            label: "Cards Database",
+            route: RouteNames.CardsDatabase,
+            requireAuth: true,
+        },
+        {
             label: "Admin",
             route: RouteNames.Admin,
             requireAdmin: true

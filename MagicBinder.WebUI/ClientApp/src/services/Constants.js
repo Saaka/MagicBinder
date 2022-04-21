@@ -15,6 +15,12 @@ Constants.ApiRoutes = class ApiRoutes {
     }
 };
 
+Constants.ApiRoutes.CardsDatabase = class CardsDatabaseRoutes {
+    static get LIST_SIMPLE() {
+        return "cards/list/simple";
+    }
+}
+
 Constants.ApiRoutes.Admin = class AdminRoutes {
     
 };
