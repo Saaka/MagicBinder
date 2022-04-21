@@ -4,10 +4,12 @@ using Hangfire.Mongo;
 using Hangfire.Mongo.Migration.Strategies;
 using MagicBinder.Core.CompositionRoots;
 using MagicBinder.Infrastructure.Configurations;
+using MagicBinder.WebApi.CompositionRoots.Configurations;
 using MagicBinder.WebApi.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using ILogger = Serilog.ILogger;
 
@@ -38,13 +40,13 @@ public static class WebApplicationBuilderExtensions
 
         return builder;
     }
-        
+
     public static WebApplicationBuilder AddJwtTokenBearerAuthentication(this WebApplicationBuilder builder)
     {
         var config = builder.Configuration.GetOptions<AuthConfig>();
-        
+
         var key = Encoding.ASCII.GetBytes(config.Secret);
-        
+
         builder.Services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -59,15 +61,15 @@ public static class WebApplicationBuilderExtensions
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                
+
                     ValidateIssuer = true,
                     ValidIssuer = config.Issuer,
-                
+
                     ValidateAudience = false
                 };
             })
             ;
-        
+
         return builder;
     }
 
@@ -86,7 +88,38 @@ public static class WebApplicationBuilderExtensions
     public static WebApplicationBuilder AddSwagger(this WebApplicationBuilder builder)
     {
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        var swagger = builder.Configuration.GetOptions<SwaggerConfig>();
+
+        if (swagger.Enabled)
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MagicBinder.WebApi", Version = "v1" }); 
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Scheme = "bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+
+                Directory
+                    .GetFiles(AppContext.BaseDirectory, "*.xml", SearchOption.TopDirectoryOnly)
+                    .ToList().ForEach(x => c.IncludeXmlComments(x));
+            });
 
         return builder;
     }

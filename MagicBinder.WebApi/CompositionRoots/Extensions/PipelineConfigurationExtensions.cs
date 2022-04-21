@@ -1,4 +1,6 @@
-﻿using MagicBinder.WebApi.Middleware;
+﻿using MagicBinder.Core.CompositionRoots;
+using MagicBinder.WebApi.CompositionRoots.Configurations;
+using MagicBinder.WebApi.Middleware;
 
 namespace MagicBinder.WebApi.CompositionRoots.Extensions;
 
@@ -15,11 +17,13 @@ public static class PipelineConfigurationExtensions
         return app;
     }
 
-    public static IApplicationBuilder UseSwaggerWithUI(this IApplicationBuilder application)
+    public static IApplicationBuilder UseSwaggerWithUI(this IApplicationBuilder application, IConfiguration configuration)
     {
-        application
-            .UseSwagger()
-            .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MagicBinder.WebApi v1"));
+        var swagger = configuration.GetOptions<SwaggerConfig>();
+        if (swagger.Enabled)
+            application
+                .UseSwagger()
+                .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MagicBinder.WebApi v1"));
 
         return application;
     }
