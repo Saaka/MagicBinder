@@ -1,7 +1,4 @@
-﻿using System.Net;
-using MagicBinder.Core.Requests;
-using MagicBinder.Core.Requests.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MagicBinder.WebApi.Controllers;
 
@@ -10,12 +7,10 @@ namespace MagicBinder.WebApi.Controllers;
 public class HealthCheckController : ControllerBase
 {
     private readonly ILogger<HealthCheckController> _logger;
-    private readonly IRequestContextService _requestContextService;
 
-    public HealthCheckController(ILogger<HealthCheckController> logger, IRequestContextService requestContextService)
+    public HealthCheckController(ILogger<HealthCheckController> logger)
     {
         _logger = logger;
-        _requestContextService = requestContextService;
     }
 
     [HttpGet]
@@ -26,9 +21,4 @@ public class HealthCheckController : ControllerBase
 
         return Ok(result);
     }
-
-    [HttpGet]
-    [Route("user")]
-    [ProducesResponseType(typeof(AuthContextModel), (int) HttpStatusCode.OK)]
-    public IActionResult GetUser() => Ok(_requestContextService.User);
 }
