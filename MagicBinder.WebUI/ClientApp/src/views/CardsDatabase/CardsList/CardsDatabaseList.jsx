@@ -8,7 +8,7 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
     const renderLoader = () => <div className="center"><Loader size="xs" dark/></div>;
 
     const renderTable = () => (
-        <table className="table is-hoverable is-fullwidth products-table">
+        <table className="table is-hoverable is-fullwidth cards-table">
             <thead>
             <tr>
                 <td>Card Name</td>
@@ -18,7 +18,7 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
             <tbody>
             {cards.map(card =>
                 (
-                    <tr key={card.oracleId} className="product-row" onClick={(ev) => console.log(card.image)}>
+                    <tr key={card.oracleId} className="card-row" onClick={(ev) => console.log(card.image)}>
                         <td>{card.name}</td>
                     </tr>
                 )
@@ -29,7 +29,7 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
     
     return (
       <div>
-          {isLoading ? renderLoader() : renderTable()}
+          {renderTable()}
           <Pagination options={pageOptions} onPaginationChanged={onPaginationChanged} isLoading={isLoading} setIsLoading={setIsLoading}/>
       </div>  
     );
