@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {useDocumentTitle} from "Hooks";
+import {useDocumentTitle, useQueryString} from "Hooks";
 import {CardsDatabaseList} from "./CardsList/CardsDatabaseList";
 import {useHistory} from "react-router-dom";
 import {CardsService} from "Services";
@@ -8,6 +8,7 @@ import "./CardsDatabase.scss";
 
 function CardsDatabase(props) {
     const history = useHistory();
+    const qs = useQueryString();
     useDocumentTitle("Cards database");
     const cardsService = new CardsService();
     const [cardsList, setCards] = useState({
@@ -22,6 +23,7 @@ function CardsDatabase(props) {
     }, []);
 
     function loadCards(pageSize, pageNumber) {
+        qs.update({pageSize: pageSize, pageNumber: pageNumber})
         return cardsService
             .getCards({
                 filter: "",
