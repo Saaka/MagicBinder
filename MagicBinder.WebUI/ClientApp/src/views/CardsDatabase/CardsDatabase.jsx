@@ -8,7 +8,7 @@ import "./CardsDatabase.scss";
 
 function CardsDatabase(props) {
     const history = useHistory();
-    const qs = useQueryString();
+    const [qs, updateQs] = useQueryString();
     useDocumentTitle("Cards database");
     const cardsService = new CardsService();
     const [cardsList, setCards] = useState({
@@ -23,7 +23,7 @@ function CardsDatabase(props) {
     }, []);
 
     function loadCards(pageSize, pageNumber) {
-        qs.update({pageSize: pageSize, pageNumber: pageNumber})
+        updateQs({pageSize: pageSize, pageNumber: pageNumber});
         return cardsService
             .getCards({
                 filter: "",

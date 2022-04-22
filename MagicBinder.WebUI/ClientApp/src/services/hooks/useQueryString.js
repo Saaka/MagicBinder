@@ -1,19 +1,19 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import qs from "query-string";
 
 function useQueryString() {
     const history = useHistory();
-    
+    const { search } = useLocation();
+    const getParsedQuery = () => qs.parse(search);
+
     function update(param) {
-        const queryParams =  qs.parse(history.location.search);
-        const updatedParams = {...queryParams, ...param};
-        history.push({search: qs.stringify(updatedParams)});
+        const prev = getParsedQuery();
+        const updatedParams = qs.stringify({...prev, ...param});
+        history.push({search: updatedParams});
     }
-    
-    return {
-        update: update
-    }
+
+    return React.useMemo(() => [getParsedQuery(), update], [search]);
 }
 
 export {useQueryString};
