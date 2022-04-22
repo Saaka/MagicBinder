@@ -7,33 +7,49 @@ import {RouteNames} from "routes/names";
 import "./CardsDatabase.scss";
 
 function CardsDatabase(props) {
+    useDocumentTitle("Cards database");
+
     const history = useHistory();
     const [qs, updateQs] = useQueryString();
-    useDocumentTitle("Cards database");
     const cardsService = new CardsService();
-    const [cardsList, setCards] = useState({
-        items: []
-    });
+    const [cardsList, setCards] = useState({items: []});
     const [isLoading, setIsLoading] = useState(true);
+    const [filters, setFilters] = useState(null);
 
     useEffect(() => {
         setIsLoading(true);
-        loadCards(10, 1)
-            .then(() => setIsLoading(false));
+        const query = qs ?? {};
+        setFilters({
+            search: query.search ?? "",
+            pageSize: query.pageSize ?? 10,
+            pageNumber: query.pageNumber ?? 1
+        });
+
     }, []);
 
-    function loadCards(pageSize, pageNumber) {
+    useEffect(() => {
+        if (filters == null) return;
+        loadCards();
+    }, [filters])
+
+    function updatePageSizeFilters(pageSize, pageNumber) {
         updateQs({pageSize: pageSize, pageNumber: pageNumber});
-        return cardsService
+        setFilters({...filters, pageSize: pageSize, pageNumber: pageNumber})
+    }
+
+    const loadCards = () => {
+        setIsLoading(true);
+        cardsService
             .getCards({
-                filter: "",
-                pageSize: pageSize,
-                pageNumber: pageNumber
+                filter: filters.search,
+                pageSize: filters.pageSize,
+                pageNumber: filters.pageNumber
             })
             .then((data) => {
                 setCards(data);
-            });
-    }
+                setIsLoading(false);
+            })
+    };
 
     return (
         <section className="section columns is-centered is-mobile">
@@ -42,10 +58,9 @@ function CardsDatabase(props) {
                 <div className="box">
                     <CardsDatabaseList
                         cards={cardsList.items}
-                        setIsLoading={setIsLoading}
                         isLoading={isLoading}
                         pageOptions={cardsList.options}
-                        fetch={loadCards}/>
+                        onPaginationChanged={updatePageSizeFilters}/>
                 </div>
             </div>
         </section>

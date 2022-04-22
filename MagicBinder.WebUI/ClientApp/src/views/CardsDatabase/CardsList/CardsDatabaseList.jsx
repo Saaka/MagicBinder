@@ -3,7 +3,7 @@ import {Icon, Loader} from "components/common";
 import {Pagination} from "components/navigation";
 import "./CardsDatabaseList.scss";
 
-export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, fetch}) => {
+export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, onPaginationChanged}) => {
 
     const renderLoader = () => <div className="center"><Loader size="xs" dark/></div>;
 
@@ -30,7 +30,7 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
     return (
       <div>
           {isLoading ? renderLoader() : renderTable()}
-          <Pagination options={pageOptions} fetch={fetch} isLoading={isLoading} setIsLoading={setIsLoading}/>
+          <Pagination options={pageOptions} onPaginationChanged={onPaginationChanged} isLoading={isLoading} setIsLoading={setIsLoading}/>
       </div>  
     );
 }

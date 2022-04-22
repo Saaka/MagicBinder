@@ -20,11 +20,9 @@ const Pagination = (props) => {
         calculatePagingSettings(props.options);
     }, [props.options]);
 
-    const handleFetch = (pageNumber) => {
-        props.setIsLoading(true);
+    const handlePaginationChanged = (pageNumber) => {
         return props
-            .fetch(pagingSettings.pageSize, pageNumber)
-            .finally(() => props.setIsLoading(false));
+            .onPaginationChanged(pagingSettings.pageSize, pageNumber);
     }
 
     const calculatePagingSettings = (options) => {
@@ -97,7 +95,7 @@ const Pagination = (props) => {
     const renderPageLink = (page) => (
         <li key={page.number}>
             <button className={"button pagination-link " + (page.number === pagingSettings.pageNumber ? "is-current" : "")}
-               aria-label={"Goto page " + page.number} onClick={() => handleFetch(page.number)}
+               aria-label={"Goto page " + page.number} onClick={() => handlePaginationChanged(page.number)}
                disabled={props.isLoading}>{page.number}</button>
         </li>
     );
@@ -111,9 +109,9 @@ const Pagination = (props) => {
     return (
         <nav className="pagination" role="navigation" aria-label="pagination">
             <button className="button pagination-previous" disabled={!pagingSettings.hasPreviousPage || props.isLoading}
-               onClick={() => handleFetch(pagingSettings.pageNumber - 1)}>Previous</button>
+               onClick={() => handlePaginationChanged(pagingSettings.pageNumber - 1)}>Previous</button>
             <button className="button pagination-next" disabled={!pagingSettings.hasNextPage || props.isLoading}
-               onClick={() => handleFetch(pagingSettings.pageNumber + 1)}>Next page</button>
+               onClick={() => handlePaginationChanged(pagingSettings.pageNumber + 1)}>Next page</button>
             <ul className="pagination-list">
                 {pagingSettings.pages.map(page => (
                     page.isLink ? renderPageLink(page) : renderEllipsis(page)
