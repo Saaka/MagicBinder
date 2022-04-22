@@ -47,7 +47,7 @@ function CardsDatabase(props) {
             })
             .then((data) => {
                 setCards(data);
-                setIsLoading(false);
+              //  setIsLoading(false);
             })
     };
 
