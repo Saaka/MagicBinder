@@ -3,7 +3,7 @@ import {Icon, Loader} from "components/common";
 import {Pagination} from "components/navigation";
 import "./CardsDatabaseList.scss";
 
-export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading}) => {
+export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, fetch}) => {
 
     const renderLoader = () => <div className="center"><Loader size="xs" dark/></div>;
 

@@ -20,7 +20,7 @@ function CardsDatabase(props) {
         loadCards(10, 1)
             .then(() => setIsLoading(false));
     }, []);
-    
+
     function loadCards(pageSize, pageNumber) {
         return cardsService
             .getCards({
@@ -28,7 +28,9 @@ function CardsDatabase(props) {
                 pageSize: pageSize,
                 pageNumber: pageNumber
             })
-            .then((data) => setCards(data));
+            .then((data) => {
+                setCards(data);
+            });
     }
 
     return (
@@ -41,8 +43,7 @@ function CardsDatabase(props) {
                         setIsLoading={setIsLoading}
                         isLoading={isLoading}
                         pageOptions={cardsList.options}
-                        fetch={loadCards}
-                    />
+                        fetch={loadCards}/>
                 </div>
             </div>
         </section>
