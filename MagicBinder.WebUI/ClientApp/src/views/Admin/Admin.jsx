@@ -1,12 +1,12 @@
 import React, {useEffect} from "react"
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useDocumentTitle} from "Hooks";
 import {RouteNames} from "routes/names";
 import "./Admin.scss";
 
 function Admin(props) {
     useDocumentTitle("Admin page");
-    const history = useHistory();
+    const history = useNavigate();
 
     function redirectTo(route) {
         history.push(route);

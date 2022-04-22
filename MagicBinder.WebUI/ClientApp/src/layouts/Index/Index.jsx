@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Route, Redirect} from "react-router-dom";
+import {Route, Navigate} from "react-router-dom";
 import {Loader} from "components/common";
 import {RouteNames} from "routes/names";
 import {Login, Logout} from "views/exports";
@@ -58,7 +58,7 @@ function Index(props) {
             <React.Fragment>
                 <Route exact
                        path={RouteNames.Root}
-                       render={(renderProps) => <Redirect to={RouteNames.App}
+                       render={(renderProps) => <Navigate to={RouteNames.App}
                                                           from={renderProps.path}
                                                           {...renderProps}
                                                           user={user}

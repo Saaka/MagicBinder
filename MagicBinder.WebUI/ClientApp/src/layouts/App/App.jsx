@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, Redirect} from "react-router";
+import {Routes , Route, Navigate} from "react-router-dom";
 import {AuthRoute, AdminRoute, RegularRoute} from "components/routing";
 import {AppNavbar} from "./AppNavbar/AppNavbar";
 import appRoutes from "routes/appRoutes";
@@ -11,10 +11,10 @@ function App(props) {
         <div className="app-container has-background-gradient">
             <AppNavbar {...props} user={props.user}/>
             <div className="app-container-content">
-                <Switch>
+                <Routes>
                     {appRoutes.map((prop, key) => {
                         if (prop.redirect)
-                            return (<Redirect from={prop.path} to={prop.to} key={key}
+                            return (<Navigate from={prop.path} to={prop.to} key={key}
                                               updateUser={props.updateUser}/>);
                         else if (prop.requireAuth)
                             if (prop.requireAdmin)
@@ -32,7 +32,7 @@ function App(props) {
                                                  user={props.user}
                                                  updateUser={props.updateUser}/>;
                     })}
-                </Switch>
+                </Routes>
             </div>
         </div>
     );

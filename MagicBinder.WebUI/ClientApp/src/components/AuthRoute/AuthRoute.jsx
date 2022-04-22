@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Redirect} from "react-router-dom";
+import {Route, Navigate} from "react-router-dom";
 import {RouteNames} from "routes/names";
 
 function AuthRoute(
@@ -14,7 +14,7 @@ function AuthRoute(
                    if (user && user.isLoggedIn)
                        return (<Component {...props} user={user}/>);
                    else return (
-                       <Redirect to={{
+                       <Navigate to={{
                            pathname: RouteNames.Login,
                            search: `?redirect=${props.location.pathname}`,
                            state: {

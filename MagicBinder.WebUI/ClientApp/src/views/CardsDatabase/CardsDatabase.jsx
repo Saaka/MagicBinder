@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from "react";
-import {useDocumentTitle} from "Hooks";
+import {useDocumentTitle, useQuery} from "Hooks";
 import {CardsDatabaseList} from "./CardsList/CardsDatabaseList";
-import {useHistory} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {CardsService} from "Services";
 import {RouteNames} from "routes/names";
 import "./CardsDatabase.scss";
 
 function CardsDatabase(props) {
-    const history = useHistory();
-    useDocumentTitle("Cards database");
+    const history = useNavigate();
+    const query = useQuery();
+    const [searchParams, setSearchParams] = useSearchParams();
+    useDocumentTitle(query.get("name"));
     const cardsService = new CardsService();
     const [cardsList, setCards] = useState({
         items: []
