@@ -18,6 +18,9 @@ export const TextInput = (props) => {
                        maxLength={props.maxLength}
                        autoComplete="off"
                        ref={props.inputRef}
+                       onKeyPress={event => {
+                           event.key === "Enter" && !!props.onEnterPressed && props.onEnterPressed()
+                       }}
                        className={"input"}/>
                 <div className="control-error">{props.error}</div>
             </div>

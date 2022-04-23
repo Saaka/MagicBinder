@@ -79,7 +79,8 @@ function CardsDatabase(props) {
                                    name="search"
                                    value={inputs.search}
                                    onChange={handleInputsChange}
-                                   disabled={isLoading}/>
+                                   disabled={isLoading}
+                                   onEnterPressed={filterList}/>
                         <button className="button is-primary"
                                 onClick={() => filterList()}>Apply filters
                         </button>
