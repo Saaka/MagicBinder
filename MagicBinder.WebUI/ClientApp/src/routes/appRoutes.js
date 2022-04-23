@@ -1,6 +1,5 @@
 import {Admin, Dashboard, Unauthorized, About, Login, CardsList, CardPage} from "views/exports";
 import {RouteNames} from "./names";
-import {Card} from "reactstrap";
 
 const appRoutes = [
     {
