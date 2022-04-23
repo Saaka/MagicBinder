@@ -40,14 +40,30 @@ function CardsDatabase(props) {
         const newValues = {
             search: inputs.search,
             pageNumber: 1
-        }
-        updateQs(newValues);
-        setFilters(prev => ({...prev, ...newValues}));
+        };
+        applyFiltering(newValues);
+    }
+
+    const clearFilters = () => {
+        const newValues = {
+            search: "",
+            pageNumber: 1
+        };
+        applyFiltering(newValues);
+        setInputs({search: ""})
     }
 
     const updatePageSizeFilters = (pageSize, pageNumber) => {
-        updateQs({pageSize: pageSize, pageNumber: pageNumber});
-        setFilters(prev => ({...prev, pageSize: pageSize, pageNumber: pageNumber}));
+        const newValues = {
+            pageSize: pageSize,
+            pageNumber: pageNumber
+        };
+        applyFiltering(newValues);
+    }
+
+    const applyFiltering = (newValues) => {
+        updateQs(newValues);
+        setFilters(prev => ({...prev, ...newValues}));
     }
 
     const loadCards = () => {
@@ -85,7 +101,14 @@ function CardsDatabase(props) {
 
                         <div>
                             <button className="button is-primary"
-                                    onClick={() => filterList()}>Apply filters
+                                    onClick={() => filterList()}
+                                    disabled={isLoading}>
+                                Apply filters
+                            </button>
+                            <button className="button button-clear is-primary is-light"
+                                    onClick={() => clearFilters()}
+                                    disabled={isLoading}>
+                                Clear filters
                             </button>
                         </div>
                     </div>
@@ -102,4 +125,8 @@ function CardsDatabase(props) {
     );
 }
 
-export {CardsDatabase};
+export
+{
+    CardsDatabase
+}
+    ;
