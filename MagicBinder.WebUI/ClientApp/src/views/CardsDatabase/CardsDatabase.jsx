@@ -26,6 +26,7 @@ function CardsDatabase(props) {
             pageSize: query.pageSize ?? 10,
             pageNumber: query.pageNumber ?? 1
         });
+        setInputs({search: query.search ?? ""});
 
     }, []);
 
@@ -39,12 +40,12 @@ function CardsDatabase(props) {
             search: inputs.search,
             pageNumber: 1
         }
-        updateQs(prev => ({...prev, ...newValues}));
+        updateQs(newValues);
         setFilters(prev => ({...prev, ...newValues}));
     }
 
     const updatePageSizeFilters = (pageSize, pageNumber) => {
-        updateQs(prev => ({...prev, pageSize: pageSize, pageNumber: pageNumber}));
+        updateQs({pageSize: pageSize, pageNumber: pageNumber});
         setFilters(prev => ({...prev, pageSize: pageSize, pageNumber: pageNumber}));
     }
 
