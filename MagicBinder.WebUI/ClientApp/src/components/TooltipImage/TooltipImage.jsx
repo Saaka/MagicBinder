@@ -16,6 +16,8 @@ const TooltipImage = (props) => {
                       className="tooltip-container" 
                       type="light" 
                       border={true}
+                      clickable={true}
+                      scrollHide={false}
                       getContent={(dt) => imageContent(dt)}>
         </ReactTooltip>
     );
