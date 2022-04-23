@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {useDocumentTitle, useQueryString, useMessageBox} from "Hooks";
 import {CardsListTable} from "./CardsListTable";
 import {CardsService} from "Services";
@@ -7,7 +7,8 @@ import {TextInput} from "components/forms";
 
 function CardsList(props) {
     useDocumentTitle("Cards database");
-    
+
+    const isClosed = useRef(false);
     const [setError, renderError] = useMessageBox("error", "small");
     const [qs, updateQs] = useQueryString();
     const cardsService = new CardsService();
@@ -29,8 +30,13 @@ function CardsList(props) {
     }, []);
 
     useEffect(() => {
+        isClosed.current = false;
         if (!filters) return;
         loadCards();
+
+        return () => {
+            isClosed.current = true;
+        }
     }, [filters])
 
     const filterList = () => {
@@ -72,9 +78,13 @@ function CardsList(props) {
                 pageSize: filters.pageSize,
                 pageNumber: filters.pageNumber
             })
-            .then((data) => setCards(data))
+            .then((data) => {
+                if (!isClosed.current) setCards(data);
+            })
             .catch(ex => setError(ex.error ?? ex))
-            .finally(() => setIsLoading(false));
+            .finally(() => {
+                if (!isClosed.current) setIsLoading(false)
+            });
     };
 
     const handleInputsChange = (ev) => {
