@@ -1,16 +1,13 @@
 import React, {useState, useEffect} from "react";
 import {useDocumentTitle, useQueryString, useMessageBox} from "Hooks";
 import {CardsDatabaseList} from "./CardsList/CardsDatabaseList";
-import {useHistory} from "react-router-dom";
 import {CardsService} from "Services";
-import {RouteNames} from "routes/names";
 import "./CardsDatabase.scss";
 import {TextInput} from "components/forms";
 
 function CardsDatabase(props) {
     useDocumentTitle("Cards database");
-
-    const history = useHistory();
+    
     const [setError, renderError] = useMessageBox("error", "small");
     const [qs, updateQs] = useQueryString();
     const cardsService = new CardsService();

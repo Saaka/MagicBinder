@@ -1,15 +1,17 @@
 import React from "react";
 import {Icon, Loader, TableRowLoader, TooltipImage} from "components/common";
 import {Pagination} from "components/navigation";
+import {useHistory} from "react-router-dom";
+import {RouteNames} from "routes/names";
 import "./CardsDatabaseList.scss";
 
 export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, onPaginationChanged}) => {
-
+    const history = useHistory();
+    
     const renderLoader = () => <div className="center"><Loader size="xs" dark/></div>;
-
     const renderRows = () => cards.map(card =>
         (
-            <tr key={card.oracleId} className="card-row" onClick={(ev) => console.log("open card page " + card.oracleId)}>
+            <tr key={card.oracleId} className="card-row" onClick={ev => openCardPage(card.oracleId)}>
                 <td>
                     <Icon data-tip={card.image} data-for={`image-tooltip-${card.oracleId}`} name="image"
                           onClick={(ev) => ev.stopPropagation()}/> {card.name}
@@ -19,8 +21,8 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
             </tr>
         ));
 
+    const openCardPage = (oracleId) => history.push(RouteNames.Card + oracleId);
     const renderRowLoaders = () => [...Array(getPageSize())].map((e, i) => <TableRowLoader columns={2} key={i}/>);
-
     const getPageSize = () => !!pageOptions && pageOptions.pageSize ? pageOptions.pageSize : 10;
 
     const renderTable = () => (

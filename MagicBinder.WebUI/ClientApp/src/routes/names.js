@@ -12,6 +12,8 @@ RouteNames.Dashboard = "/app/dashboard";
 RouteNames.Unauthorized = "/app/unauthorized";
 RouteNames.About = "/app/about";
 RouteNames.CardsDatabase = "/app/cards-database";
+RouteNames.Card = "/app/card/";
+RouteNames.CardRoute = RouteNames.Card + ":oracleId";
 
 RouteNames.Admin = "/app/admin";
 
