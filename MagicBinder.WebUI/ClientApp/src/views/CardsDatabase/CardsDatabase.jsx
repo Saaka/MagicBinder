@@ -60,7 +60,7 @@ function CardsDatabase(props) {
                 pageNumber: filters.pageNumber
             })
             .then((data) => setCards(data))
-            .catch(ex => setError(ex))
+            .catch(ex => setError(ex.error ?? ex))
             .finally(() => setIsLoading(false));
     };
 

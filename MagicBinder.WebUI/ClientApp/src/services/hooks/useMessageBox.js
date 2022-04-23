@@ -10,7 +10,7 @@ const useMessageBox = (type, size) => {
 
     const renderMessage = () => !!message
         ? <Message className={classes}>{message}</Message>
-        : "";
+        : <React.Fragment/>;
 
     return [setMessage, renderMessage];
 }
