@@ -6,8 +6,8 @@ const About = (props) => {
     useDocumentTitle("About page");
 
     return (
-        <div className="columns">
-            <div className="column is-half-desktop is-offset-3-desktop">
+        <div className="columns is-centered is-mobile">
+            <div className="column is-responsive">
                 <div className="tile is-parent">
                     <article className="tile is-child notification is-primary">
                         <p className="title">Magic Binder</p>

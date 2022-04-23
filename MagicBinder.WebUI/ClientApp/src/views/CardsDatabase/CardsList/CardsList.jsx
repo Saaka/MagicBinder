@@ -83,7 +83,7 @@ function CardsList(props) {
     }
 
     return (
-        <section className="section columns is-centered is-mobile">
+        <section className="columns is-centered is-mobile">
             <div className="column is-responsive">
                 <p className="title has-text-light">Cards database</p>
                 <div className="box">

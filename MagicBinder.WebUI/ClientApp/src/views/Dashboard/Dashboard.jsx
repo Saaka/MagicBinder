@@ -6,10 +6,10 @@ function Dashboard(props) {
     useDocumentTitle("Dashboard");
 
     return (
-        <section className="section columns is-centered is-mobile">
-            <div className="column is-three-quarters-desktop is-half-widescreen">
+        <section className="columns is-centered is-mobile">
+            <div className="column is-responsive">
                 <div className="tile is-parent">
-                    <div className="tile box" onClick={() => console.log("Clicked on component") /*redirectTo(RouteNames.Tst)*/}>
+                    <div className="tile box">
                         <div className="content">
                             <div className="columns is-mobile">
                                 <div className="column is-narrow">

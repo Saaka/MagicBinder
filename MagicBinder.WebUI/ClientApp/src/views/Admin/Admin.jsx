@@ -14,11 +14,11 @@ function Admin(props) {
 
     return (
         <section className="columns is-centered">
-            <div className="column is-half-desktop">
+            <div className="column is-responsive">
                 <p className="title has-text-light">Admin Page</p>
                 <div className="tile is-ancestor">
                     <div className="tile is-parent">
-                        <div className="tile box" onClick={() => redirectTo(RouteNames.Home)}>
+                        <div className="tile box" onClick={() => redirectTo(RouteNames.Dashboard)}>
                             <div className="content">
                                 <p className="title">Home</p>
                                 <p className="subtitle">Just go back to home page!</p>
