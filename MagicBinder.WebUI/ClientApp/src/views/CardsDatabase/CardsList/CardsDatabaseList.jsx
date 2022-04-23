@@ -13,6 +13,9 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
                 <td>
                     <Icon data-tip={card.image} data-for={`image-tooltip-${card.oracleId}`} name="image"/> {card.name}
                     <TooltipImage id={`image-tooltip-${card.oracleId}`}/>
+
+                    <a data-tip={card.image} data-for={`image-tooltip-2-${card.oracleId}`}> TT
+                    <TooltipImage id={`image-tooltip-2-${card.oracleId}`}/></a>
                 </td>
                 <td>{card.typeLine}</td>
             </tr>
