@@ -32,7 +32,7 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
     );
 
     return (
-        <div>
+        <div className="cards-table-container">
             {renderTable()}
             <Pagination options={pageOptions} onPaginationChanged={onPaginationChanged} isLoading={isLoading}
                         setIsLoading={setIsLoading}/>

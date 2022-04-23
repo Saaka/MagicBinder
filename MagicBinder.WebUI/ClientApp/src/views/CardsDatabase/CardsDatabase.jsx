@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {useDocumentTitle, useQueryString} from "Hooks";
+import {useDocumentTitle, useQueryString, useMessageBox} from "Hooks";
 import {CardsDatabaseList} from "./CardsList/CardsDatabaseList";
 import {useHistory} from "react-router-dom";
 import {CardsService} from "Services";
@@ -11,6 +11,7 @@ function CardsDatabase(props) {
     useDocumentTitle("Cards database");
 
     const history = useHistory();
+    const [setError, renderError] = useMessageBox("error", "small");
     const [qs, updateQs] = useQueryString();
     const cardsService = new CardsService();
     const [cardsList, setCards] = useState({items: []});
@@ -57,10 +58,9 @@ function CardsDatabase(props) {
                 pageSize: filters.pageSize,
                 pageNumber: filters.pageNumber
             })
-            .then((data) => {
-                setCards(data);
-                setIsLoading(false);
-            })
+            .then((data) => setCards(data))
+            .catch(ex => setError(ex))
+            .finally(() => setIsLoading(false));
     };
 
     const handleInputsChange = (ev) => {
@@ -81,9 +81,12 @@ function CardsDatabase(props) {
                                    onChange={handleInputsChange}
                                    disabled={isLoading}
                                    onEnterPressed={filterList}/>
-                        <button className="button is-primary"
-                                onClick={() => filterList()}>Apply filters
-                        </button>
+
+                        <div>
+                            <button className="button is-primary"
+                                    onClick={() => filterList()}>Apply filters
+                            </button>
+                        </div>
                     </div>
                     <hr/>
                     <CardsDatabaseList
@@ -91,6 +94,7 @@ function CardsDatabase(props) {
                         isLoading={isLoading}
                         pageOptions={cardsList.options}
                         onPaginationChanged={updatePageSizeFilters}/>
+                    {renderError()}
                 </div>
             </div>
         </section>
