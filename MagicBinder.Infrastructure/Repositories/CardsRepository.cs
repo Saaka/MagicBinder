@@ -41,15 +41,19 @@ public class CardsRepository : IMongoRepository
     public async Task<PagedList<Card>> GetCardsListAsync(string search, IPageableRequest request)
     {
         var builder = Builders<Card>.Filter;
-        var nameFilter = builder.Regex(x => x.Name, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
-        var typeFilter = builder.Regex(x => x.LatestPrinting.TypeLine, BsonRegularExpression.Create(new Regex(search, RegexOptions.IgnoreCase)));
-        var regex = new Regex(search, RegexOptions.IgnoreCase);
-        var oracleTextFilter = builder.Where(x => x.CardPrintings.Any(p => regex.IsMatch(p.OracleText)));
-
-        var searchFilter = builder.Or(nameFilter, typeFilter, oracleTextFilter);
         var gameFilter = builder.Where(x => x.Games.Contains(GameType.Paper));
+        var filter = gameFilter;
 
-        var filter = builder.And(searchFilter, gameFilter);
+        if (!string.IsNullOrEmpty(search))
+        {
+            var regex = new Regex(search, RegexOptions.IgnoreCase);
+            var nameFilter = builder.Regex(x => x.Name, BsonRegularExpression.Create(regex));
+            var typeFilter = builder.Regex(x => x.LatestPrinting.TypeLine, BsonRegularExpression.Create(regex));
+            var oracleTextFilter = builder.Where(x => x.CardPrintings.Any(p => regex.IsMatch(p.OracleText)));
+            var searchFilter = builder.Or(nameFilter, typeFilter, oracleTextFilter);
+
+            filter = builder.And(searchFilter);
+        }
 
         var query = Cards.AsQueryable().OrderBy(x => x.Name).Where(x => filter.Inject());
 
