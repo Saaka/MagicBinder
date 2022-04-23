@@ -8,7 +8,6 @@ const useMessageBox = (type, size) => {
     let classes = type === "error" ? "is-danger " : "is-primary ";
     classes += getSize(size);
 
-
     const renderMessage = () => !!message
         ? <Message className={classes}>{message}</Message>
         : "";

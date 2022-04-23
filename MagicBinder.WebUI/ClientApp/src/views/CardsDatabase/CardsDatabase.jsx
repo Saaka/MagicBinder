@@ -52,6 +52,7 @@ function CardsDatabase(props) {
 
     const loadCards = () => {
         setIsLoading(true);
+        setError("");
         cardsService
             .getCards({
                 filter: filters.search,
