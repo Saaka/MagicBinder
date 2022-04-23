@@ -36,8 +36,12 @@ const Pagination = (props) => {
                 isLink: true
             }]
         };
-        if (hasOnePage(settings)) return;
-
+        
+        if (hasOnePage(settings)) {
+            setPagingSettings(settings);
+            return;
+        }
+        
         if (settings.totalPages <= buttonsCount) {
             settings.pages = getLinksWithNumbers(settings.totalPages, 1);
         } else {
