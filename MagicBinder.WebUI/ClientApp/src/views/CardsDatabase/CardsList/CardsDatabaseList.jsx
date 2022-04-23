@@ -9,9 +9,10 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
 
     const renderRows = () => cards.map(card =>
         (
-            <tr key={card.oracleId} className="card-row" onClick={(ev) => console.log(card.image)}>
+            <tr key={card.oracleId} className="card-row" onClick={(ev) => console.log("open card page " + card.oracleId)}>
                 <td>
-                    <Icon data-tip={card.image} data-for={`image-tooltip-${card.oracleId}`} name="image"/> {card.name}
+                    <Icon data-tip={card.image} data-for={`image-tooltip-${card.oracleId}`} name="image"
+                          onClick={(ev) => ev.stopPropagation()}/> {card.name}
                     <TooltipImage id={`image-tooltip-${card.oracleId}`}/>
                 </td>
                 <td>{card.typeLine}</td>
