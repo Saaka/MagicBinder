@@ -1,5 +1,5 @@
 import React from "react";
-import {Icon, Loader, TableRowLoader} from "components/common";
+import {Icon, Loader, TableRowLoader, TooltipImage} from "components/common";
 import {Pagination} from "components/navigation";
 import "./CardsDatabaseList.scss";
 
@@ -10,7 +10,7 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
     const renderRows = () => cards.map(card =>
         (
             <tr key={card.oracleId} className="card-row" onClick={(ev) => console.log(card.image)}>
-                <td>{card.name}</td>
+                <td>{card.name} <a data-tip={card.image} data-for="card-tooltip">IMAGE</a></td>
                 <td>{card.typeLine}</td>
             </tr>
         ));
@@ -38,6 +38,7 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
             {renderTable()}
             <Pagination options={pageOptions} onPaginationChanged={onPaginationChanged} isLoading={isLoading}
                         setIsLoading={setIsLoading}/>
+            <TooltipImage ida="card-tooltip"/>
         </div>
     );
 }
