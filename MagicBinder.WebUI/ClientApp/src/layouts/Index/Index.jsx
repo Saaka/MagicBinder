@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Route, Redirect} from "react-router-dom";
 import {Loader} from "components/common";
 import {RouteNames} from "routes/names";
-import {Login, Logout} from "views/exports";
+import {Logout} from "views/exports";
 import {App} from "layouts/exports";
 import {AuthService} from "Services";
 import {useDocumentTitle} from "Hooks";
@@ -63,10 +63,6 @@ function Index(props) {
                                                           {...renderProps}
                                                           user={user}
                                                           updateUser={updateUser}/>}/>
-                {/*<Route path={RouteNames.Login}*/}
-                {/*       render={(renderProps) => <Login {...renderProps}*/}
-                {/*                                       onLogin={onLogin}*/}
-                {/*                                       user={user}/>}/>*/}
                 <Route path={RouteNames.Logout}
                        render={(renderProps) => <Logout {...renderProps}
                                                         onLogout={onLogout}/>}/>
