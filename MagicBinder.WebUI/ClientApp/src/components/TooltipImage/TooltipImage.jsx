@@ -4,14 +4,19 @@ import "./TooltipImage.scss";
 
 const TooltipImage = (props) => {
 
-    const imageContent = (dataTip) => 
-        <figure className="image">
+    const imageContent = (dataTip) =>
+        (<figure className="image">
             <img className="image-element" src={dataTip} alt="Image tooltip for current element"/>
-        </figure>;
+        </figure>);
 
     return (
-        <ReactTooltip id={props.ida} place="top" effect="solid" className="tooltip-container"
-                      getContent={imageContent}>
+        <ReactTooltip id={props.id} 
+                      place="right" 
+                      effect="solid" 
+                      className="tooltip-container" 
+                      type="light" 
+                      border={true}
+                      getContent={(dt) => imageContent(dt)}>
         </ReactTooltip>
     );
 }

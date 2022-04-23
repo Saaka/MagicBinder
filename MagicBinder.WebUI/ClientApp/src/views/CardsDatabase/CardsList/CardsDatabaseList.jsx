@@ -10,7 +10,10 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
     const renderRows = () => cards.map(card =>
         (
             <tr key={card.oracleId} className="card-row" onClick={(ev) => console.log(card.image)}>
-                <td>{card.name} <a data-tip={card.image} data-for="card-tooltip">IMAGE</a></td>
+                <td>
+                    <Icon data-tip={card.image} data-for={`image-tooltip-${card.oracleId}`} name="image"/> {card.name}
+                    <TooltipImage id={`image-tooltip-${card.oracleId}`}/>
+                </td>
                 <td>{card.typeLine}</td>
             </tr>
         ));
@@ -38,7 +41,6 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
             {renderTable()}
             <Pagination options={pageOptions} onPaginationChanged={onPaginationChanged} isLoading={isLoading}
                         setIsLoading={setIsLoading}/>
-            <TooltipImage ida="card-tooltip"/>
         </div>
     );
 }
