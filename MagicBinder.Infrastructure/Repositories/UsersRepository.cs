@@ -19,7 +19,8 @@ public class UsersRepository : IMongoRepository
 
     public virtual async Task UpsertAsync(User user) => await Users.ReplaceOneAsync(x => x.UserGuid == user.UserGuid, user, new ReplaceOptions { IsUpsert = true });
 
-    public virtual async Task<User?> GetAsync(Guid id) => await Users.AsQueryable().FirstOrDefaultAsync(x => x.UserGuid == id);
+    public virtual async Task<User?> GetAsync(Guid id, CancellationToken cancellationToken = default) 
+        => await Users.AsQueryable().FirstOrDefaultAsync(x => x.UserGuid == id, cancellationToken);
 
     public IMongoCollection<User> Users => _database.GetCollection<User>("Users");
 }

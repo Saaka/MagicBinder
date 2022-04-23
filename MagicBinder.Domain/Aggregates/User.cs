@@ -21,12 +21,15 @@ public class User
         IsAdmin = isAdmin;
     }
 
-    public User Update(string displayName, string imageUrl, bool isAdmin)
+    public User SetAdminRole(bool isAdmin)
     {
-        DisplayName = displayName;
-        ImageUrl = imageUrl;
         IsAdmin = isAdmin;
+        return this;
+    }
 
+    public User SetImageUrl(string imageUrl)
+    {
+        ImageUrl = imageUrl;
         return this;
     }
 }

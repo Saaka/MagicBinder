@@ -25,7 +25,13 @@ public class AuthorizeWithGoogleHandler : RequestHandler<AuthorizeWithGoogle, Au
     public override async Task<RequestResult<AuthorizationModel>> Handle(AuthorizeWithGoogle request, CancellationToken cancellationToken)
     {
         var authData = await _identityIssuerClient.Authorize(request.GoogleToken);
-        var user = authData.User.MapToAggregate();
+        var user = await _usersRepository.GetAsync(authData.User.UserGuid, cancellationToken);
+        if (user == null)
+            user = authData.User.MapToAggregate();
+        else
+            user.SetAdminRole(authData.User.IsAdmin)
+                .SetImageUrl(authData.User.ImageUrl);
+
         await _usersRepository.UpsertAsync(user);
 
         return request.Success(new AuthorizationModel(user.MapToModel(), authData.Token));
