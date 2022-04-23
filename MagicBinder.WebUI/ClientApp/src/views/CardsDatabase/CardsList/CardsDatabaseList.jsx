@@ -22,7 +22,7 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
         <table className="table is-hoverable is-fullwidth cards-table">
             <thead>
             <tr>
-                <td>Card Name</td>
+                <th>Card Name</th>
             </tr>
             </thead>
             <tbody>
