@@ -1,8 +1,10 @@
 ﻿namespace MagicBinder.Application.Models.Cards;
 
-public class CardInfoModel
+public record CardInfoModel
 {
-    public Guid OracleId { get; set; }
-    public string Name { get; set; }
-    public string Image { get; set; }
+    public Guid OracleId { get; init; }
+    public string Name { get; init; }
+    public string TypeLine { get; init; }
+    public string Image { get; init; }
+    public string Artist { get; init; }
 }

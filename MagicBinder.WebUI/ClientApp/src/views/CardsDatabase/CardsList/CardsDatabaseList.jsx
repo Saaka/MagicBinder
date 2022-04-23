@@ -11,10 +11,11 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
         (
             <tr key={card.oracleId} className="card-row" onClick={(ev) => console.log(card.image)}>
                 <td>{card.name}</td>
+                <td>{card.typeLine}</td>
             </tr>
         ));
 
-    const renderRowLoaders = () => [...Array(getPageSize())].map((e, i) => <TableRowLoader key={i}/>);
+    const renderRowLoaders = () => [...Array(getPageSize())].map((e, i) => <TableRowLoader columns={2} key={i}/>);
 
     const getPageSize = () => !!pageOptions && pageOptions.pageSize ? pageOptions.pageSize : 10;
 
@@ -23,6 +24,7 @@ export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, 
             <thead>
             <tr>
                 <th>Card Name</th>
+                <th>Type</th>
             </tr>
             </thead>
             <tbody>

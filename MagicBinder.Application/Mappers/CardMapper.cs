@@ -9,6 +9,8 @@ public static class CardMapper
     {
         OracleId = card.OracleId,
         Name = card.Name,
-        Image = card.LatestPrinting.CardImages?.Normal ?? string.Empty
+        TypeLine = card.LatestPrinting.TypeLine,
+        Image = card.LatestPrinting.CardImages?.Normal ?? string.Empty,
+        Artist = card.LatestPrinting.Artist
     };
 }
