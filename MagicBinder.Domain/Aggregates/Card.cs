@@ -16,6 +16,7 @@ public class Card
     public string Loyalty { get; set; } = string.Empty;
     public ColorType[] Colors { get; set; } = Array.Empty<ColorType>();
     public ColorType[] ColorIdentity { get; set; } = Array.Empty<ColorType>();
+    public ColorType[] ProducedMana { get; set; } = Array.Empty<ColorType>();
     public string[] Keywords { get; set; } = Array.Empty<string>();
     public GameType[] Games { get; set; } = Array.Empty<GameType>();
     public FormatType[] LegalIn { get; set; } = Array.Empty<FormatType>();

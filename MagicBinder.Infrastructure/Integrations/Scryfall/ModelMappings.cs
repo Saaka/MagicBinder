@@ -30,6 +30,7 @@ public static class ModelMappings
         { nameof(CardModel.Loyalty), "loyalty" },
         { nameof(CardModel.Colors), "colors" },
         { nameof(CardModel.ColorIdentity), "color_identity" },
+        { nameof(CardModel.ProducedMana), "produced_mana" },
         { nameof(CardModel.Keywords), "keywords" },
         { nameof(CardModel.Games), "games" },
         { nameof(CardModel.ImageUris), "image_uris" },

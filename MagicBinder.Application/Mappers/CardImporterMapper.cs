@@ -125,6 +125,7 @@ public static class CardImporterMapper
             Toughness = model.Toughness,
             Colors = model.Colors.MapToColors(),
             ColorIdentity = model.ColorIdentity.MapToColors(),
+            ProducedMana = model.ProducedMana.MapToColors(),
             Keywords = model.Keywords,
             Games = model.Games.MapToGames(),
             Layout = model.Layout.MapToLayout(),

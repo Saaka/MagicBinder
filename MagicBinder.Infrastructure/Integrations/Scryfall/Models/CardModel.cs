@@ -29,6 +29,7 @@ public record CardModel
     public string[] ColorIdentity { get; init; } = Array.Empty<string>();
     public string[] Keywords { get; init; } = Array.Empty<string>();
     public string[] Games { get; init; } = Array.Empty<string>();
+    public string[] ProducedMana { get; init; } = Array.Empty<string>();
     public ImageUrisModel ImageUris { get; init; }
     public LegalitiesModel Legalities { get; init; }
     public CardFaceModel[] CardFaces { get; init; } = Array.Empty<CardFaceModel>();
