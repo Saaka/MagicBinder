@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from "react";
 import {useDocumentTitle, useQueryString, useMessageBox} from "Hooks";
-import {CardsDatabaseList} from "./CardsList/CardsDatabaseList";
+import {CardsListTable} from "./CardsListTable";
 import {CardsService} from "Services";
-import "./CardsDatabase.scss";
+import "./CardsList.scss";
 import {TextInput} from "components/forms";
 
-function CardsDatabase(props) {
+function CardsList(props) {
     useDocumentTitle("Cards database");
     
     const [setError, renderError] = useMessageBox("error", "small");
@@ -110,7 +110,7 @@ function CardsDatabase(props) {
                         </div>
                     </div>
                     <hr/>
-                    <CardsDatabaseList
+                    <CardsListTable
                         cards={cardsList.items}
                         isLoading={isLoading}
                         pageOptions={cardsList.options}
@@ -124,6 +124,6 @@ function CardsDatabase(props) {
 
 export
 {
-    CardsDatabase
+    CardsList
 }
     ;

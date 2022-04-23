@@ -1,4 +1,4 @@
-import {Admin, Dashboard, Unauthorized, About, Login, CardsDatabase, CardPage} from "views/exports";
+import {Admin, Dashboard, Unauthorized, About, Login, CardsList, CardPage} from "views/exports";
 import {RouteNames} from "./names";
 import {Card} from "reactstrap";
 
@@ -7,7 +7,7 @@ const appRoutes = [
         requireAuth: true,
         requireAdmin: false,
         path: RouteNames.CardsDatabase,
-        component: CardsDatabase,
+        component: CardsList,
         name: "Dashboard",
         icon: "home"
     },

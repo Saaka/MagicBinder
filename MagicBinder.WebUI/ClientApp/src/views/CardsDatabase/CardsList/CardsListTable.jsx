@@ -3,9 +3,9 @@ import {Icon, Loader, TableRowLoader, TooltipImage} from "components/common";
 import {Pagination} from "components/navigation";
 import {useHistory} from "react-router-dom";
 import {RouteNames} from "routes/names";
-import "./CardsDatabaseList.scss";
+import "./CardsListTable.scss";
 
-export const CardsDatabaseList = ({cards, pageOptions, isLoading, setIsLoading, onPaginationChanged}) => {
+export const CardsListTable = ({cards, pageOptions, isLoading, setIsLoading, onPaginationChanged}) => {
     const history = useHistory();
     
     const renderLoader = () => <div className="center"><Loader size="xs" dark/></div>;
