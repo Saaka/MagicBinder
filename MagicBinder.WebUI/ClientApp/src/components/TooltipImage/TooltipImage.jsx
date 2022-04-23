@@ -9,16 +9,21 @@ const TooltipImage = (props) => {
             <img className="image-element" src={dataTip} alt="Image tooltip for current element"/>
         </figure>);
 
+    const clearSelect = (ev) => {
+        if (ev.target.activeElement)
+            ev.target.activeElement.blur();
+    }
+
     return (
-        <ReactTooltip id={props.id} 
-                      place="right" 
-                      effect="solid" 
-                      className="tooltip-container" 
-                      type="light" 
+        <ReactTooltip id={props.id}
+                      place="right"
+                      effect="solid"
+                      className="tooltip-container"
+                      type="light"
                       border={true}
                       clickable={true}
-                      scrollHide={false}
-                      getContent={(dt) => imageContent(dt)}>
+                      getContent={(dt) => imageContent(dt)}
+                      afterHide={clearSelect}>
         </ReactTooltip>
     );
 }
