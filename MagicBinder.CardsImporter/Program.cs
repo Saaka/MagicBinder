@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Autofac;
-using MagicBinder.Application.Commands.Cards;
+using MagicBinder.Application.Commands.Imports;
 using MagicBinder.CardsImporter.CompositionRoots;
 using MagicBinder.CardsImporter.CompositionRoots.Extensions;
 using MagicBinder.CardsImporter.Services;

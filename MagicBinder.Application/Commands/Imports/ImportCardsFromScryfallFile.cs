@@ -7,7 +7,7 @@ using MagicBinder.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace MagicBinder.Application.Commands.Cards;
+namespace MagicBinder.Application.Commands.Imports;
 
 public record ImportCardsFromScryfallFile(string JsonFileContent) : IRequest;
 
