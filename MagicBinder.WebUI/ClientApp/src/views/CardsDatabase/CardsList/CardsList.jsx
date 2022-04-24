@@ -154,7 +154,7 @@ function CardsList(props) {
                                     disabled={isLoading}>
                                 Apply filters
                             </button>
-                            <button className="button is-primary is-light"
+                            <button className="button"
                                     onClick={() => clearFilters()}
                                     disabled={isLoading}>
                                 Clear filters

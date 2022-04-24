@@ -16,8 +16,8 @@ html {
 }
 
 .has-background-gradient {
-  background: $primary-dark;
-  background: linear-gradient(180deg, $primary-dark 0%, $primary 100%);
+  background: $primary-light;
+  background: linear-gradient(180deg, $primary-light 0%, $primary 100%);
 }
 
 .is-responsive {
