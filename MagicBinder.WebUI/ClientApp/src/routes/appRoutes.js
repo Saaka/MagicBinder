@@ -3,7 +3,7 @@ import {RouteNames} from "./names";
 
 const appRoutes = [
     {
-        requireAuth: true,
+        requireAuth: false,
         requireAdmin: false,
         path: RouteNames.CardsDatabase,
         component: CardsList,
@@ -11,7 +11,7 @@ const appRoutes = [
         icon: "home"
     },
     {
-        requireAuth: true,
+        requireAuth: false,
         requireAdmin: false,
         path: RouteNames.CardRoute,
         component: CardPage,
