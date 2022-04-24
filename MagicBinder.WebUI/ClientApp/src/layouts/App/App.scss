@@ -2,7 +2,9 @@
 
 .app-container {
   min-height: 100vh;
-  
+  //display: flex;
+  //flex-direction: column;
+
   .app-container-content {
     padding: 12px;
   }

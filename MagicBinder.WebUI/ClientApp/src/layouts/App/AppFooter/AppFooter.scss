@@ -1,0 +1,16 @@
+@import "src/assets/variables";
+
+footer.footer {
+  margin-top: auto;
+  background-color: $dark;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  
+  .content {
+    p.footer-text {
+      color: $grey-light;
+      font-size: $size-7;
+      margin-bottom: 5px;
+    }
+  }
+}

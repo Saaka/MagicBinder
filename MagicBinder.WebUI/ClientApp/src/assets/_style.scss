@@ -24,3 +24,8 @@ html {
   @extend .is-four-fifths-fullhd;
   @extend .is-full-mobile;
 }
+
+.is-responsive-footer {
+  @extend .is-half-fullhd;
+  @extend .is-full-mobile;
+}
