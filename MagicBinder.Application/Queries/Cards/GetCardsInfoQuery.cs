@@ -8,16 +8,11 @@ namespace MagicBinder.Application.Queries.Cards;
 
 public class GetCardsInfoQuery : Request<PagedList<CardInfoModel>>, IPageableRequest
 {
-    public FiltersData Filters { get; set; } = new();
+    public string? Name { get; set; }
+    public string? TypeLine { get; set; }
+    public string? OracleText { get; set; }
     public int PageSize { get; set; }
     public int PageNumber { get; set; }
-
-    public class FiltersData
-    {
-        public string? Name { get; set; }
-        public string? TypeLine { get; set; }
-        public string? OracleText { get; set; }
-    }
 }
 
 public class GetCardsInfoQueryHandler : RequestHandler<GetCardsInfoQuery, PagedList<CardInfoModel>>

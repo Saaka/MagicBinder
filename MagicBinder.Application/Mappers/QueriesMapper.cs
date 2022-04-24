@@ -7,9 +7,9 @@ public static class QueriesMapper
 {
     public static CardsListQueryParams MapToQueryParams(this GetCardsInfoQuery query) => new()
     {
-        Name = query.Filters.Name,
-        OracleText = query.Filters.OracleText,
-        TypeLine = query.Filters.TypeLine,
+        Name = query.Name,
+        OracleText = query.OracleText,
+        TypeLine = query.TypeLine,
         PageNumber = query.PageNumber,
         PageSize = query.PageSize
     };

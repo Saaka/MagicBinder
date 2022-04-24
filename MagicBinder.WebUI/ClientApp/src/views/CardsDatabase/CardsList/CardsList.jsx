@@ -15,17 +15,21 @@ function CardsList(props) {
     const [cardsList, setCards] = useState({items: []});
     const [isLoading, setIsLoading] = useState(true);
     const [filters, setFilters] = useState(null);
-    const [inputs, setInputs] = useState({search: ""});
+    const [inputs, setInputs] = useState({name: "", typeLine: ""});
 
     useEffect(() => {
         setIsLoading(true);
         const query = qs ?? {};
         setFilters({
-            search: query.search ?? "",
+            name: query.name ?? "",
+            typeLine: query.typeLine ?? "",
             pageSize: query.pageSize ?? 10,
             pageNumber: query.pageNumber ?? 1
         });
-        setInputs({search: query.search ?? ""});
+        setInputs({
+            name: query.name ?? "",
+            typeLine: query.typeLine ?? ""
+        });
 
     }, []);
 
@@ -39,21 +43,21 @@ function CardsList(props) {
         }
     }, [filters])
 
-    const filterList = () => {
+    const applyFilters = () => {
         const newValues = {
-            search: inputs.search,
+            ...inputs,
             pageNumber: 1
         };
-        applyFiltering(newValues);
+        updateCardFiltering(newValues);
     }
 
     const clearFilters = () => {
-        const newValues = {
-            search: "",
-            pageNumber: 1
+        const clearedFilters = {
+            name: "",
+            typeLine: ""
         };
-        applyFiltering(newValues);
-        setInputs({search: ""})
+        updateCardFiltering({...filters, ...clearedFilters, pageNumber: 1});
+        setInputs(clearedFilters)
     }
 
     const updatePageSizeFilters = (pageSize, pageNumber) => {
@@ -61,10 +65,10 @@ function CardsList(props) {
             pageSize: pageSize,
             pageNumber: pageNumber
         };
-        applyFiltering(newValues);
+        updateCardFiltering(newValues);
     }
 
-    const applyFiltering = (newValues) => {
+    const updateCardFiltering = (newValues) => {
         updateQs(newValues);
         setFilters(prev => ({...prev, ...newValues}));
     }
@@ -73,11 +77,7 @@ function CardsList(props) {
         setIsLoading(true);
         setError("");
         cardsService
-            .getCards({
-                filter: filters.search,
-                pageSize: filters.pageSize,
-                pageNumber: filters.pageNumber
-            })
+            .getCards(filters)
             .then((data) => {
                 if (!isClosed.current) setCards(data);
             })
@@ -98,17 +98,29 @@ function CardsList(props) {
                 <p className="title has-text-light">Cards database</p>
                 <div className="box">
                     <div className="filters">
-                        <TextInput id="cardSearch"
-                                   label="Filter"
-                                   name="search"
-                                   value={inputs.search}
-                                   onChange={handleInputsChange}
-                                   disabled={isLoading}
-                                   onEnterPressed={filterList}/>
-
+                        <div className="columns is-responsive">
+                            <div className="column">
+                                <TextInput id="name-input"
+                                           label="Name"
+                                           name="name"
+                                           value={inputs.name}
+                                           onChange={handleInputsChange}
+                                           disabled={isLoading}
+                                           onEnterPressed={applyFilters}/>
+                            </div>
+                            <div className="column">
+                                <TextInput id="type-line-input"
+                                           label="Type line"
+                                           name="typeLine"
+                                           value={inputs.typeLine}
+                                           onChange={handleInputsChange}
+                                           disabled={isLoading}
+                                           onEnterPressed={applyFilters}/>
+                            </div>
+                        </div>
                         <div>
                             <button className="button is-primary"
-                                    onClick={() => filterList()}
+                                    onClick={() => applyFilters()}
                                     disabled={isLoading}>
                                 Apply filters
                             </button>

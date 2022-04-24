@@ -1,8 +1,9 @@
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using MagicBinder.Core.Models;
 using MagicBinder.Domain.Aggregates;
-using MagicBinder.Domain.Aggregates.Entities;
 using MagicBinder.Domain.Enums;
+using MagicBinder.Infrastructure.Repositories.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -38,25 +39,33 @@ public class CardsRepository : IMongoRepository
 
     public IMongoCollection<Card> Cards => _database.GetCollection<Card>("Cards");
 
-    public async Task<PagedList<Card>> GetCardsListAsync(string search, IPageableRequest request)
+    public async Task<PagedList<Card>> GetCardsListAsync(CardsListQueryParams queryParams)
     {
         var builder = Builders<Card>.Filter;
         var gameFilter = builder.Where(x => x.Games.Contains(GameType.Paper));
         var filter = gameFilter;
+        filter = ApplyRegexFilter(filter, x => x.Name, queryParams.Name);
+        filter = ApplyRegexFilter(filter, x => x.LatestPrinting.TypeLine, queryParams.TypeLine);
 
-        if (!string.IsNullOrEmpty(search))
+        if (!string.IsNullOrEmpty(queryParams.OracleText))
         {
-            var regex = new Regex(search, RegexOptions.IgnoreCase);
-            var nameFilter = builder.Regex(x => x.Name, BsonRegularExpression.Create(regex));
-            var typeFilter = builder.Regex(x => x.LatestPrinting.TypeLine, BsonRegularExpression.Create(regex));
+            var regex = new Regex(queryParams.OracleText, RegexOptions.IgnoreCase);
             var oracleTextFilter = builder.Where(x => x.CardPrintings.Any(p => regex.IsMatch(p.OracleText)));
-            var searchFilter = builder.Or(nameFilter, typeFilter, oracleTextFilter);
-
-            filter = builder.And(searchFilter);
+            filter = builder.And(filter, oracleTextFilter);
         }
 
         var query = Cards.AsQueryable().OrderBy(x => x.Name).Where(x => filter.Inject());
 
-        return await query.ToPagedListAsync(request);
+        return await query.ToPagedListAsync(queryParams);
+    }
+
+    private static FilterDefinition<Card> ApplyRegexFilter(FilterDefinition<Card> filter, Expression<Func<Card, object>> property, string? value)
+    {
+        var builder = Builders<Card>.Filter;
+        if (string.IsNullOrEmpty(value)) return filter;
+
+        var regex = new Regex(value, RegexOptions.IgnoreCase);
+        var newFilter = builder.Regex(property, BsonRegularExpression.Create(regex));
+        return builder.And(filter, newFilter);
     }
 }
