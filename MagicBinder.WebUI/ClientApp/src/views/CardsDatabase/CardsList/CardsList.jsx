@@ -112,7 +112,7 @@ function CardsList(props) {
         <React.Fragment>
             <p className="title has-text-light">Cards database</p>
             <div className="box">
-                <div className="card">
+                <div className="card card-filters">
                     <div className="card-header">
                         <p className="card-header-title">
                             Filters
@@ -162,7 +162,6 @@ function CardsList(props) {
                         </div>
                     </div>
                 </div>
-                <hr/>
                 <CardsListTable
                     cards={cardsList.items}
                     isLoading={isLoading}

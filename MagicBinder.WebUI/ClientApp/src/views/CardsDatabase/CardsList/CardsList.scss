@@ -6,3 +6,19 @@
     display: flex;
   }
 }
+
+div.columns.filter-columns {
+
+  div.column {
+    padding-top: 0;
+    padding-bottom: 5px;
+    
+    .field {
+      margin-top: 0;
+    }
+  }
+}
+
+.card.card-filters {
+  margin-bottom: 5px;
+}
