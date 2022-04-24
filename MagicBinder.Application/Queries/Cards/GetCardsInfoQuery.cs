@@ -8,24 +8,31 @@ namespace MagicBinder.Application.Queries.Cards;
 
 public class GetCardsInfoQuery : Request<PagedList<CardInfoModel>>, IPageableRequest
 {
-    public string Filter { get; set; }
+    public FiltersData Filters { get; set; } = new();
     public int PageSize { get; set; }
     public int PageNumber { get; set; }
+
+    public class FiltersData
+    {
+        public string? Name { get; set; }
+        public string? TypeLine { get; set; }
+        public string? OracleText { get; set; }
+    }
 }
 
 public class GetCardsInfoQueryHandler : RequestHandler<GetCardsInfoQuery, PagedList<CardInfoModel>>
 {
     private readonly CardsRepository _cardsRepository;
 
-    public GetCardsInfoQueryHandler(CardsRepository cardsRepository) 
-    
+    public GetCardsInfoQueryHandler(CardsRepository cardsRepository)
+
     {
         _cardsRepository = cardsRepository;
     }
 
     public override async Task<RequestResult<PagedList<CardInfoModel>>> Handle(GetCardsInfoQuery request, CancellationToken cancellationToken)
     {
-        var cardsList = await _cardsRepository.GetCardsListAsync(request.Filter, request);
+        var cardsList = await _cardsRepository.GetCardsListAsync(request.MapToQueryParams());
 
         return request.Success(cardsList.MapToResponse(CardMapper.MapToCardInfo));
     }
