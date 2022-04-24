@@ -18,5 +18,5 @@ public class CardsController : ControllerBase
     }
 
     [HttpPost("list/simple")]
-    public async Task<ActionResult<PagedList<CardInfoModel>>> GetCards(GetCardsInfoQuery query) => await _mediator.SendQuery(query);
+    public async Task<ActionResult<PagedList<CardInfoModel>>> GetCards(GetCardsSimpleListQuery query) => await _mediator.SendQuery(query);
 }

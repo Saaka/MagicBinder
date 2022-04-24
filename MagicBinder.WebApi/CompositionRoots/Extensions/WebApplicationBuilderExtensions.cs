@@ -1,7 +1,9 @@
 ﻿using System.Text;
+using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.Mongo;
 using Hangfire.Mongo.Migration.Strategies;
+using MagicBinder.Application.CompositionRoots;
 using MagicBinder.Core.CompositionRoots;
 using MagicBinder.Infrastructure.Configurations;
 using MagicBinder.WebApi.CompositionRoots.Configurations;
@@ -32,7 +34,13 @@ public static class WebApplicationBuilderExtensions
                         .WithOrigins(config.AllowedOrigin);
                 });
             })
-            .AddControllers(opt => { opt.Filters.Add<CustomExceptionFilter>(); });
+            .AddControllers(opt => { opt.Filters.Add<CustomExceptionFilter>(); })
+            .AddFluentValidation(c =>
+            {
+                c.RegisterValidatorsFromAssembly(typeof(ApplicationCompositionRoot).Assembly);
+                c.LocalizationEnabled = false;
+                c.DisableDataAnnotationsValidation = true;
+            });
 
         builder.Services
             .Configure<ApiBehaviorOptions>(opt => opt.SuppressModelStateInvalidFilter = true)
@@ -93,7 +101,7 @@ public static class WebApplicationBuilderExtensions
         if (swagger.Enabled)
             builder.Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MagicBinder.WebApi", Version = "v1" }); 
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MagicBinder.WebApi", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,

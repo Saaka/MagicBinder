@@ -6,7 +6,7 @@ using MagicBinder.Infrastructure.Repositories;
 
 namespace MagicBinder.Application.Queries.Cards;
 
-public class GetCardsInfoQuery : Request<PagedList<CardInfoModel>>, IPageableRequest
+public class GetCardsSimpleListQuery : Request<PagedList<CardInfoModel>>, IPageableRequest
 {
     public string? Name { get; set; }
     public string? TypeLine { get; set; }
@@ -15,7 +15,7 @@ public class GetCardsInfoQuery : Request<PagedList<CardInfoModel>>, IPageableReq
     public int PageNumber { get; set; }
 }
 
-public class GetCardsInfoQueryHandler : RequestHandler<GetCardsInfoQuery, PagedList<CardInfoModel>>
+public class GetCardsInfoQueryHandler : RequestHandler<GetCardsSimpleListQuery, PagedList<CardInfoModel>>
 {
     private readonly CardsRepository _cardsRepository;
 
@@ -25,7 +25,7 @@ public class GetCardsInfoQueryHandler : RequestHandler<GetCardsInfoQuery, PagedL
         _cardsRepository = cardsRepository;
     }
 
-    public override async Task<RequestResult<PagedList<CardInfoModel>>> Handle(GetCardsInfoQuery request, CancellationToken cancellationToken)
+    public override async Task<RequestResult<PagedList<CardInfoModel>>> Handle(GetCardsSimpleListQuery request, CancellationToken cancellationToken)
     {
         var cardsList = await _cardsRepository.GetCardsListAsync(request.MapToQueryParams());
 
