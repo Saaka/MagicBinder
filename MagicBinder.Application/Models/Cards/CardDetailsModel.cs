@@ -11,6 +11,6 @@ public record CardDetailsModel
     public string ManaCost { get; set; } = string.Empty;
     public string OracleText { get; init; } = string.Empty;
     public ColorType[] Colors { get; init; } = Array.Empty<ColorType>();
-    public CardImagesModel? Images { get; init; }
+    public CardImagesModel Images { get; init; } = new ();
     public string ScryfallUri { get; init; } = string.Empty;
 }

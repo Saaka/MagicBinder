@@ -30,8 +30,8 @@ public static class CardMapper
             Images = card.LatestPrinting.CardImages.MapToImages()
         };
 
-    private static CardImagesModel? MapToImages(this CardImages? images) => images == null
-        ? null
+    private static CardImagesModel MapToImages(this CardImages? images) => images == null
+        ? new CardImagesModel()
         : new CardImagesModel
         {
             Normal = images.Normal,

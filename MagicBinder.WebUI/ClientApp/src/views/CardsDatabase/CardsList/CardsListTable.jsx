@@ -8,7 +8,6 @@ import "./CardsListTable.scss";
 export const CardsListTable = ({cards, pageOptions, isLoading, setIsLoading, onPaginationChanged}) => {
     const history = useHistory();
     
-    const renderLoader = () => <div className="center"><Loader size="xs" dark/></div>;
     const renderRows = () => cards.map(card =>
         (
             <tr key={card.oracleId} className="card-row" onClick={ev => openCardPage(card.oracleId)}>

@@ -11,7 +11,7 @@ export class CardsService {
 
     getCardDetails = (oracleId) => {
         return this.authHttpService
-            .get(Constants.ApiRoutes.CardsDatabase.LIST_SIMPLE + oracleId)
+            .get(Constants.ApiRoutes.CardsDatabase.GET_DETAILS + oracleId)
             .then(resp => resp.data);
     };
 }
