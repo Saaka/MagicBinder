@@ -4,7 +4,7 @@ import "./Select.scss";
 const Select = props => {
     return (
         <div className="field field-select">
-            <label className="label">{props.label}</label>
+            {!!props.label ? <label className="label">{props.label}</label> : ""}
             <div className="control is-expanded">
                 <div className="select is-fullwidth">
                     <select id={props.id}

@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from "react";
+import {Select} from "components/forms";
+import "./Pagination.scss";
 
 const Pagination = (props) => {
     const [pagingSettings, setPagingSettings] = useState({
@@ -14,9 +16,11 @@ const Pagination = (props) => {
         }]
     });
 
+    const pageSizes = [{name: "Page size: 10", id: 10}, {name: "Page size: 25", id: 25}, {name: "Page size: 50", id: 50}];
+
     useEffect(() => {
         if (props.options == null) return;
-        
+
         calculatePagingSettings(props.options);
     }, [props.options]);
 
@@ -25,9 +29,15 @@ const Pagination = (props) => {
             .onPaginationChanged(pagingSettings.pageSize, pageNumber);
     }
 
+    const handlePageSizeChanged = (ev) => {
+        const {value} = ev.target;
+        return props
+            .onPaginationChanged(value, 1);
+    }
+
     const calculatePagingSettings = (options) => {
         const buttonsCount = 5;
-        const maxButtonsFromEdge = 3;
+        const maxButtonsFromEdge = 3
 
         let settings = {
             ...options,
@@ -36,12 +46,12 @@ const Pagination = (props) => {
                 isLink: true
             }]
         };
-        
+
         if (hasOnePage(settings)) {
             setPagingSettings(settings);
             return;
         }
-        
+
         if (settings.totalPages <= buttonsCount) {
             settings.pages = getLinksWithNumbers(settings.totalPages, 1);
         } else {
@@ -99,8 +109,8 @@ const Pagination = (props) => {
     const renderPageLink = (page) => (
         <li key={page.number}>
             <button className={"button pagination-link " + (page.number === pagingSettings.pageNumber ? "is-current" : "")}
-               aria-label={"Goto page " + page.number} onClick={() => handlePaginationChanged(page.number)}
-               disabled={props.isLoading}>{page.number}</button>
+                    aria-label={"Goto page " + page.number} onClick={() => handlePaginationChanged(page.number)}
+                    disabled={props.isLoading}>{page.number}</button>
         </li>
     );
 
@@ -113,13 +123,23 @@ const Pagination = (props) => {
     return (
         <nav className="pagination" role="navigation" aria-label="pagination">
             <button className="button pagination-previous" disabled={!pagingSettings.hasPreviousPage || props.isLoading}
-               onClick={() => handlePaginationChanged(pagingSettings.pageNumber - 1)}>Previous</button>
+                    onClick={() => handlePaginationChanged(pagingSettings.pageNumber - 1)}>Previous
+            </button>
             <button className="button pagination-next" disabled={!pagingSettings.hasNextPage || props.isLoading}
-               onClick={() => handlePaginationChanged(pagingSettings.pageNumber + 1)}>Next page</button>
+                    onClick={() => handlePaginationChanged(pagingSettings.pageNumber + 1)}>Next page
+            </button>
             <ul className="pagination-list">
                 {pagingSettings.pages.map(page => (
                     page.isLink ? renderPageLink(page) : renderEllipsis(page)
                 ))}
+                <li key="page-size-li">
+                    <Select id="page-size-select"
+                            name="page-size"
+                            values={pageSizes}
+                            value={pagingSettings.pageSize}
+                            disabled={props.isLoading}
+                            onChange={handlePageSizeChanged}/>
+                </li>
             </ul>
         </nav>
     )
