@@ -3,10 +3,9 @@ import Axios from "axios";
 
 class HttpService {
 
-    constructor(baseAddress, baseTenant) {
+    constructor(baseAddress) {
         this.configService = new ConfigService();
         this.baseAddress = baseAddress || this.configService.ApiUrl;
-        this.baseTenant = baseTenant;
     };
 
     get = (address) => {

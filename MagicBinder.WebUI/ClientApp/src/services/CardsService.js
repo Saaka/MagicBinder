@@ -8,4 +8,10 @@ export class CardsService {
             .post(Constants.ApiRoutes.CardsDatabase.LIST_SIMPLE, request)
             .then(resp => resp.data);
     };
+
+    getCardDetails = (oracleId) => {
+        return this.authHttpService
+            .get(Constants.ApiRoutes.CardsDatabase.LIST_SIMPLE + oracleId)
+            .then(resp => resp.data);
+    };
 }

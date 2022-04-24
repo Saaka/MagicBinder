@@ -19,6 +19,9 @@ Constants.ApiRoutes.CardsDatabase = class CardsDatabaseRoutes {
     static get LIST_SIMPLE() {
         return "cards/list/simple";
     }
+    static get GET_DETAILS() {
+        return "cards/";
+    }
 }
 
 Constants.ApiRoutes.Admin = class AdminRoutes {
