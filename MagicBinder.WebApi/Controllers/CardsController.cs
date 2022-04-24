@@ -19,4 +19,7 @@ public class CardsController : ControllerBase
 
     [HttpPost("list/simple")]
     public async Task<ActionResult<PagedList<CardInfoModel>>> GetCards(GetCardsSimpleListQuery query) => await _mediator.SendQuery(query);
+
+    [HttpGet("oracleId:guid")]
+    public async Task<ActionResult<CardDetailsModel>> GetCardDetails(Guid oracleId) => await _mediator.SendQuery(new GetCardDetailsQuery { OracleId = oracleId });
 }

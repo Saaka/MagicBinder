@@ -1,5 +1,6 @@
 ﻿using MagicBinder.Application.Models.Cards;
 using MagicBinder.Domain.Aggregates;
+using MagicBinder.Domain.Aggregates.Entities;
 
 namespace MagicBinder.Application.Mappers;
 
@@ -13,4 +14,27 @@ public static class CardMapper
         Image = card.LatestPrinting.CardImages?.Normal ?? string.Empty,
         Artist = card.LatestPrinting.Artist
     };
+
+    public static CardDetailsModel? MapToCardDetails(this Card? card) => card == null
+        ? null
+        : new CardDetailsModel
+        {
+            OracleId = card.OracleId,
+            Name = card.Name,
+            TypeLine = card.LatestPrinting.TypeLine,
+            OracleText = card.LatestPrinting.OracleText,
+            ScryfallUri = card.LatestPrinting.ScryfallUri,
+            Colors = card.Colors,
+            Images = card.LatestPrinting.CardImages.MapToImages()
+        };
+
+    private static CardImagesModel? MapToImages(this CardImages? images) => images == null
+        ? null
+        : new CardImagesModel
+        {
+            Normal = images.Normal,
+            Large = images.Large,
+            Art = images.Art,
+            PngRounded = images.PngRounded
+        };
 }

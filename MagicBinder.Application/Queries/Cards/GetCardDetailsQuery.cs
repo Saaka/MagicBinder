@@ -1,4 +1,5 @@
-﻿using MagicBinder.Application.Models.Cards;
+﻿using MagicBinder.Application.Mappers;
+using MagicBinder.Application.Models.Cards;
 using MagicBinder.Core.Requests;
 using MagicBinder.Infrastructure.Repositories;
 
@@ -6,7 +7,7 @@ namespace MagicBinder.Application.Queries.Cards;
 
 public class GetCardDetailsQuery : Request<CardDetailsModel>
 {
-    public Guid OracleId { get; set; }
+    public Guid OracleId { get; init; }
 }
 
 public class GetCardDetailsQueryHandler : RequestHandler<GetCardDetailsQuery, CardDetailsModel>
@@ -20,6 +21,8 @@ public class GetCardDetailsQueryHandler : RequestHandler<GetCardDetailsQuery, Ca
 
     public override async Task<RequestResult<CardDetailsModel>> Handle(GetCardDetailsQuery request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var card = await _cardsRepository.GetAsync(request.OracleId);
+
+        return request.Success(card.MapToCardDetails());
     }
 }
