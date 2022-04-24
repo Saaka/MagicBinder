@@ -1,11 +1,14 @@
 ﻿using System.Net;
+using MagicBinder.Core.Exceptions;
+using MagicBinder.Core.Extensions;
+using MagicBinder.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace MagicBinder.WebApi.Filters;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-public class CustomExceptionFilter: ExceptionFilterAttribute
+public class CustomExceptionFilter : ExceptionFilterAttribute
 {
     private readonly IWebHostEnvironment _env;
     private readonly ILogger _logger;
@@ -24,10 +27,27 @@ public class CustomExceptionFilter: ExceptionFilterAttribute
 
         switch (exception)
         {
+            case RequestValidationException validationException:
+                HandleValidationException(context, validationException);
+                break;
             default:
                 HandleApplicationExceptions(context, exception);
                 break;
         }
+    }
+
+    private void HandleValidationException(ExceptionContext context, RequestValidationException validationException)
+    {
+        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        context.Result = new JsonResult(new
+        {
+            code = ErrorCode.ValidationError.ToString(),
+            details = validationException.Failures
+                .Select(f => new
+                {
+                    field = f.Key.ToCamelCase(), errors = f.Value
+                }).ToList()
+        });
     }
 
     private void HandleApplicationExceptions(ExceptionContext context, Exception exception)
@@ -41,7 +61,7 @@ public class CustomExceptionFilter: ExceptionFilterAttribute
             _ => HttpStatusCode.InternalServerError
         };
 
-        context.HttpContext.Response.StatusCode = (int) code;
+        context.HttpContext.Response.StatusCode = (int)code;
         context.Result = new JsonResult(new
         {
             Error = code.ToString(),
