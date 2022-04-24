@@ -4,13 +4,22 @@ import qs from "query-string";
 
 function useQueryString() {
     const history = useHistory();
-    const { search } = useLocation();
+    const {search} = useLocation();
     const getParsedQuery = () => qs.parse(search);
 
-    function update(param) {
-        const prev = getParsedQuery();
-        const updatedParams = qs.stringify({...prev, ...param});
+    const update = (params) => {
+        const currentQuery = getParsedQuery();
+        const newQuery = clearEmptyFields({...currentQuery, ...params});        
+        const updatedParams = qs.stringify(newQuery);
         history.push({search: updatedParams});
+    }
+    
+    const clearEmptyFields = (obj) => {
+        Object.keys(obj).forEach(key => {
+            if (obj[key] == null || obj[key] === "")
+                delete obj[key];
+        });
+        return obj;
     }
 
     return React.useMemo(() => [getParsedQuery(), update], [search]);
