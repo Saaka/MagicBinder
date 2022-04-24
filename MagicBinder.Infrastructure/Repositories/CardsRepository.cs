@@ -49,7 +49,7 @@ public class CardsRepository : IMongoRepository
 
         if (!string.IsNullOrEmpty(queryParams.OracleText))
         {
-            var regex = new Regex(queryParams.OracleText, RegexOptions.IgnoreCase);
+            var regex = new Regex(queryParams.OracleText.Trim(), RegexOptions.IgnoreCase);
             var oracleTextFilter = builder.Where(x => x.CardPrintings.Any(p => regex.IsMatch(p.OracleText)));
             filter = builder.And(filter, oracleTextFilter);
         }
@@ -64,7 +64,7 @@ public class CardsRepository : IMongoRepository
         var builder = Builders<Card>.Filter;
         if (string.IsNullOrEmpty(value)) return filter;
 
-        var regex = new Regex(value, RegexOptions.IgnoreCase);
+        var regex = new Regex(value.Trim(), RegexOptions.IgnoreCase);
         var newFilter = builder.Regex(property, BsonRegularExpression.Create(regex));
         return builder.And(filter, newFilter);
     }
