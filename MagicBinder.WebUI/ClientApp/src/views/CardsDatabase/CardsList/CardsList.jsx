@@ -4,13 +4,14 @@ import {CardsListTable} from "./CardsListTable";
 import {CardsService} from "Services";
 import "./CardsList.scss";
 import {TextInput} from "components/forms";
+import {load} from "dotenv";
 
 function CardsList(props) {
     useDocumentTitle("Cards database");
 
     const isClosed = useRef(false);
     const [setError, renderError] = useMessageBox("error", "small");
-    const [qs, updateQs] = useQueryString();
+    const [query, updateQs] = useQueryString();
     const cardsService = new CardsService();
     const [cardsList, setCards] = useState({items: []});
     const [isLoading, setIsLoading] = useState(true);
@@ -20,30 +21,43 @@ function CardsList(props) {
 
     useEffect(() => {
         setIsLoading(true);
-        const query = qs ?? {};
-        const queryInputs = {
-            name: query.name ?? "",
-            typeLine: query.typeLine ?? "",
-            oracleText: query.oracleText ?? ""
-        };
-        setFilters({
-            ...queryInputs,
-            pageSize: query.pageSize ?? 10,
-            pageNumber: query.pageNumber ?? 1
-        });
+        const qs = query ?? {};
+        const fv = filters ?? {};        
+        const [queryInputs, newFilters] = getFiltersAndInputs(qs, fv);
         setInputs(queryInputs);
+        setFilters(newFilters);
 
-    }, []);
-
-    useEffect(() => {
-        isClosed.current = false;
-        if (!filters) return;
-        loadCards();
+        loadCards(newFilters);
 
         return () => {
             isClosed.current = true;
         }
-    }, [filters])
+    }, []);
+
+    useEffect(() => {
+        if (query && !isLoading) {
+            setIsLoading(true);
+            const [queryInputs, newFilters] = getFiltersAndInputs(query, filters ?? {});
+            setInputs(queryInputs);
+            setFilters(newFilters);
+
+            loadCards(newFilters);
+        }
+    }, [query]);
+    
+    const getFiltersAndInputs = (qs, fv) => {
+        const queryInputs = {
+            name: qs.name ?? fv.name ?? "",
+            typeLine: qs.typeLine ?? fv.typeLine ?? "",
+            oracleText: qs.oracleText ?? fv.oracleText ?? ""
+        };
+        const newFilters = {
+            ...queryInputs,
+            pageSize: qs.pageSize ?? fv.pageSize ?? 10,
+            pageNumber: qs.pageNumber ?? fv.pageNumber ?? 1
+        }
+        return [queryInputs, newFilters];
+    }
 
     const applyFilters = () => {
         const newValues = {
@@ -67,15 +81,20 @@ function CardsList(props) {
     }
 
     const updateCardFiltering = (newValues) => {
+        setIsLoading(true);
         updateQs(newValues);
-        setFilters(prev => ({...prev, ...newValues}));
+        const newFilters = {
+            ...filters,
+            ...newValues
+        };
+        setFilters(newFilters);
+        loadCards(newFilters);
     }
 
-    const loadCards = () => {
-        setIsLoading(true);
+    const loadCards = (requestFilters) => {
         setError("");
         cardsService
-            .getCards(filters)
+            .getCards(requestFilters)
             .then((data) => {
                 if (!isClosed.current) setCards(data);
             })
