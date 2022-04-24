@@ -15,21 +15,23 @@ function CardsList(props) {
     const [cardsList, setCards] = useState({items: []});
     const [isLoading, setIsLoading] = useState(true);
     const [filters, setFilters] = useState(null);
-    const [inputs, setInputs] = useState({name: "", typeLine: ""});
+    const emptyInputs = {name: "", typeLine: "", oracleText: ""};
+    const [inputs, setInputs] = useState(emptyInputs);
 
     useEffect(() => {
         setIsLoading(true);
         const query = qs ?? {};
-        setFilters({
+        const queryInputs = {
             name: query.name ?? "",
             typeLine: query.typeLine ?? "",
+            oracleText: query.oracleText ?? ""
+        };
+        setFilters({
+            ...queryInputs,
             pageSize: query.pageSize ?? 10,
             pageNumber: query.pageNumber ?? 1
         });
-        setInputs({
-            name: query.name ?? "",
-            typeLine: query.typeLine ?? ""
-        });
+        setInputs(queryInputs);
 
     }, []);
 
@@ -52,12 +54,8 @@ function CardsList(props) {
     }
 
     const clearFilters = () => {
-        const clearedFilters = {
-            name: "",
-            typeLine: ""
-        };
-        updateCardFiltering({...filters, ...clearedFilters, pageNumber: 1});
-        setInputs(clearedFilters)
+        updateCardFiltering({...filters, ...emptyInputs, pageNumber: 1});
+        setInputs(emptyInputs)
     }
 
     const updatePageSizeFilters = (pageSize, pageNumber) => {
@@ -117,6 +115,15 @@ function CardsList(props) {
                                            disabled={isLoading}
                                            onEnterPressed={applyFilters}/>
                             </div>
+                            <div className="column">
+                                <TextInput id="oracle-text-input"
+                                           label="Oracle text"
+                                           name="oracleText"
+                                           value={inputs.oracleText}
+                                           onChange={handleInputsChange}
+                                           disabled={isLoading}
+                                           onEnterPressed={applyFilters}/>
+                            </div>
                         </div>
                         <div>
                             <button className="button is-primary"
@@ -144,8 +151,4 @@ function CardsList(props) {
     );
 }
 
-export
-{
-    CardsList
-}
-    ;
+export {CardsList};
