@@ -5,7 +5,7 @@ const Unauthorized = (props) => {
     useDocumentTitle("Unauthorized");
     return (
         <div className="columns">
-            <div className="column is-half is-offset-3">
+            <div className="column is-responsive-medium">
                 <div className="tile is-parent">
                     <article className="tile is-child notification is-primary">
                         <p className="title">Unauthorized</p>
