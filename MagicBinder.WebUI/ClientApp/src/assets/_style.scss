@@ -21,7 +21,6 @@ html {
 }
 
 .is-responsive {
-  @extend .is-half-fullhd;
-  @extend .is-three-quarters-widescreen;
-  @extend .is-four-fifths-desktop;
+  @extend .is-four-fifths-fullhd;
+  @extend .is-full-mobile;
 }
