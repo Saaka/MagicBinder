@@ -22,6 +22,8 @@ public static class CardMapper
             OracleId = card.OracleId,
             Name = card.Name,
             TypeLine = card.LatestPrinting.TypeLine,
+            Cmc = card.Cmc,
+            ManaCost = card.ManaCost,
             OracleText = card.LatestPrinting.OracleText,
             ScryfallUri = card.LatestPrinting.ScryfallUri,
             Colors = card.Colors,
