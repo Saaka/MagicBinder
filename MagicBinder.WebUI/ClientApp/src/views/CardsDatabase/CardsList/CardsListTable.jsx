@@ -40,7 +40,7 @@ export const CardsListTable = ({cards, pageOptions, isLoading, setIsLoading, onP
     );
 
     return (
-        <div className="cards-table-container">
+        <div className="block">
             {renderTable()}
             <Pagination options={pageOptions} onPaginationChanged={onPaginationChanged} isLoading={isLoading}
                         setIsLoading={setIsLoading}/>

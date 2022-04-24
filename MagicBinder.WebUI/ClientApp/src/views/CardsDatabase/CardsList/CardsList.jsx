@@ -95,7 +95,7 @@ function CardsList(props) {
             <div className="column is-responsive">
                 <p className="title has-text-light">Cards database</p>
                 <div className="box">
-                    <div className="filters">
+                    <div className="block">
                         <div className="columns is-responsive">
                             <div className="column">
                                 <TextInput id="name-input"
@@ -125,13 +125,13 @@ function CardsList(props) {
                                            onEnterPressed={applyFilters}/>
                             </div>
                         </div>
-                        <div>
+                        <div className="buttons block">
                             <button className="button is-primary"
                                     onClick={() => applyFilters()}
                                     disabled={isLoading}>
                                 Apply filters
                             </button>
-                            <button className="button button-clear is-primary is-light"
+                            <button className="button is-primary is-light"
                                     onClick={() => clearFilters()}
                                     disabled={isLoading}>
                                 Clear filters
