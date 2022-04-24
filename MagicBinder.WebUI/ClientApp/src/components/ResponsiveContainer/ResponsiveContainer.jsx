@@ -1,6 +1,6 @@
 import React from "react";
 
-const AppContent = (props) => {
+const ResponsiveContainer = (props) => {
 
     return (
         <section className="columns is-centered is-mobile">
@@ -11,4 +11,4 @@ const AppContent = (props) => {
     )
 };
 
-export {AppContent};
+export {ResponsiveContainer};
