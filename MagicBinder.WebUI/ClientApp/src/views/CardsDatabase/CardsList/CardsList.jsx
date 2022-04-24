@@ -34,9 +34,9 @@ function CardsList(props) {
     }, []);
 
     useEffect(() => {
-        if (query && !isLoading) {
+        if (!isLoading) {
             setIsLoading(true);
-            const [queryInputs, newFilters] = getFiltersAndInputs(query, filters ?? {});
+            const [queryInputs, newFilters] = getFiltersAndInputs(query ?? {}, {});
             setInputs(queryInputs);
             setFilters(newFilters);
 
@@ -112,47 +112,54 @@ function CardsList(props) {
         <React.Fragment>
             <p className="title has-text-light">Cards database</p>
             <div className="box">
-                <div className="block">
-                    <div className="columns is-responsive">
-                        <div className="column">
-                            <TextInput id="name-input"
-                                       label="Name"
-                                       name="name"
-                                       value={inputs.name}
-                                       onChange={handleInputsChange}
-                                       disabled={isLoading}
-                                       onEnterPressed={applyFilters}/>
-                        </div>
-                        <div className="column">
-                            <TextInput id="type-line-input"
-                                       label="Type line"
-                                       name="typeLine"
-                                       value={inputs.typeLine}
-                                       onChange={handleInputsChange}
-                                       disabled={isLoading}
-                                       onEnterPressed={applyFilters}/>
-                        </div>
-                        <div className="column">
-                            <TextInput id="oracle-text-input"
-                                       label="Oracle text"
-                                       name="oracleText"
-                                       value={inputs.oracleText}
-                                       onChange={handleInputsChange}
-                                       disabled={isLoading}
-                                       onEnterPressed={applyFilters}/>
-                        </div>
+                <div className="card">
+                    <div className="card-header">
+                        <p className="card-header-title">
+                            Filters
+                        </p>
                     </div>
-                    <div className="buttons block">
-                        <button className="button is-primary"
-                                onClick={() => applyFilters()}
-                                disabled={isLoading}>
-                            Apply filters
-                        </button>
-                        <button className="button is-primary is-light"
-                                onClick={() => clearFilters()}
-                                disabled={isLoading}>
-                            Clear filters
-                        </button>
+                    <div className="card-content">
+                        <div className="columns filter-columns">
+                            <div className="column">
+                                <TextInput id="name-input"
+                                           label="Name"
+                                           name="name"
+                                           value={inputs.name}
+                                           onChange={handleInputsChange}
+                                           disabled={isLoading}
+                                           onEnterPressed={applyFilters}/>
+                            </div>
+                            <div className="column">
+                                <TextInput id="type-line-input"
+                                           label="Type line"
+                                           name="typeLine"
+                                           value={inputs.typeLine}
+                                           onChange={handleInputsChange}
+                                           disabled={isLoading}
+                                           onEnterPressed={applyFilters}/>
+                            </div>
+                            <div className="column">
+                                <TextInput id="oracle-text-input"
+                                           label="Oracle text"
+                                           name="oracleText"
+                                           value={inputs.oracleText}
+                                           onChange={handleInputsChange}
+                                           disabled={isLoading}
+                                           onEnterPressed={applyFilters}/>
+                            </div>
+                        </div>
+                        <div className="buttons block">
+                            <button className="button is-primary"
+                                    onClick={() => applyFilters()}
+                                    disabled={isLoading}>
+                                Apply filters
+                            </button>
+                            <button className="button is-primary is-light"
+                                    onClick={() => clearFilters()}
+                                    disabled={isLoading}>
+                                Clear filters
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <hr/>
