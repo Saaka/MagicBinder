@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React from "react"
 import {useHistory} from "react-router-dom";
 import {useDocumentTitle} from "Hooks";
 import {RouteNames} from "routes/names";
@@ -13,21 +13,19 @@ function Admin(props) {
     }
 
     return (
-        <section className="columns is-centered">
-            <div className="column is-responsive">
-                <p className="title has-text-light">Admin Page</p>
-                <div className="tile is-ancestor">
-                    <div className="tile is-parent">
-                        <div className="tile box" onClick={() => redirectTo(RouteNames.Dashboard)}>
-                            <div className="content">
-                                <p className="title">Home</p>
-                                <p className="subtitle">Just go back to home page!</p>
-                            </div>
+        <React.Fragment>
+            <p className="title has-text-light">Admin Page</p>
+            <div className="tile is-ancestor">
+                <div className="tile is-parent">
+                    <div className="tile box" onClick={() => redirectTo(RouteNames.Dashboard)}>
+                        <div className="content">
+                            <p className="title">Home</p>
+                            <p className="subtitle">Just go back to home page!</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </React.Fragment>
     );
 }
 

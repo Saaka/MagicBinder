@@ -1,7 +1,8 @@
 import React from 'react';
-import {Switch, Route, Redirect} from "react-router";
+import {Switch, Redirect} from "react-router";
 import {AuthRoute, AdminRoute, RegularRoute} from "components/routing";
 import {AppNavbar} from "./AppNavbar/AppNavbar";
+import {AppContent} from "components/common";
 import appRoutes from "routes/appRoutes";
 import "./App.scss";
 
@@ -11,6 +12,7 @@ function App(props) {
         <div className="app-container has-background-gradient">
             <AppNavbar {...props} user={props.user}/>
             <div className="app-container-content">
+                <AppContent>
                 <Switch>
                     {appRoutes.map((prop, key) => {
                         if (prop.redirect)
@@ -33,6 +35,7 @@ function App(props) {
                                                  updateUser={props.updateUser}/>;
                     })}
                 </Switch>
+                </AppContent>
             </div>
         </div>
     );

@@ -4,3 +4,4 @@ export {Message} from "./Message/Message";
 export {Tabs} from "./Tabs/Tabs";
 export {TableRowLoader} from "./Table/TableRowLoader";
 export {TooltipImage} from "./TooltipImage/TooltipImage";
+export {AppContent} from "./AppContent/AppContent";
