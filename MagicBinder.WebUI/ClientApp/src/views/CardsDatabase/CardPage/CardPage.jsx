@@ -26,18 +26,40 @@ const CardPage = (props) => {
     const renderLoader = () => <div className="center"><Loader size="xs" dark/></div>;
 
     const renderCard = () => (
-        <div className="tile is-parent">
-            <article className="tile is-child notification is-primary">
-                <figure className="image">
-                    <img src={card.images.large}/>
-                </figure>
+        <div className="box">
+            <article>
+                <div className="is-left">
+                    <p className="title is-5">{card.name}</p>
+                    <hr/>
+                    <div className="columns">
+                        <div className="column is-narrow center">
+                            <figure className="image">
+                                <img src={card.images.large}/>
+                            </figure>
+                        </div>
+                        <div className="column">
+                            <div className="block">
+                                <p className="is-6"><b>Mana cost</b></p>
+                                <p>{card.manaCost}</p>
+                            </div>
+                            <div className="block">
+                                <p className="is-6"><b>Type line</b></p>
+                                <p>{card.typeLine}</p>
+                            </div>
+                            <div className="block">
+                                <p className="is-6"><b>Oracle text</b></p>
+                                <p>{card.oracleText}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </article>
         </div>
     );
 
     return (
-        <div className="columns">
-            <div className="column is-responsive-medium">
+        <div className="columns center">
+            <div className="column is-responsive">
                 {isLoading ? renderLoader() : renderCard()}
             </div>
         </div>
