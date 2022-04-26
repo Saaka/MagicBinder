@@ -49,7 +49,7 @@ public class InfrastructureCompositionRoot : Module
             .Assembly;
 
         builder.RegisterAssemblyTypes(assembly)
-            .Where(x => x.IsAssignableTo<IMongoRepository>())
+            .Where(x => x.IsAssignableTo<IMongoRepository>() && !x.IsAbstract)
             .AsImplementedInterfaces()
             .AsSelf()
             .InstancePerLifetimeScope();
