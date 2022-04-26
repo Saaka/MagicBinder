@@ -7,6 +7,11 @@ public class MongoIndexInitializer
 {
     public static async Task CreateIndexes(IMongoDatabase mongoDatabase)
     {
+        await CreateCardsIndexes(mongoDatabase);
+    }
+
+    private static async Task CreateCardsIndexes(IMongoDatabase mongoDatabase)
+    {
         var cards = mongoDatabase.GetCollection<Card>("Cards");
 
         var indexBuilder = Builders<Card>.IndexKeys;
@@ -16,8 +21,8 @@ public class MongoIndexInitializer
 
         var indexModels = new CreateIndexModel<Card>[]
         {
-            new CreateIndexModel<Card>(ascIndex, new CreateIndexOptions { Background = true, Name = "Cards_Name_Asc"}),
-            new CreateIndexModel<Card>(descIndex, new CreateIndexOptions { Background = true, Name = "Cards_Name_Desc" })
+            new(ascIndex, new CreateIndexOptions { Background = true, Name = "Cards_Name_Asc" }),
+            new(descIndex, new CreateIndexOptions { Background = true, Name = "Cards_Name_Desc" })
         };
 
         await cards.Indexes.CreateManyAsync(indexModels);
