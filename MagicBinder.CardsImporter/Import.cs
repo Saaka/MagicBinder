@@ -5,7 +5,7 @@ namespace MagicBinder.CardsImporter;
 
 public record Import
 {
-    public int Id { get; init; }
+    public string Id { get; init; } = string.Empty;
     public string Name { get; init; } = string.Empty;
     public string DefaultFileName { get; init; } = string.Empty;
     public Func<string, Request> RequestFactory { get; init; }
@@ -14,14 +14,14 @@ public record Import
     {
         new Import
         {
-            Id = 1,
+            Id = "card",
             Name = "Cards Import",
             DefaultFileName = "Import.json",
             RequestFactory = content => new ImportCardsFromScryfallFile(content)
         },
         new Import
         {
-            Id = 2,
+            Id = "set",
             Name = "Sets Import",
             DefaultFileName = "Sets.json",
             RequestFactory = content => new ImportSetsFromScryfallFile(content)

@@ -21,7 +21,7 @@ public class CardsImporterCompositionRoot : Module
         builder.RegisterInstance(config)
             .As<IConfiguration>();
 
-        builder.RegisterType<CardsJsonService>()
+        builder.RegisterType<JsonService>()
             .AsSelf()
             .InstancePerLifetimeScope();
 

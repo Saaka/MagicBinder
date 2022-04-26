@@ -1,6 +1,6 @@
 namespace MagicBinder.CardsImporter.Services;
 
-public class CardsJsonService
+public class JsonService
 {
     public async Task<string> GetJson(string fileName)
     {
