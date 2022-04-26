@@ -5,10 +5,7 @@ using MagicBinder.Infrastructure.Repositories;
 
 namespace MagicBinder.Application.Queries.Cards;
 
-public class GetCardDetailsQuery : Request<CardDetailsModel>
-{
-    public Guid OracleId { get; init; }
-}
+public record GetCardDetailsQuery(Guid OracleId) : Request<CardDetailsModel>;
 
 public class GetCardDetailsQueryHandler : RequestHandler<GetCardDetailsQuery, CardDetailsModel>
 {

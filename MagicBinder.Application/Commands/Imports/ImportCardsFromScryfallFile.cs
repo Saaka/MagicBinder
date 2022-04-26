@@ -1,17 +1,17 @@
 using MagicBinder.Application.Mappers;
+using MagicBinder.Core.Requests;
 using MagicBinder.Domain.Aggregates;
 using MagicBinder.Domain.Enums;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
 using MagicBinder.Infrastructure.Integrations.Scryfall.Models;
 using MagicBinder.Infrastructure.Repositories;
-using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace MagicBinder.Application.Commands.Imports;
 
-public record ImportCardsFromScryfallFile(string JsonFileContent) : IRequest;
+public record ImportCardsFromScryfallFile(string JsonFileContent) : Request;
 
-public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFromScryfallFile>
+public class ImportCardsFromScryfallFileHandler : RequestHandler<ImportCardsFromScryfallFile, Guid>
 {
     private readonly JsonCardsParser _jsonCardsParser;
     private readonly CardsRepository _cardsRepository;
@@ -25,7 +25,7 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
         _logger = logger;
     }
 
-    public async Task<Unit> Handle(ImportCardsFromScryfallFile request, CancellationToken cancellationToken)
+    public override async Task<RequestResult<Guid>> Handle(ImportCardsFromScryfallFile request, CancellationToken cancellationToken)
     {
         var cards = _jsonCardsParser.ParseCards(request.JsonFileContent);
         var groupedCards = ReturnedFilteredGroups(cards);
@@ -45,7 +45,7 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
                 card.LatestPrinting = printings.First(x => x.Games.Contains(GameType.Paper));
                 card.CardPrintings = printings;
                 _ = card.MapMissingFields();
-                
+
                 cardsToSave.Add(card);
             }
 
@@ -59,7 +59,7 @@ public class ImportCardsFromScryfallFileHandler : IRequestHandler<ImportCardsFro
         }
 
         _logger.LogInformation("Import finished");
-        return Unit.Value;
+        return request.Success();
     }
 
     private static List<IGrouping<Guid, CardModel>> ReturnedFilteredGroups(List<CardModel> cards) =>

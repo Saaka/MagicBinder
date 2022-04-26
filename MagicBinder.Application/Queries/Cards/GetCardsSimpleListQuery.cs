@@ -6,13 +6,13 @@ using MagicBinder.Infrastructure.Repositories;
 
 namespace MagicBinder.Application.Queries.Cards;
 
-public class GetCardsSimpleListQuery : Request<PagedList<CardInfoModel>>, IPageableRequest
+public record GetCardsSimpleListQuery : Request<PagedList<CardInfoModel>>, IPageableRequest
 {
-    public string? Name { get; set; }
-    public string? TypeLine { get; set; }
-    public string? OracleText { get; set; }
-    public int PageSize { get; set; }
-    public int PageNumber { get; set; }
+    public string? Name { get; init; }
+    public string? TypeLine { get; init; }
+    public string? OracleText { get; init; }
+    public int PageSize { get; init; }
+    public int PageNumber { get; init; }
 }
 
 public class GetCardsInfoQueryHandler : RequestHandler<GetCardsSimpleListQuery, PagedList<CardInfoModel>>

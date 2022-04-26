@@ -6,10 +6,7 @@ using MagicBinder.Infrastructure.Repositories;
 
 namespace MagicBinder.Application.Commands.Auth;
 
-public class AuthorizeWithGoogle : Request<AuthorizationModel>
-{
-    public string GoogleToken { get; set; }
-}
+public record AuthorizeWithGoogle(string GoogleToken) : Request<AuthorizationModel>;
 
 public class AuthorizeWithGoogleHandler : RequestHandler<AuthorizeWithGoogle, AuthorizationModel>
 {
