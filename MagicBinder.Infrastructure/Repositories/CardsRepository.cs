@@ -37,8 +37,6 @@ public class CardsRepository : IMongoRepository
 
     public virtual async Task<Card?> GetAsync(Guid id) => await Cards.AsQueryable().FirstOrDefaultAsync(x => x.OracleId == id);
 
-    public IMongoCollection<Card> Cards => _database.GetCollection<Card>("Cards");
-
     public async Task<PagedList<Card>> GetCardsListAsync(CardsListQueryParams queryParams)
     {
         var builder = Builders<Card>.Filter;
@@ -68,4 +66,6 @@ public class CardsRepository : IMongoRepository
         var newFilter = builder.Regex(property, BsonRegularExpression.Create(regex));
         return builder.And(filter, newFilter);
     }
+
+    private IMongoCollection<Card> Cards => _database.GetCollection<Card>("Cards");
 }
