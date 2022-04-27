@@ -1,4 +1,5 @@
 using MagicBinder.Core.Json;
+using MagicBinder.Infrastructure.Integrations.Scryfall.Mappers;
 using MagicBinder.Infrastructure.Integrations.Scryfall.Models;
 using Newtonsoft.Json;
 
@@ -10,7 +11,7 @@ public class JsonCardsParser
     {
         var jsonSerializerSettings = new JsonSerializerSettings
         {
-            ContractResolver = new CustomJsonContractResolver(ModelMappings.GetFullCardMapping())
+            ContractResolver = new CustomJsonContractResolver(CardsModelMapper.GetFullCardMapping())
         };
 
         var result = JsonConvert.DeserializeObject<List<CardModel>>(json, jsonSerializerSettings);

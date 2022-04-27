@@ -1,8 +1,8 @@
 using MagicBinder.Infrastructure.Integrations.Scryfall.Models;
 
-namespace MagicBinder.Infrastructure.Integrations.Scryfall;
+namespace MagicBinder.Infrastructure.Integrations.Scryfall.Mappers;
 
-public static class ModelMappings
+public static class CardsModelMapper
 {
     public static Dictionary<string, string> GetFullCardMapping() =>
         CardsMapping

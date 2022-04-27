@@ -14,14 +14,19 @@ public class InfrastructureCompositionRoot : Module
     protected override void Load(ContainerBuilder builder)
     {
         RegisterMongo(builder);
+        RegisterScryfall(builder);
+        RegisterIdentityIssuer(builder);
+    }
 
+    private static void RegisterScryfall(ContainerBuilder builder)
+    {
         builder.RegisterType<JsonCardsParser>()
             .AsSelf()
             .InstancePerLifetimeScope();
 
-        builder.RegisterType<IdentityIssuerClient>()
+        builder.RegisterType<JsonSetsParser>()
             .AsSelf()
-            .SingleInstance();
+            .InstancePerLifetimeScope();
     }
 
     private static void RegisterMongo(ContainerBuilder builder)
@@ -55,5 +60,12 @@ public class InfrastructureCompositionRoot : Module
             .InstancePerLifetimeScope();
         
         AggregateMappings.RegisterClassMaps();
+    }
+
+    private static void RegisterIdentityIssuer(ContainerBuilder builder)
+    {
+        builder.RegisterType<IdentityIssuerClient>()
+            .AsSelf()
+            .SingleInstance();
     }
 }
