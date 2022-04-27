@@ -194,16 +194,16 @@ public static class CardImporterMapper
     private static LayoutType MapToLayout(this string layoutType, LayoutType defaultLayout = LayoutType.Other) =>
         layoutType switch
         {
-            ScryfallConstants.Layouts.Adventure => LayoutType.Adventure,
-            ScryfallConstants.Layouts.Class => LayoutType.Class,
-            ScryfallConstants.Layouts.Flip => LayoutType.Flip,
-            ScryfallConstants.Layouts.Leveler => LayoutType.Leveler,
-            ScryfallConstants.Layouts.Mdfc => LayoutType.Mdfc,
-            ScryfallConstants.Layouts.Meld => LayoutType.Meld,
-            ScryfallConstants.Layouts.Normal => LayoutType.Normal,
-            ScryfallConstants.Layouts.Saga => LayoutType.Saga,
-            ScryfallConstants.Layouts.Split => LayoutType.Split,
-            ScryfallConstants.Layouts.Transform => LayoutType.Transform,
+            ScryfallCardsConstants.Layouts.Adventure => LayoutType.Adventure,
+            ScryfallCardsConstants.Layouts.Class => LayoutType.Class,
+            ScryfallCardsConstants.Layouts.Flip => LayoutType.Flip,
+            ScryfallCardsConstants.Layouts.Leveler => LayoutType.Leveler,
+            ScryfallCardsConstants.Layouts.Mdfc => LayoutType.Mdfc,
+            ScryfallCardsConstants.Layouts.Meld => LayoutType.Meld,
+            ScryfallCardsConstants.Layouts.Normal => LayoutType.Normal,
+            ScryfallCardsConstants.Layouts.Saga => LayoutType.Saga,
+            ScryfallCardsConstants.Layouts.Split => LayoutType.Split,
+            ScryfallCardsConstants.Layouts.Transform => LayoutType.Transform,
             _ => defaultLayout
         };
 
@@ -234,11 +234,11 @@ public static class CardImporterMapper
     private static ColorType MapToColor(string color) =>
         color switch
         {
-            ScryfallConstants.Colors.White => ColorType.White,
-            ScryfallConstants.Colors.Blue => ColorType.Blue,
-            ScryfallConstants.Colors.Black => ColorType.Black,
-            ScryfallConstants.Colors.Red => ColorType.Red,
-            ScryfallConstants.Colors.Green => ColorType.Green,
+            ScryfallCardsConstants.Colors.White => ColorType.White,
+            ScryfallCardsConstants.Colors.Blue => ColorType.Blue,
+            ScryfallCardsConstants.Colors.Black => ColorType.Black,
+            ScryfallCardsConstants.Colors.Red => ColorType.Red,
+            ScryfallCardsConstants.Colors.Green => ColorType.Green,
             _ => ColorType.Colorless
         };
 }

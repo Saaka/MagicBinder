@@ -1,6 +1,6 @@
 ﻿namespace MagicBinder.Infrastructure.Integrations.Scryfall;
 
-public class ScryfallConstants
+public class ScryfallCardsConstants
 {
     public class Layouts
     {

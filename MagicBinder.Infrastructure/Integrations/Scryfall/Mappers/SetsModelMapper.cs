@@ -19,7 +19,7 @@ public static class SetsModelMapper
         { nameof(SetModel.SetId), "id" },
         { nameof(SetModel.Code), "code" },
         { nameof(SetModel.Name), "name" },
-        { nameof(SetModel.ScryfalUri), "scryfall_uri" },
+        { nameof(SetModel.ScryfallUri), "scryfall_uri" },
         { nameof(SetModel.RealeasedAt), "released_at" },
         { nameof(SetModel.SetType), "set_type" },
         { nameof(SetModel.CardCount), "card_count" },
