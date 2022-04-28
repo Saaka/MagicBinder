@@ -12,7 +12,7 @@ public static class UserMapper
     public static UserModel MapToModel(this User user)
         => new()
         {
-            UserGuid = user.UserGuid,
+            UserId = user.UserId,
             Email = user.Email,
             DisplayName = user.DisplayName,
             ImageUrl = user.ImageUrl,

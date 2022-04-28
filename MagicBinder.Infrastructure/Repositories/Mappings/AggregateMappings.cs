@@ -76,8 +76,8 @@ public static class AggregateMappings
         BsonClassMap.RegisterClassMap<User>(cm =>
         {
             cm.AutoMap();
-            cm.GetMemberMap(x => x.UserGuid).SetIgnoreIfDefault(false);
-            cm.SetIdMember(cm.GetMemberMap(c => c.UserGuid));
+            cm.GetMemberMap(x => x.UserId).SetIgnoreIfDefault(false);
+            cm.SetIdMember(cm.GetMemberMap(c => c.UserId));
             cm.IdMemberMap.SetIdGenerator(GuidGenerator.Instance);
         });
     }

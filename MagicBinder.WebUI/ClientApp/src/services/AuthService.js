@@ -40,7 +40,7 @@ export class AuthService {
             return new User(false);
 
         return new User(true, {
-            userGuid: authData.sub,
+            userId: authData.sub,
             name: authData.name,
             email: authData.email,
             avatar: authData.avatar,
