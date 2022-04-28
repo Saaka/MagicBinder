@@ -18,3 +18,10 @@ public class CardNotFoundException : NotFoundException
     {
     }
 }
+
+public class CardPrintingNotFoundException : NotFoundException
+{
+    public CardPrintingNotFoundException(Guid cardId) : base(cardId, "CardPrinting")
+    {
+    }
+}
