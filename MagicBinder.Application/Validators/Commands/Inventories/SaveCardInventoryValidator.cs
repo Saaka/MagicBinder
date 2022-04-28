@@ -12,6 +12,7 @@ public class SaveCardInventoryValidator : AbstractValidator<SaveCardInventory>
         RuleForEach(x => x.Printings).ChildRules(printings =>
         {
             printings.RuleFor(x => x.CardId).NotEmpty();
+            printings.RuleFor(x => x.Count).GreaterThan(0);
         });
     }
 }
