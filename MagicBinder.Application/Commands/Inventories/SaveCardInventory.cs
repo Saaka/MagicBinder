@@ -31,14 +31,14 @@ public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
         if (!request.Printings.Any()) return request.Success();
 
         var card = await _cardsRepository.GetAsync(request.OracleId, cancellationToken);
-        if (card == null) throw new CardNotFoundException(request.OracleId);
+        if (card == null) throw new ArgumentException(nameof(request.OracleId));
 
         var inventoryPrintings = new List<InventoryPrinting>();
         foreach (var toAdd in request.Printings)
         {
             var printing = card.CardPrintings.FirstOrDefault(x => x.CardId == toAdd.CardId);
             if (printing == null)
-                throw new CardPrintingNotFoundException(toAdd.CardId);
+                throw new ArgumentException(nameof(SaveCardInventory.SavePrintingInfo.CardId));
 
             var inventoryPrinting = printing.MapToInventoryPrinting(toAdd.Count, toAdd.IsFoil);
             inventoryPrintings.Add(inventoryPrinting);

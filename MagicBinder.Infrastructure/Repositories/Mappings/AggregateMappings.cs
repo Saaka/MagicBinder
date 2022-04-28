@@ -23,7 +23,7 @@ public static class AggregateMappings
         BsonClassMap.RegisterClassMap<Inventory>(cm =>
         {
             cm.AutoMap();
-            // cm.GetMemberMap(x => x.Key).SetIgnoreIfDefault(false);
+            cm.GetMemberMap(x => x.Key).SetIgnoreIfDefault(false);
             cm.SetIdMember(cm.GetMemberMap(x => x.Key));
         });
     }
