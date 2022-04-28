@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using MagicBinder.Application.Commands.UserCardsInventory;
+using MagicBinder.Application.Commands.Inventories;
 
-namespace MagicBinder.Application.Validators.Commands.UserCardsInventory;
+namespace MagicBinder.Application.Validators.Commands.Inventories;
 
 public class SaveCardInventoryValidator : AbstractValidator<SaveCardInventory>
 {
