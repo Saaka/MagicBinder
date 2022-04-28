@@ -14,7 +14,7 @@ public class RequestContextService : IRequestContextService
         User = AuthContextModel.CreateAnonymous();
     }
 
-    public virtual void SetUser(Guid userGuid, bool isAdmin) => User = AuthContextModel.CreateAuthenticated(userGuid, isAdmin);
+    public virtual void SetUser(Guid userId, bool isAdmin) => User = AuthContextModel.CreateAuthenticated(userId, isAdmin);
     
     public virtual AuthContextModel User { get; private set; }
 }

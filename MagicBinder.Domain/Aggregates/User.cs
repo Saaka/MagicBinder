@@ -2,7 +2,7 @@
 
 public class User
 {
-    public Guid UserGuid { get; private set; }
+    public Guid UserId { get; private set; }
     public string DisplayName { get; private set; }
     public string Email { get; private set; }
     public string ImageUrl { get; private set; }
@@ -12,9 +12,9 @@ public class User
     {
     }
 
-    public User(Guid userGuid, string displayName, string email, string imageUrl, bool isAdmin = false)
+    public User(Guid userId, string displayName, string email, string imageUrl, bool isAdmin = false)
     {
-        UserGuid = userGuid;
+        UserId = userId;
         DisplayName = displayName;
         Email = email;
         ImageUrl = imageUrl;

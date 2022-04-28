@@ -4,7 +4,7 @@ export class User {
     constructor(isLoggedIn, values = {}) {
         
         this.isLoggedIn = isLoggedIn;
-        this.userGuid = values.userGuid;
+        this.userId = values.userId;
         this.email = values.email;
         this.name = values.name;
         this.avatar = values.avatar;

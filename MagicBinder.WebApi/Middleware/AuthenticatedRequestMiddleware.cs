@@ -17,10 +17,10 @@ public class AuthenticatedRequestMiddleware
     {
         if (HasUserContext(context))
         {
-            var userGuid = GetUserGuidFromContext(context);
+            var userId = GetUserIdFromContext(context);
             var isAdmin = IsAdmin(context);
 
-            requestContextService.SetUser(userGuid, isAdmin);
+            requestContextService.SetUser(userId, isAdmin);
         }
 
         await _next(context);
@@ -28,7 +28,7 @@ public class AuthenticatedRequestMiddleware
 
     private static bool IsAdmin(HttpContext context) => context.User.IsInRole(UserRoles.Admin);
 
-    private static Guid GetUserGuidFromContext(HttpContext context)
+    private static Guid GetUserIdFromContext(HttpContext context)
     {
         var guid = context.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
         return guid == null ? Guid.Empty : new Guid(guid);

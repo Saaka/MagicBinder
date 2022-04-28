@@ -15,12 +15,12 @@ public class UsersRepository : IMongoRepository
 
     public virtual async Task InsertAsync(User user) => await Users.InsertOneAsync(user);
 
-    public virtual async Task UpdateAsync(User user) => await Users.ReplaceOneAsync(x => x.UserGuid == user.UserGuid, user);
+    public virtual async Task UpdateAsync(User user) => await Users.ReplaceOneAsync(x => x.UserId == user.UserId, user);
 
-    public virtual async Task UpsertAsync(User user) => await Users.ReplaceOneAsync(x => x.UserGuid == user.UserGuid, user, new ReplaceOptions { IsUpsert = true });
+    public virtual async Task UpsertAsync(User user) => await Users.ReplaceOneAsync(x => x.UserId == user.UserId, user, new ReplaceOptions { IsUpsert = true });
 
     public virtual async Task<User?> GetAsync(Guid id, CancellationToken cancellationToken = default) 
-        => await Users.AsQueryable().FirstOrDefaultAsync(x => x.UserGuid == id, cancellationToken);
+        => await Users.AsQueryable().FirstOrDefaultAsync(x => x.UserId == id, cancellationToken);
 
     public IMongoCollection<User> Users => _database.GetCollection<User>("Users");
 }
