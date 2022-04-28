@@ -1,5 +1,8 @@
 ﻿using MagicBinder.Application.Exceptions;
+using MagicBinder.Application.Mappers;
 using MagicBinder.Core.Requests;
+using MagicBinder.Domain.Aggregates;
+using MagicBinder.Domain.Aggregates.Entities;
 using MagicBinder.Infrastructure.Repositories;
 
 namespace MagicBinder.Application.Commands.UserCardsInventory;
@@ -24,21 +27,25 @@ public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
 
     public override async Task<RequestResult<Guid>> Handle(SaveCardInventory request, CancellationToken cancellationToken)
     {
-        if (!_requestContextService.User.IsAuthorized)
-            throw new UnauthorizedAccessException();
+        if (!_requestContextService.CurrentContext.IsAuthorized) throw new UnauthorizedAccessException();
+        if (!request.Printings.Any()) return request.Success();
 
-        var card = await _cardsRepository.GetAsync(request.OracleId);
-        if (card == null)
-            throw new CardNotFoundException(request.OracleId);
+        var card = await _cardsRepository.GetAsync(request.OracleId, cancellationToken);
+        if (card == null) throw new CardNotFoundException(request.OracleId);
 
-        foreach (var printingToAdd in request.Printings)
+        var inventoryPrintings = new List<InventoryPrinting>();
+        foreach (var toAdd in request.Printings)
         {
-            var printing = card.CardPrintings.FirstOrDefault(x => x.CardId == printingToAdd.CardId);
+            var printing = card.CardPrintings.FirstOrDefault(x => x.CardId == toAdd.CardId);
             if (printing == null)
-                throw new CardPrintingNotFoundException(printingToAdd.CardId);
-            
-            
+                throw new CardPrintingNotFoundException(toAdd.CardId);
+
+            var inventoryPrinting = printing.MapToInventoryPrinting(toAdd.Count, toAdd.IsFoil);
+            inventoryPrintings.Add(inventoryPrinting);
         }
+
+        var inventory = new Inventory(card.OracleId, _requestContextService.CurrentContext.User.Id, card.Name, inventoryPrintings);
+        await _inventoryRepository.UpsertAsync(inventory, cancellationToken);
 
         return request.Success();
     }
