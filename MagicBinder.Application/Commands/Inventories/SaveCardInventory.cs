@@ -34,13 +34,13 @@ public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
         if (card == null) throw new ArgumentException(nameof(request.OracleId));
 
         var inventoryPrintings = new List<InventoryPrinting>();
-        foreach (var toAdd in request.Printings)
+        foreach (var toAdd in request.Printings.GroupBy(x => new { x.CardId, x.IsFoil }))
         {
-            var printing = card.CardPrintings.FirstOrDefault(x => x.CardId == toAdd.CardId);
+            var printing = card.CardPrintings.FirstOrDefault(x => x.CardId == toAdd.Key.CardId);
             if (printing == null)
                 throw new ArgumentException(nameof(SaveCardInventory.SavePrintingInfo.CardId));
 
-            var inventoryPrinting = printing.MapToInventoryPrinting(toAdd.Count, toAdd.IsFoil);
+            var inventoryPrinting = printing.MapToInventoryPrinting(toAdd.Sum(x => x.Count), toAdd.Key.IsFoil);
             inventoryPrintings.Add(inventoryPrinting);
         }
 
