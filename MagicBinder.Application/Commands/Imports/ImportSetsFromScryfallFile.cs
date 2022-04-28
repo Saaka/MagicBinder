@@ -1,4 +1,4 @@
-﻿using MagicBinder.Application.Mappers;
+﻿using MagicBinder.Application.Mappers.Importers;
 using MagicBinder.Core.Requests;
 using MagicBinder.Domain.Aggregates;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
