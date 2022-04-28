@@ -30,7 +30,7 @@ public class AuthorizeWithGoogleHandler : RequestHandler<AuthorizeWithGoogle, Au
                 .SetImageUrl(authData.User.ImageUrl);
 
         await _usersRepository.UpsertAsync(user);
-
+        
         return request.Success(new AuthorizationModel(user.MapToModel(), authData.Token));
     }
 }
