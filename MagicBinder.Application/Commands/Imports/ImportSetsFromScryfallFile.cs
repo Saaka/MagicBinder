@@ -42,7 +42,7 @@ public class ImportSetsFromScryfallFileHandler : RequestHandler<ImportSetsFromSc
 
             batchNumber++;
             _logger.LogInformation("Saving batch number {0} with {1} sets", batchNumber, batchToSave.Count);
-            await _setsRepository.UpsertManyAsync(batchToSave);
+            await _setsRepository.UpsertManyAsync(batchToSave, cancellationToken);
             batchToSave.Clear();
         }
 

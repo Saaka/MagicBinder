@@ -12,6 +12,13 @@ public static class AggregateMappings
 {
     public static void RegisterClassMaps()
     {
+        RegisterCardsMaps();
+        RegisterDictionariesMaps();
+        RegisterUsersMaps();
+    }
+
+    private static void RegisterCardsMaps()
+    {
         BsonClassMap.RegisterClassMap<Card>(cm =>
         {
             cm.AutoMap();
@@ -38,7 +45,21 @@ public static class AggregateMappings
             cm.GetMemberMap(x => x.Layout).SetSerializer(new EnumSerializer<LayoutType>(BsonType.String));
             cm.GetMemberMap(x => x.Colors).SetSerializer(new ArraySerializer<ColorType>(new EnumSerializer<ColorType>(BsonType.String)));
         });
+    }
 
+    private static void RegisterDictionariesMaps()
+    {
+        BsonClassMap.RegisterClassMap<Set>(cm =>
+        {
+            cm.AutoMap();
+            cm.GetMemberMap(x => x.SetId).SetIgnoreIfDefault(false);
+            cm.SetIdMember(cm.GetMemberMap(c => c.SetId));
+            cm.IdMemberMap.SetIdGenerator(GuidGenerator.Instance);
+        });
+    }
+
+    private static void RegisterUsersMaps()
+    {
         BsonClassMap.RegisterClassMap<User>(cm =>
         {
             cm.AutoMap();
