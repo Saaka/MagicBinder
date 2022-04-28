@@ -1,6 +1,6 @@
 ﻿namespace MagicBinder.Domain.Aggregates.Entities;
 
-public class InventoryCard
+public class InventoryPrinting
 {
     public Guid CardId { get; set; }
     public int Count { get; set; }
