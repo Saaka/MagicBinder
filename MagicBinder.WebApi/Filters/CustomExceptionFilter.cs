@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using MagicBinder.Application.Exceptions;
 using MagicBinder.Core.Exceptions;
 using MagicBinder.Core.Extensions;
 using MagicBinder.Domain.Enums;
@@ -54,6 +55,7 @@ public class CustomExceptionFilter : ExceptionFilterAttribute
     {
         var code = exception switch
         {
+            NotFoundException _ => HttpStatusCode.NotFound,
             ArgumentNullException _ => HttpStatusCode.BadRequest,
             ArgumentException _ => HttpStatusCode.BadRequest,
             InvalidOperationException _ => HttpStatusCode.Forbidden,
