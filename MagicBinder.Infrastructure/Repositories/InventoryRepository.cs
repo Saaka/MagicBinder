@@ -13,7 +13,7 @@ public class InventoryRepository : IMongoRepository
     }
 
     public virtual async Task UpsertAsync(Inventory inventory) => await Inventory
-        .ReplaceOneAsync(x => x.UserId == inventory.UserId && x.OracleId == inventory.OracleId, inventory, new ReplaceOptions { IsUpsert = true });
-    
+        .ReplaceOneAsync(x => x.Key.UserId == inventory.Key.UserId && x.Key.OracleId == inventory.Key.OracleId, inventory, new ReplaceOptions { IsUpsert = true });
+
     private IMongoCollection<Inventory> Inventory => _database.GetCollection<Inventory>("Inventory");
 }
