@@ -4,10 +4,10 @@ namespace MagicBinder.Domain.Aggregates;
 
 public class Inventory
 {
-    public InventoryKey Key { get; init; }
-    public string CardName { get; init; }
+    public InventoryKey Key { get; private set; }
+    public string CardName { get; private set; }
     public int TotalCount { get; private set; }
-    public List<InventoryPrinting> Printings { get; init; } = new();
+    public List<InventoryPrinting> Printings { get; private set; } = new();
 
     public Inventory(Guid oracleId, Guid userId, string cardName, List<InventoryPrinting> printings)
     {
