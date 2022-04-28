@@ -14,7 +14,7 @@ public class InventoriesRepository : IMongoRepository
 
     public virtual async Task UpsertAsync(Inventory inventory, CancellationToken cancellationToken = default)
         => await Inventories
-            .ReplaceOneAsync(x => x.Key.UserId == inventory.Key.UserId && x.Key.OracleId == inventory.Key.OracleId,
+            .ReplaceOneAsync(x => x.Key == inventory.Key,
                 inventory,
                 new ReplaceOptions { IsUpsert = true },
                 cancellationToken);

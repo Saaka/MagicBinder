@@ -23,6 +23,15 @@ public class MediatorCommandSender
             : new ObjectResult(result.ErrorData) { StatusCode = (int)HttpStatusCode.BadRequest };
     }
 
+    public virtual async Task<ActionResult> SendCommand(Request command)
+    {
+        var result = await _mediator.Send(command);
+
+        return result.IsSuccess
+            ? new OkResult()
+            : new ObjectResult(result.ErrorData) { StatusCode = (int)HttpStatusCode.BadRequest };
+    }
+
     public virtual async Task<ActionResult<TResponse>> SendQuery<TResponse>(Request<TResponse> command)
     {
         var result = await _mediator.Send(command);
