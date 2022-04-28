@@ -35,7 +35,7 @@ public class CardsRepository : IMongoRepository
         await Cards.BulkWriteAsync(models);
     }
 
-    public virtual async Task<Card?> GetAsync(Guid id) => await Cards.AsQueryable().FirstOrDefaultAsync(x => x.OracleId == id);
+    public virtual async Task<Card?> GetAsync(Guid oracleId) => await Cards.AsQueryable().FirstOrDefaultAsync(x => x.OracleId == oracleId);
 
     public async Task<PagedList<Card>> GetCardsListAsync(CardsListQueryParams queryParams)
     {

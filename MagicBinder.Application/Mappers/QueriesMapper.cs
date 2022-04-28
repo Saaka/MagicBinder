@@ -5,7 +5,7 @@ namespace MagicBinder.Application.Mappers;
 
 public static class QueriesMapper
 {
-    public static CardsListQueryParams MapToQueryParams(this GetCardsSimpleListQuery query) => new()
+    public static CardsListQueryParams MapToQueryParams(this GetCardsSimpleList query) => new()
     {
         Name = query.Name,
         OracleText = query.OracleText,

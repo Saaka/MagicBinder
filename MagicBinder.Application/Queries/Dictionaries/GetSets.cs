@@ -5,9 +5,9 @@ using MagicBinder.Infrastructure.Repositories;
 
 namespace MagicBinder.Application.Queries.Dictionaries;
 
-public record GetSetsQuery : Request<ICollection<SetModel>>;
+public record GetSets : Request<ICollection<SetModel>>;
 
-public class GetCardsInfoQueryHandler : RequestHandler<GetSetsQuery, ICollection<SetModel>>
+public class GetCardsInfoQueryHandler : RequestHandler<GetSets, ICollection<SetModel>>
 {
     private readonly SetsRepository _setsRepository;
 
@@ -16,7 +16,7 @@ public class GetCardsInfoQueryHandler : RequestHandler<GetSetsQuery, ICollection
         _setsRepository = setsRepository;
     }
 
-    public override async Task<RequestResult<ICollection<SetModel>>> Handle(GetSetsQuery request, CancellationToken cancellationToken)
+    public override async Task<RequestResult<ICollection<SetModel>>> Handle(GetSets request, CancellationToken cancellationToken)
     {
         var sets = await _setsRepository.GetSets(cancellationToken);
 

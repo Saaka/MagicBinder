@@ -18,8 +18,8 @@ public class CardsController : ControllerBase
     }
 
     [HttpPost("list/simple")]
-    public async Task<ActionResult<PagedList<CardInfoModel>>> GetCards(GetCardsSimpleListQuery query) => await _mediator.SendQuery(query);
+    public async Task<ActionResult<PagedList<CardInfoModel>>> GetCards(GetCardsSimpleList query) => await _mediator.SendQuery(query);
 
     [HttpGet("{oracleId}")]
-    public async Task<ActionResult<CardDetailsModel>> GetCardDetails(Guid oracleId) => await _mediator.SendQuery(new GetCardDetailsQuery(oracleId));
+    public async Task<ActionResult<CardDetailsModel>> GetCardDetails(Guid oracleId) => await _mediator.SendQuery(new GetCardDetails(oracleId));
 }

@@ -17,5 +17,5 @@ public class DictionariesController: ControllerBase
     }
     
     [HttpGet("sets")]
-    public async Task<ActionResult<ICollection<SetModel>>> GetCardDetails() => await _mediator.SendQuery(new GetSetsQuery());
+    public async Task<ActionResult<ICollection<SetModel>>> GetCardDetails() => await _mediator.SendQuery(new GetSets());
 }
