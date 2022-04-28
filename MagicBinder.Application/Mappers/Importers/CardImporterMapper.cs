@@ -4,7 +4,7 @@ using MagicBinder.Domain.Enums;
 using MagicBinder.Infrastructure.Integrations.Scryfall;
 using MagicBinder.Infrastructure.Integrations.Scryfall.Models;
 
-namespace MagicBinder.Application.Mappers;
+namespace MagicBinder.Application.Mappers.Importers;
 
 public static class CardImporterMapper
 {

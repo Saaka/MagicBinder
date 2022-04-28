@@ -1,13 +1,12 @@
 ﻿using MagicBinder.Application.Exceptions;
 using MagicBinder.Core.Requests;
-using MagicBinder.Domain.Constants;
 using MagicBinder.Infrastructure.Repositories;
 
 namespace MagicBinder.Application.Commands.UserCardsInventory;
 
 public record SaveCardInventory(Guid OracleId, ICollection<SaveCardInventory.SavePrintingInfo> Printings) : Request
 {
-    public record SavePrintingInfo(Guid CardId, int Count, bool IsFoil, string Language = Languages.Default);
+    public record SavePrintingInfo(Guid CardId, int Count, bool IsFoil);
 }
 
 public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
@@ -32,6 +31,14 @@ public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
         if (card == null)
             throw new CardNotFoundException(request.OracleId);
 
+        foreach (var printingToAdd in request.Printings)
+        {
+            var printing = card.CardPrintings.FirstOrDefault(x => x.CardId == printingToAdd.CardId);
+            if (printing == null)
+                throw new CardPrintingNotFoundException(printingToAdd.CardId);
+            
+            
+        }
 
         return request.Success();
     }
