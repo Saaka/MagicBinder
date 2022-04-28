@@ -12,9 +12,22 @@ public static class AggregateMappings
 {
     public static void RegisterClassMaps()
     {
+        RegisterInventoryMappings();
         RegisterCardsMaps();
         RegisterDictionariesMaps();
         RegisterUsersMaps();
+    }
+
+    private static void RegisterInventoryMappings()
+    {
+        BsonClassMap.RegisterClassMap<Inventory>(cm =>
+        {
+            cm.AutoMap();
+            cm.GetMemberMap(x => x.OracleId).SetIgnoreIfDefault(false);
+            cm.GetMemberMap(x => x.UserId).SetIgnoreIfDefault(false);
+            cm.SetIdMember(cm.GetMemberMap(c => c));
+            cm.IdMemberMap.SetIdGenerator(GuidGenerator.Instance);
+        });
     }
 
     private static void RegisterCardsMaps()

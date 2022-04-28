@@ -5,6 +5,7 @@ namespace MagicBinder.Domain.Aggregates;
 public class Inventory
 {
     public Guid OracleId { get; set; }
-    public Guid UserGuid { get; set; }
-    public List<InventoryCard> Cards { get; set; } = new();
+    public Guid UserId { get; set; }
+    public string CardName { get; set; } = string.Empty;
+    public List<InventoryPrinting> Printings { get; set; } = new();
 }
