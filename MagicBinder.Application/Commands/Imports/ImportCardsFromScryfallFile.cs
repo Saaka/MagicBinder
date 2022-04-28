@@ -54,7 +54,7 @@ public class ImportCardsFromScryfallFileHandler : RequestHandler<ImportCardsFrom
             batchNumber++;
 
             _logger.LogInformation("Saving batch number {0} with {1} cards", batchNumber, cardsToSave.Count);
-            await _cardsRepository.UpsertManyAsync(cardsToSave);
+            await _cardsRepository.UpsertManyAsync(cardsToSave, cancellationToken);
             cardsToSave.Clear();
         }
 

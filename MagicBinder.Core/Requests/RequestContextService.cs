@@ -4,17 +4,17 @@ namespace MagicBinder.Core.Requests;
 
 public interface IRequestContextService
 {
-    AuthContextModel User { get; }
+    AuthContextModel CurrentContext { get; }
 }
 
 public class RequestContextService : IRequestContextService
 {
     public RequestContextService()
     {
-        User = AuthContextModel.CreateAnonymous();
+        CurrentContext = AuthContextModel.CreateAnonymous();
     }
 
-    public virtual void SetUser(Guid userId, bool isAdmin) => User = AuthContextModel.CreateAuthenticated(userId, isAdmin);
+    public virtual void SetUser(Guid userId, bool isAdmin) => CurrentContext = AuthContextModel.CreateAuthenticated(userId, isAdmin);
     
-    public virtual AuthContextModel User { get; private set; }
+    public virtual AuthContextModel CurrentContext { get; private set; }
 }

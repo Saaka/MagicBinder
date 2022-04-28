@@ -23,7 +23,7 @@ public class CardsRepository : IMongoRepository
 
     public virtual async Task UpdateAsync(Card card) => await Cards.ReplaceOneAsync(x => x.OracleId == card.OracleId, card);
 
-    public virtual async Task UpsertManyAsync(ICollection<Card> cards)
+    public virtual async Task UpsertManyAsync(ICollection<Card> cards, CancellationToken cancellationToken = default)
     {
         var models = new List<WriteModel<Card>>();
         foreach (var card in cards)
@@ -32,12 +32,13 @@ public class CardsRepository : IMongoRepository
             models.Add(model);
         }
 
-        await Cards.BulkWriteAsync(models);
+        await Cards.BulkWriteAsync(models, null, cancellationToken);
     }
 
-    public virtual async Task<Card?> GetAsync(Guid oracleId) => await Cards.AsQueryable().FirstOrDefaultAsync(x => x.OracleId == oracleId);
+    public virtual async Task<Card?> GetAsync(Guid oracleId, CancellationToken cancellationToken = default)
+        => await Cards.AsQueryable().FirstOrDefaultAsync(x => x.OracleId == oracleId, cancellationToken);
 
-    public async Task<PagedList<Card>> GetCardsListAsync(CardsListQueryParams queryParams)
+    public async Task<PagedList<Card>> GetCardsListAsync(CardsListQueryParams queryParams, CancellationToken cancellationToken = default)
     {
         var builder = Builders<Card>.Filter;
         var gameFilter = builder.Where(x => x.Games.Contains(GameType.Paper));
@@ -54,7 +55,7 @@ public class CardsRepository : IMongoRepository
 
         var query = Cards.AsQueryable().OrderBy(x => x.Name).Where(x => filter.Inject());
 
-        return await query.ToPagedListAsync(queryParams);
+        return await query.ToPagedListAsync(queryParams, cancellationToken);
     }
 
     private static FilterDefinition<Card> ApplyRegexFilter(FilterDefinition<Card> filter, Expression<Func<Card, object>> property, string? value)

@@ -20,11 +20,11 @@ public class TestController: ControllerBase
     [HttpGet]
     [Route("user")]
     [ProducesResponseType(typeof(AuthContextModel), (int) HttpStatusCode.OK)]
-    public IActionResult GetUser() => Ok(_requestContextService.User);
+    public IActionResult GetUser() => Ok(_requestContextService.CurrentContext);
     
     [HttpGet]
     [Authorize]
     [Route("user-auth")]
     [ProducesResponseType(typeof(AuthContextModel), (int) HttpStatusCode.OK)]
-    public IActionResult GetUserWithAuth() => Ok(_requestContextService.User);
+    public IActionResult GetUserWithAuth() => Ok(_requestContextService.CurrentContext);
 }

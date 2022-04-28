@@ -1,4 +1,5 @@
-﻿using MagicBinder.Application.Mappers;
+﻿using MagicBinder.Application.Exceptions;
+using MagicBinder.Application.Mappers;
 using MagicBinder.Application.Models.Cards;
 using MagicBinder.Core.Requests;
 using MagicBinder.Infrastructure.Repositories;
@@ -18,7 +19,8 @@ public class GetCardDetailsQueryHandler : RequestHandler<GetCardDetails, CardDet
 
     public override async Task<RequestResult<CardDetailsModel>> Handle(GetCardDetails request, CancellationToken cancellationToken)
     {
-        var card = await _cardsRepository.GetAsync(request.OracleId);
+        var card = await _cardsRepository.GetAsync(request.OracleId, cancellationToken);
+        if (card == null) throw new CardNotFoundException(request.OracleId);
 
         return request.Success(card.MapToCardDetails());
     }
