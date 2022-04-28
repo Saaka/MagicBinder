@@ -5,7 +5,7 @@ using MagicBinder.Domain.Aggregates;
 using MagicBinder.Domain.Aggregates.Entities;
 using MagicBinder.Infrastructure.Repositories;
 
-namespace MagicBinder.Application.Commands.UserCardsInventory;
+namespace MagicBinder.Application.Commands.Inventories;
 
 public record SaveCardInventory(Guid OracleId, ICollection<SaveCardInventory.SavePrintingInfo> Printings) : Request
 {
@@ -14,13 +14,13 @@ public record SaveCardInventory(Guid OracleId, ICollection<SaveCardInventory.Sav
 
 public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
 {
-    private readonly InventoryRepository _inventoryRepository;
+    private readonly InventoriesRepository _inventoriesRepository;
     private readonly CardsRepository _cardsRepository;
     private readonly IRequestContextService _requestContextService;
 
-    public SaveCardInventoryHandler(InventoryRepository inventoryRepository, CardsRepository cardsRepository, IRequestContextService requestContextService)
+    public SaveCardInventoryHandler(InventoriesRepository inventoriesRepository, CardsRepository cardsRepository, IRequestContextService requestContextService)
     {
-        _inventoryRepository = inventoryRepository;
+        _inventoriesRepository = inventoriesRepository;
         _cardsRepository = cardsRepository;
         _requestContextService = requestContextService;
     }
@@ -45,7 +45,7 @@ public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
         }
 
         var inventory = new Inventory(card.OracleId, _requestContextService.CurrentContext.User.Id, card.Name, inventoryPrintings);
-        await _inventoryRepository.UpsertAsync(inventory, cancellationToken);
+        await _inventoriesRepository.UpsertAsync(inventory, cancellationToken);
 
         return request.Success();
     }
