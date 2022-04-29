@@ -1,5 +1,4 @@
-﻿using MagicBinder.Application.Exceptions;
-using MagicBinder.Application.Mappers;
+﻿using MagicBinder.Application.Mappers;
 using MagicBinder.Core.Requests;
 using MagicBinder.Domain.Aggregates;
 using MagicBinder.Domain.Aggregates.Entities;
@@ -9,7 +8,7 @@ namespace MagicBinder.Application.Commands.Inventories;
 
 public record SaveCardInventory(Guid OracleId, ICollection<SaveCardInventory.SavePrintingInfo> Printings) : Request
 {
-    public record SavePrintingInfo(Guid CardId, int Count, bool IsFoil);
+    public record SavePrintingInfo(Guid? CardId, int Count, bool IsFoil);
 }
 
 public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
@@ -28,7 +27,7 @@ public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
     public override async Task<RequestResult<Guid>> Handle(SaveCardInventory request, CancellationToken cancellationToken)
     {
         if (!_requestContextService.CurrentContext.IsAuthorized) throw new UnauthorizedAccessException();
-        if (!request.Printings.Any()) return request.Success();
+        if (!request.Printings.Any(x => x.Count > 0)) return request.Success();
 
         var card = await _cardsRepository.GetAsync(request.OracleId, cancellationToken);
         if (card == null) throw new ArgumentException(nameof(request.OracleId));
@@ -36,11 +35,12 @@ public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
         var inventoryPrintings = new List<InventoryPrinting>();
         foreach (var toAdd in request.Printings.GroupBy(x => new { x.CardId, x.IsFoil }))
         {
-            var printing = card.CardPrintings.FirstOrDefault(x => x.CardId == toAdd.Key.CardId);
-            if (printing == null)
-                throw new ArgumentException(nameof(SaveCardInventory.SavePrintingInfo.CardId));
+            var cardCount = toAdd.Sum(x => x.Count);
+            if (cardCount == 0) continue;
 
-            var inventoryPrinting = printing.MapToInventoryPrinting(toAdd.Sum(x => x.Count), toAdd.Key.IsFoil);
+            var printing = card.CardPrintings.FirstOrDefault(x => x.CardId == toAdd.Key.CardId) ?? card.LatestPrinting;
+
+            var inventoryPrinting = printing.MapToInventoryPrinting(toAdd.Key.CardId, cardCount, toAdd.Key.IsFoil);
             inventoryPrintings.Add(inventoryPrinting);
         }
 
