@@ -1,10 +1,13 @@
 ﻿using MagicBinder.Application.Commands.Inventories;
+using MagicBinder.Application.Models.Inventories;
+using MagicBinder.Application.Queries.Inventories;
 using MagicBinder.WebApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MagicBinder.WebApi.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class InventoriesController
@@ -17,6 +20,8 @@ public class InventoriesController
     }
 
     [HttpPut]
-    [Authorize]
     public async Task<ActionResult> SaveInventory(SaveCardInventory command) => await _mediator.SendCommand(command);
+
+    [HttpGet("{oracleId}")]
+    public async Task<ActionResult<CardInventoryModel>> GetInventory(Guid oracleId) => await _mediator.SendQuery(new GetCardInventory(oracleId));
 }
