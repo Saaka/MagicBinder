@@ -29,7 +29,7 @@ public class AuthorizeWithGoogleHandler : RequestHandler<AuthorizeWithGoogle, Au
             user.SetAdminRole(authData.User.IsAdmin)
                 .SetImageUrl(authData.User.ImageUrl);
 
-        await _usersRepository.UpsertAsync(user);
+        await _usersRepository.UpsertAsync(user, cancellationToken);
         
         return request.Success(new AuthorizationModel(user.MapToModel(), authData.Token));
     }

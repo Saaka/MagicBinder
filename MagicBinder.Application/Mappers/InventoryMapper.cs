@@ -1,4 +1,6 @@
-﻿using MagicBinder.Domain.Aggregates.Entities;
+﻿using MagicBinder.Application.Models.Inventories;
+using MagicBinder.Domain.Aggregates;
+using MagicBinder.Domain.Aggregates.Entities;
 
 namespace MagicBinder.Application.Mappers;
 
@@ -14,5 +16,21 @@ public static class InventoryMapper
         Language = printing.Lang,
         CollectorNumber = printing.CollectorNumber,
         Image = printing.CardImages?.Normal ?? string.Empty
+    };
+
+    public static CardInventoryModel MapToModel(this Inventory? inventory, Guid oracleId)
+        => inventory == null
+            ? new CardInventoryModel { OracleId = oracleId }
+            : new CardInventoryModel
+            {
+                OracleId = inventory.Key.OracleId,
+                Printings = inventory.Printings.Select(MapToPrintingModel).ToList()
+            };
+
+    private static CardInventoryModel.InventoryPrintingModel MapToPrintingModel(InventoryPrinting printing) => new()
+    {
+        CardId = printing.CardId,
+        Count = printing.Count,
+        IsFoil = printing.IsFoil
     };
 }
