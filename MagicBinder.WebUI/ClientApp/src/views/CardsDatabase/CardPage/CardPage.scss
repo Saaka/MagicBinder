@@ -1,0 +1,32 @@
+﻿@import "src/assets/variables";
+
+.card-info {
+  .info-header {
+    line-height: 18px;
+  }
+
+  .block {
+    margin-bottom: 1rem;
+    
+    &.subtitle-block {
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  hr {
+    margin-bottom: 0.5rem;
+  }
+}
+
+hr.column-separator {
+  @include from($tablet) {
+    display: none;
+  }
+}
+
+.card-info-columns {
+  .column {
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+}

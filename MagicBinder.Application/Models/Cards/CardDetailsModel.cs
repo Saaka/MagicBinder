@@ -13,4 +13,6 @@ public record CardDetailsModel
     public ColorType[] Colors { get; init; } = Array.Empty<ColorType>();
     public CardImagesModel Images { get; init; } = new ();
     public string ScryfallUri { get; init; } = string.Empty;
+    public string Set { get; set; } = string.Empty;
+    public string SetName { get; set; } = string.Empty;
 }

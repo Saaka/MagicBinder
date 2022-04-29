@@ -27,7 +27,9 @@ public static class CardMapper
             OracleText = card.LatestPrinting.OracleText,
             ScryfallUri = card.LatestPrinting.ScryfallUri,
             Colors = card.Colors,
-            Images = card.LatestPrinting.CardImages.MapToImages()
+            Images = card.LatestPrinting.CardImages.MapToImages(),
+            Set = card.LatestPrinting.Set,
+            SetName = card.LatestPrinting.SetName
         };
 
     private static CardImagesModel MapToImages(this CardImages? images) => images == null
