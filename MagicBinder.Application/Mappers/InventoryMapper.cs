@@ -6,9 +6,9 @@ namespace MagicBinder.Application.Mappers;
 
 public static class InventoryMapper
 {
-    public static InventoryPrinting MapToInventoryPrinting(this CardPrinting printing, int count, bool isFoil) => new()
+    public static InventoryPrinting MapToInventoryPrinting(this CardPrinting printing, Guid? cardId, int count, bool isFoil) => new()
     {
-        CardId = printing.CardId,
+        CardId = cardId,
         Count = count,
         IsFoil = isFoil,
         Set = printing.Set,
