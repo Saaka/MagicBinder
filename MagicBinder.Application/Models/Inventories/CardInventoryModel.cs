@@ -3,7 +3,7 @@
 public class CardInventoryModel
 {
     public Guid OracleId { get; set; }
-    public List<InventoryPrintingModel> Printings { get; set; }
+    public List<InventoryPrintingModel> Printings { get; set; } = new();
 
     public class InventoryPrintingModel
     {
