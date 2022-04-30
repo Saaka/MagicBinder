@@ -7,6 +7,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{D041CD9B-80B6-4B96-9415-2485BBC1C81C}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		.travis.yml = .travis.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicBinder.Core", "MagicBinder.Core\MagicBinder.Core.csproj", "{AD34677D-D7C7-4EDC-AE36-1D8AB377C228}"
