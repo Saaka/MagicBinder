@@ -6,9 +6,9 @@ using MagicBinder.Infrastructure.Repositories;
 
 namespace MagicBinder.Application.Queries.Cards;
 
-public record GetCardDetails(Guid OracleId) : Request<CardDetailsModel>;
+public record GetCardDetails(Guid OracleId) : Request<CardDetailsModel?>;
 
-public class GetCardDetailsQueryHandler : RequestHandler<GetCardDetails, CardDetailsModel>
+public class GetCardDetailsQueryHandler : RequestHandler<GetCardDetails, CardDetailsModel?>
 {
     private readonly CardsRepository _cardsRepository;
 
@@ -17,7 +17,7 @@ public class GetCardDetailsQueryHandler : RequestHandler<GetCardDetails, CardDet
         _cardsRepository = cardsRepository;
     }
 
-    public override async Task<RequestResult<CardDetailsModel>> Handle(GetCardDetails request, CancellationToken cancellationToken)
+    public override async Task<RequestResult<CardDetailsModel?>> Handle(GetCardDetails request, CancellationToken cancellationToken)
     {
         var card = await _cardsRepository.GetAsync(request.OracleId, cancellationToken);
         if (card == null) throw new CardNotFoundException(request.OracleId);
