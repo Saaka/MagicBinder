@@ -8,10 +8,5 @@ public class SaveCardInventoryValidator : AbstractValidator<SaveCardInventory>
     public SaveCardInventoryValidator()
     {
         RuleFor(x => x.OracleId).NotEmpty();
-        RuleFor(x => x.Printings).NotEmpty();
-        RuleForEach(x => x.Printings).ChildRules(printings =>
-        {
-            printings.RuleFor(x => x.Count).GreaterThan(0);
-        });
     }
 }

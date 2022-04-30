@@ -27,7 +27,6 @@ public class SaveCardInventoryHandler : RequestHandler<SaveCardInventory, Guid>
     public override async Task<RequestResult<Guid>> Handle(SaveCardInventory request, CancellationToken cancellationToken)
     {
         if (!_requestContextService.CurrentContext.IsAuthorized) throw new UnauthorizedAccessException();
-        if (!request.Printings.Any(x => x.Count > 0)) return request.Success();
 
         var card = await _cardsRepository.GetAsync(request.OracleId, cancellationToken);
         if (card == null) throw new ArgumentException(nameof(request.OracleId));

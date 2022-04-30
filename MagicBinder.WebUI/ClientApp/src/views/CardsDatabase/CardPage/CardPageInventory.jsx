@@ -48,21 +48,23 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
                 </div>
                 {editing ?
                     <div className="control" onClick={ev => removePrinting(printing)}>
-                        <button className="button"><Icon name="ban" /></button>
+                        <button className="button"><Icon name="ban"/></button>
                     </div>
                     : ""}
             < /div>
         ));
 
-    const renderButtons = () => !editing
-        ?
-        <button className="button is-primary is-small" onClick={() => enableChanges()}>Edit</button>
-        :
-        <React.Fragment>
-            <button className="button is-link is-small" onClick={() => addCard()}>Add card</button>
-            <button className="button is-link is-small" onClick={() => saveChanges()}>Save</button>
-            <button className="button is-small" onClick={() => discardChanges()}>Cancel</button>
-        </React.Fragment>
+    const renderButtons = () => hasEmptyInventory() && !editing ?
+        <button className="button is-link is-small" onClick={() => addCard()}>Add card</button>
+        : !editing
+            ?
+            <button className="button is-primary is-small" onClick={() => enableChanges()}>Edit</button>
+            :
+            <React.Fragment>
+                <button className="button is-link is-small" onClick={() => addCard()}>Add card</button>
+                <button className="button is-link is-small" onClick={() => saveChanges()}>Save</button>
+                <button className="button is-small" onClick={() => discardChanges()}>Cancel</button>
+            </React.Fragment>
     ;
 
     const enableChanges = () => {
@@ -93,6 +95,7 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
     }
 
     const addCard = () => {
+        if (!editing) setEditing(true)
         const basePrinting = card.printings[0];
         let printing = {count: 1, cardId: basePrinting.cardId, isFoil: false, image: basePrinting.image};
         let inventoryPrintings = inventory.printings.slice();
@@ -127,13 +130,15 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
         selected.isFoil = !selected.isFoil;
         setInventory(prev => ({...prev, printings: inventoryPrintings}));
     }
-    
+
     const removePrinting = (printing) => {
         if (!editing) return;
         let inventoryPrintings = inventory.printings.slice();
         inventoryPrintings.splice(inventoryPrintings.indexOf(printing), 1);
         setInventory(prev => ({...prev, printings: inventoryPrintings}));
     }
+
+    const hasEmptyInventory = () => !inventory.printings || inventory.printings.length === 0;
 
     return (
         <div className="card-info">
@@ -145,8 +150,7 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
                 {
                     isLoading
                         ? <div className="center"><Loader dark/></div>
-                        :
-                        !inventory.printings || inventory.printings.length === 0
+                        : hasEmptyInventory()
                             ? <p>Card not owned</p>
                             : renderInventoryRows()}
             </div>
