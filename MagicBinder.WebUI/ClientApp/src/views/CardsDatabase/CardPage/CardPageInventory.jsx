@@ -10,14 +10,6 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
     const [copy, setCopy] = useState();
     const inventoriesService = new InventoriesService();
 
-    const renderInventoryRows2 = () => inventory.printings.map((printing, i) =>
-        (
-            <div key={i} data-tip={printing.image} data-for={`image-tooltip-${i}`}>
-                <p><span className="tag is-info tag-count">{printing.count}</span> {printing.setName} {printing.isFoil ? " (Foil)" : ""}</p>
-                <TooltipImage id={`image-tooltip-${i}`} place="right"/>
-            </div>
-        ));
-
     const renderInventoryRows = () => inventory.printings.map((printing, i) =>
         (
             <div key={i} className="field has-addons">
