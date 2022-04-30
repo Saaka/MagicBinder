@@ -5,7 +5,6 @@ import {Icon, Loader, TooltipImage} from "components/common";
 import {CardPageInventory} from "./CardPageInventory";
 import "./CardPage.scss";
 
-
 const CardPage = (props) => {
     const cardsService = new CardsService();
     const inventoriesService = new InventoriesService();
