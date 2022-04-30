@@ -56,7 +56,7 @@ const CardPage = (props) => {
             <hr/>
             <div className="block">
                 <p className="is-6"><b>Oracle text</b></p>
-                <p>{card.oracleText}</p>
+                <div className="multiline">{card.oracleText}</div>
             </div>
         </div>
     );
