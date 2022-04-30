@@ -32,15 +32,13 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
                                 onChange={ev => handlePrintingChanged(ev, printing)}
                                 onClick={ev => ev.stopPropagation()}
                                 disabled={isLoading}>
-                            {card.printings.map((v, i) =>
-                                <option key={i}
-                                        value={v.cardId}
-                                        data-tip={v.image} data-for={`image-option-tooltip-${i}`}>
+                            {card.printings.map((v, idx) =>
+                                <option key={idx}
+                                        value={v.cardId}>
                                     {v.setName} - #{v.collectorNumber}
                                 </option>
                             )}
                         </select>
-                        <TooltipImage id={`image-option-tooltip-${i}`} place="right"/>
                     </div>
                 </div>
                 <div className="control">
