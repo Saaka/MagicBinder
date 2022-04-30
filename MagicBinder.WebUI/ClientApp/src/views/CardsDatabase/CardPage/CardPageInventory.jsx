@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import {Icon, TooltipImage} from "components/common";
+import _ from "lodash";
+import "./CardPageInventory.scss";
 
 const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
     const [editing, setEditing] = useState(false);
@@ -32,6 +34,7 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
                         <select name="card-printing"
                                 value={printing.cardId}
                                 onChange={ev => handlePrintingChanged(ev, printing)}
+                                onClick={ev => ev.stopPropagation()}
                                 disabled={isLoading}>
                             {card.printings.map((v, i) =>
                                 <option key={i}
@@ -44,19 +47,36 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
                         <TooltipImage id={`image-option-tooltip-${i}`} place="right"/>
                     </div>
                 </div>
+                <div className="control">
+                    <button  className="button" onClick={toggleFoil(printing)}>
+                        Foil <Icon solid className="icon-is-foil" name={printing.isFoil ? "circle-check" : "square"}/>
+                    </button>
+                </div>
             </div>
         ));
 
     const renderButtons = () => !editing
-        ? <button className="button is-primary is-small" onClick={() => enableChanges()}>Edit</button>
-        : <button className="button is-link is-small" onClick={() => saveChanges()}>Save</button>;
+        ?
+        <button className="button is-primary is-small" onClick={() => enableChanges()}>Edit</button>
+        :
+        <React.Fragment>
+            <button className="button is-link is-small" onClick={() => saveChanges()}>Save</button>
+            <button className="button is-small button-cancel-changes" onClick={() => discardChanges()}>Cancel</button>
+        </React.Fragment>
+    ;
 
     const enableChanges = () => {
-        setCopy({...inventory});
+        let deepCopy = _.cloneDeep(inventory);
+        setCopy(deepCopy);
         setEditing(true);
     }
+
+    const discardChanges = () => {
+        setInventory(copy);
+        setEditing(false);
+    }
+
     const saveChanges = () => {
-        setInventory({...copy});
         setEditing(false);
     }
 
@@ -79,6 +99,10 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
         selected.image = card.printings.find(el => el.cardId == selected.cardId).image;
         setInventory(prev => ({...prev, printings: inventoryPrintings}));
     }
+    
+    const toggleFoil = (printing) => {
+        
+    }
 
     return (
         <div className="card-info">
@@ -95,4 +119,8 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
     );
 };
 
-export {CardPageInventory};
+export
+{
+    CardPageInventory
+}
+    ;
