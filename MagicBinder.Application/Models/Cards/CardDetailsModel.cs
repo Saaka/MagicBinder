@@ -15,4 +15,5 @@ public record CardDetailsModel
     public string ScryfallUri { get; init; } = string.Empty;
     public string Set { get; set; } = string.Empty;
     public string SetName { get; set; } = string.Empty;
+    public string CollectorNumber { get; set; } = string.Empty;
 }
