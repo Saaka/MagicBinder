@@ -10,5 +10,8 @@ public class CardInventoryModel
         public Guid? CardId { get; set; }
         public int Count { get; set; }
         public bool IsFoil { get; set; }
+        public string Set { get; set; }
+        public string SetName { get; set; }
+        public string Image { get; set; }
     }
 }
