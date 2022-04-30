@@ -22,5 +22,7 @@ public record CardDetailsModel
     {
         public Guid? CardId { get; set; }
         public string SetName { get; set; }
+        public string Image { get; set; }
+        public string CollectorNumber { get; set; }
     }
 }

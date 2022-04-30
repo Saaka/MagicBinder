@@ -28,4 +28,8 @@ const TooltipImage = (props) => {
     );
 }
 
+TooltipImage.rebuild = () => {
+    ReactTooltip.rebuild();
+}
+
 export {TooltipImage};
