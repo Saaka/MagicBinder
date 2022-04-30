@@ -24,7 +24,7 @@ Create `appsettings.{environment}.json` file for given environment (for example 
   * AllowedOrigin - url of your frontend MagicBinder application
 
 ### Frontend solution `.env.local` file
-Create `.env.{environment}.local` file (for example `.env.development.local`) that stores all configuration of frontend solution.
+Create `.env.{environment}.local` file (for example `.env.development.local`) in `ClientApp` directory that stores all configuration of frontend solution.
 * GENERATE_SOURCEMAP (*true/false*) - enables easy js navigation
 * REACT_APP_API_URL - url of backend solution (eg. `https://localhost:7270/api/`)
 * REACT_APP_IS_DEBUG - determines if app is local
