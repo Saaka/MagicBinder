@@ -28,6 +28,9 @@ Constants.ApiRoutes.Inventories = class InventoriesRoutes {
     static get GET_CARD_INVENTORY() {
         return "inventories/cards/";
     }
+    static get SAVE_CARD_INVENTORY() {
+        return "inventories/";
+    }
 }
 
 Constants.ApiRoutes.Admin = class AdminRoutes {
