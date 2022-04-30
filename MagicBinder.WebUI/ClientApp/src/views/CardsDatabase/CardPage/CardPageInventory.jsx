@@ -93,7 +93,8 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
     }
 
     const addCard = () => {
-        let printing = {count: 1, cardId: card.printings[0].cardId, isFoil: false};
+        const basePrinting = card.printings[0];
+        let printing = {count: 1, cardId: basePrinting.cardId, isFoil: false, image: basePrinting.image};
         let inventoryPrintings = inventory.printings.slice();
         inventoryPrintings.push(printing);
         setInventory(prev => ({...prev, printings: inventoryPrintings}));
