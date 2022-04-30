@@ -81,7 +81,7 @@ const CardPage = (props) => {
         (
             <div key={i}>
                 <p data-tip={printing.image} data-for={`image-tooltip-${i}`}>{printing.count}x {printing.setName} {printing.isFoil ? " (Foil)" : ""}</p>
-                <TooltipImage id={`image-tooltip-${i}`}/>
+                <TooltipImage id={`image-tooltip-${i}`} place="right"/>
             </div>
         ));
 
