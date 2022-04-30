@@ -31,6 +31,9 @@ public static class InventoryMapper
     {
         CardId = printing.CardId,
         Count = printing.Count,
-        IsFoil = printing.IsFoil
+        IsFoil = printing.IsFoil,
+        Set = printing.Set,
+        SetName = printing.SetName,
+        Image = printing.Image
     };
 }

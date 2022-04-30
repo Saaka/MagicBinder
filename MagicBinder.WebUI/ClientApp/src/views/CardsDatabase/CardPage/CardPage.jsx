@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useDocumentTitle} from "Hooks";
 import {CardsService, InventoriesService} from "Services";
-import {Loader} from "components/common";
+import {Icon, Loader, TooltipImage} from "components/common";
 import {Select} from "components/forms";
 import "./CardPage.scss";
 
@@ -27,10 +27,10 @@ const CardPage = (props) => {
             .finally(setLoading(false))
 
     }, []);
-    
+
     const loadInventory = (oracleId) => {
-        if(!props.user.isLoggedIn) return;
-        
+        if (!props.user.isLoggedIn) return;
+
         return inventoriesService
             .getCardInventory(oracleId)
             .then(resp => {
@@ -84,19 +84,12 @@ const CardPage = (props) => {
         selected.cardId = value;
         setInventory(prev => ({...prev, printings: inventoryPrintings}));
     }
-    
+
     const renderInventoryRows = () => inventory.printings.map((printing, i) =>
         (
             <div key={i}>
-                {printing.cardId} - {printing.count}{printing.isFoil ? " (Foil)" : ""}
-                <Select id={"card-printing-" + i}
-                        name="cardId"
-                        values={card.printings}
-                        value={printing.cardId}
-                        disabled={isLoading}
-                        idField="cardId"
-                        nameField="setName"
-                        onChange={ev => handlePrintingChanged(ev, printing)}/>
+                <p data-tip={printing.image} data-for={`image-tooltip-${i}`}>{printing.count}x {printing.setName} {printing.isFoil ? " (Foil)" : ""}</p>
+                <TooltipImage id={`image-tooltip-${i}`}/>
             </div>
         ));
 
@@ -110,7 +103,7 @@ const CardPage = (props) => {
                     </div>
                     <hr/>
                     <div className="columns">
-                        <div className="column is-narrow center">
+                        <div className="column is-narrow center image-column">
                             <figure className="image">
                                 <img src={card.images.large}/>
                             </figure>

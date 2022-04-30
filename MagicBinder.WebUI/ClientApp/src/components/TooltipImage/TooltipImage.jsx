@@ -16,7 +16,7 @@ const TooltipImage = (props) => {
 
     return (
         <ReactTooltip id={props.id}
-                      place="right"
+                      place={props.place}
                       effect="solid"
                       className="tooltip-container"
                       type="light"
