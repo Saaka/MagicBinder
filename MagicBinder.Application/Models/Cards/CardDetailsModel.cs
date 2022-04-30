@@ -16,4 +16,11 @@ public record CardDetailsModel
     public string Set { get; set; } = string.Empty;
     public string SetName { get; set; } = string.Empty;
     public string CollectorNumber { get; set; } = string.Empty;
+    public List<CardPrintingDetailsModel> Printings { get; set; } = new();
+    
+    public class CardPrintingDetailsModel
+    {
+        public Guid? CardId { get; set; }
+        public string SetName { get; set; }
+    }
 }

@@ -1,7 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import "./Select.scss";
 
 const Select = props => {
+    const [idField, setIdField] = useState("id");
+    const [nameField, setNameField] = useState("name");
+    
+    useEffect(() => {
+        if(!!props.nameField)
+            setNameField(props.nameField);
+        
+    }, [props.nameField]);
+
+    useEffect(() => {
+        if(!!props.idField)
+            setIdField(props.idField);
+
+    }, [props.idField]);
+    
     return (
         <div className="field field-select">
             {!!props.label ? <label className="label">{props.label}</label> : ""}
@@ -13,10 +28,10 @@ const Select = props => {
                             onChange={props.onChange}
                             required={props.required}
                             disabled={props.disabled}>
-                        {props.values.map(v =>
-                            <option key={v.id}
-                                    value={v.id}>
-                                {v.name}
+                        {props.values.map((v, i) =>
+                            <option key={i}
+                                    value={v[idField]}>
+                                {v[nameField]}
                             </option>
                         )}
                     </select>

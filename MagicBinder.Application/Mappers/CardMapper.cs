@@ -30,8 +30,15 @@ public static class CardMapper
             Images = card.LatestPrinting.CardImages.MapToImages(),
             Set = card.LatestPrinting.Set,
             SetName = card.LatestPrinting.SetName,
-            CollectorNumber = card.LatestPrinting.CollectorNumber
+            CollectorNumber = card.LatestPrinting.CollectorNumber,
+            Printings = card.CardPrintings.Select(MapToPrintingDetails).ToList()
         };
+
+    private static CardDetailsModel.CardPrintingDetailsModel MapToPrintingDetails(this CardPrinting printing) => new()
+    {
+        CardId = printing.CardId,
+        SetName = printing.SetName
+    };
 
     private static CardImagesModel MapToImages(this CardImages? images) => images == null
         ? new CardImagesModel()

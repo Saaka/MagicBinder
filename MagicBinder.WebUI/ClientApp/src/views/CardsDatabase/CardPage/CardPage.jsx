@@ -9,7 +9,7 @@ import "./CardPage.scss";
 const CardPage = (props) => {
     const cardsService = new CardsService();
     const inventoriesService = new InventoriesService();
-    const [card, setCard] = useState({images: {}});
+    const [card, setCard] = useState({images: {}, printings: []});
     const [inventory, setInventory] = useState({printings: []});
     const [isLoading, setLoading] = useState(true);
     useDocumentTitle(card.name);
@@ -76,16 +76,27 @@ const CardPage = (props) => {
                 <hr className="column-separator"/>
             </div>
     );
+
+    const handlePrintingChanged = (ev, printing) => {
+        const {value} = ev.target;
+        let inventoryPrintings = inventory.printings.slice();
+        let selected = inventoryPrintings.find(el => el.cardId == printing.cardId && el.isFoil == printing.isFoil);
+        selected.cardId = value;
+        setInventory(prev => ({...prev, printings: inventoryPrintings}));
+    }
     
     const renderInventoryRows = () => inventory.printings.map((printing, i) =>
         (
             <div key={i}>
-                {printing.count}
-                {/*<Select name="card-printing-v"*/}
-                {/*        values={card.printings}*/}
-                {/*        value={pagingSettings.pageSize}*/}
-                {/*        disabled={isLoading}*/}
-                {/*        onChange={handlePageSizeChanged}/>*/}
+                {printing.cardId} - {printing.count}{printing.isFoil ? " (Foil)" : ""}
+                <Select id={"card-printing-" + i}
+                        name="cardId"
+                        values={card.printings}
+                        value={printing.cardId}
+                        disabled={isLoading}
+                        idField="cardId"
+                        nameField="setName"
+                        onChange={ev => handlePrintingChanged(ev, printing)}/>
             </div>
         ));
 
