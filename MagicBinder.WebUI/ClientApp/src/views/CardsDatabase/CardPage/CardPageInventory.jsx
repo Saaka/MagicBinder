@@ -64,8 +64,9 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
         <button className="button is-primary is-small" onClick={() => enableChanges()}>Edit</button>
         :
         <React.Fragment>
+            <button className="button is-link is-small" onClick={() => addCard()}>Add card</button>
             <button className="button is-link is-small" onClick={() => saveChanges()}>Save</button>
-            <button className="button is-small button-cancel-changes" onClick={() => discardChanges()}>Cancel</button>
+            <button className="button is-small" onClick={() => discardChanges()}>Cancel</button>
         </React.Fragment>
     ;
 
@@ -95,6 +96,13 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
                 setLoading(false);
             })
     }
+    
+    const addCard = () => {
+        let printing = {count: 1, cardId: card.printings[0].cardId, isFoil: false};
+        let inventoryPrintings = inventory.printings.slice();
+        inventoryPrintings.push(printing);
+        setInventory(prev => ({...prev, printings: inventoryPrintings}));
+    }
 
     const handlePrintingInfoChanged = (ev, printing) => {
         const {value, name} = ev.target;
@@ -102,7 +110,6 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
         let selected = inventoryPrintings.find(el => el == printing);
         selected[name] = value;
         setInventory(prev => ({...prev, [name]: value}));
-
     }
 
     const handlePrintingChanged = (ev, printing) => {

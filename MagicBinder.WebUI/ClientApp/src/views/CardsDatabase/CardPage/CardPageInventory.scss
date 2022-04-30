@@ -1,7 +1,3 @@
-button.button-cancel-changes {
-  margin-left: 5px;
-}
-
 .icon-is-foil {
   margin-left: 5px;
 }
@@ -13,4 +9,12 @@ button.button-cancel-changes {
 .edit-disabled {
   pointer-events: none;
   touch-action: none;
+}
+
+.subtitle-block {
+  p {
+    button {
+      margin-left: 5px;
+    }
+  }
 }
