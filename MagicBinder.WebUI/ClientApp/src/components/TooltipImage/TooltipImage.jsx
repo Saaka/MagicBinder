@@ -5,7 +5,7 @@ import "./TooltipImage.scss";
 const TooltipImage = (props) => {
 
     const imageContent = (dataTip) =>
-        (<figure className="image">
+        (<figure className="image tooltip-image">
             <img className="image-element" src={dataTip} alt="Image tooltip for current element"/>
         </figure>);
 
