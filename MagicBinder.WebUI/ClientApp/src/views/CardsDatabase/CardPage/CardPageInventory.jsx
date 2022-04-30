@@ -22,11 +22,11 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
         (
             <div key={i} className="field has-addons">
                 <div className="control" data-tip={printing.image} data-for={`image-tooltip-${i}`}>
-                    <button className="button"><Icon name="image" onClick={(ev) => ev.stopPropagation()}/></button>
+                    <button className="button card-image-button"><Icon name="image" onClick={(ev) => ev.stopPropagation()}/></button>
                     <TooltipImage id={`image-tooltip-${i}`} place="right"/>
                 </div>
                 <div className="control card-count-input">
-                    <input readOnly={!editing} className={"input " + (!editing ? "edit-disabled" : "")} name="count" type="number" step="1" min="1" max="10000"
+                    <input readOnly={!editing} className={"input inventory-count " + (!editing ? "edit-disabled" : "")} name="count" type="number" step="1" min="1" max="10000"
                            value={printing.count} onChange={ev => handlePrintingInfoChanged(ev, printing)}
                            onKeyPress={(event) => {
                                if (!/[0-9]/.test(event.key)) event.preventDefault();
@@ -53,7 +53,7 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
                 </div>
                 <div className="control">
                     <button className={"button foil-control " + (!editing ? "edit-disabled" : "")} onClick={ev => toggleFoil(printing)}>
-                        {printing.isFoil ? <span>Foil <Icon solid className="icon-is-foil" name="check"/></span> : "Non foil"}
+                        {printing.isFoil ? <span>Foil <Icon solid name="check"/></span> : "Non foil"}
                     </button>
                 </div>
                 {editing ?

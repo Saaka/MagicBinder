@@ -17,7 +17,7 @@ const Icon = (props) => {
     }
 
     return (
-        <FontAwesomeIcon {...props} icon={getIcon()} spin={props.spin} size={props.size}/>
+        <FontAwesomeIcon icon={getIcon()} spin={props.spin} size={props.size}/>
     );
 };
 
