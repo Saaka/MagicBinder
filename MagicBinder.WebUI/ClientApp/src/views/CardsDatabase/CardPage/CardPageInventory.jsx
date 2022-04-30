@@ -1,11 +1,14 @@
 import React, {useState} from "react";
-import {Icon, TooltipImage} from "components/common";
+import {Icon, TooltipImage, Loader} from "components/common";
+import {InventoriesService} from "Services";
 import _ from "lodash";
 import "./CardPageInventory.scss";
 
-const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
+const CardPageInventory = ({inventory, setInventory, card}) => {
     const [editing, setEditing] = useState(false);
+    const [isLoading, setLoading] = useState(false);
     const [copy, setCopy] = useState();
+    const inventoriesService = new InventoriesService();
 
     const renderInventoryRows2 = () => inventory.printings.map((printing, i) =>
         (
@@ -78,7 +81,19 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
     }
 
     const saveChanges = () => {
-        setEditing(false);
+        setLoading(true);
+        inventoriesService
+            .saveCardInventory(inventory)
+            .then((resp) =>
+                inventoriesService.getCardInventory(inventory.oracleId)
+            )
+            .then(resp => {
+                setInventory(resp);
+            })
+            .finally(() => {
+                setEditing(false);
+                setLoading(false);
+            })
     }
 
     const handlePrintingInfoChanged = (ev, printing) => {
@@ -117,9 +132,13 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
             </div>
             <hr/>
             <div className="block">
-                {inventory.printings.length === 0
-                    ? <p>Card not owned</p>
-                    : renderInventoryRows()}
+                {
+                    isLoading
+                        ? <div className="center"><Loader dark/></div>
+                        :
+                        !inventory.printings || inventory.printings.length === 0
+                            ? <p>Card not owned</p>
+                            : renderInventoryRows()}
             </div>
         </div>
     );

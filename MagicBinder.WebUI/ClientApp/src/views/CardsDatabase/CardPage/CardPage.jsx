@@ -63,7 +63,7 @@ const CardPage = (props) => {
 
     const renderCardInventory = () => (!props.user.isLoggedIn ? "" :
         <div className="column">
-            <CardPageInventory inventory={inventory} card={card} setInventory={setInventory} isLoading={isLoading}/>
+            <CardPageInventory inventory={inventory} card={card} setInventory={setInventory}/>
             <hr className="column-separator"/>
         </div>);
 
