@@ -56,7 +56,12 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
                         {printing.isFoil ? <span>Foil <Icon solid className="icon-is-foil" name="check"/></span> : "Non foil"}
                     </button>
                 </div>
-            </div>
+                {editing ?
+                    <div className="control" onClick={ev => removePrinting(printing)}>
+                        <button className="button"><Icon name="ban" /></button>
+                    </div>
+                    : ""}
+            < /div>
         ));
 
     const renderButtons = () => !editing
@@ -96,7 +101,7 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
                 setLoading(false);
             })
     }
-    
+
     const addCard = () => {
         let printing = {count: 1, cardId: card.printings[0].cardId, isFoil: false};
         let inventoryPrintings = inventory.printings.slice();
@@ -129,6 +134,13 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
         let inventoryPrintings = inventory.printings.slice();
         let selected = inventoryPrintings.find(el => el == printing);
         selected.isFoil = !selected.isFoil;
+        setInventory(prev => ({...prev, printings: inventoryPrintings}));
+    }
+    
+    const removePrinting = (printing) => {
+        if (!editing) return;
+        let inventoryPrintings = inventory.printings.slice();
+        inventoryPrintings.splice(inventoryPrintings.indexOf(printing), 1);
         setInventory(prev => ({...prev, printings: inventoryPrintings}));
     }
 
