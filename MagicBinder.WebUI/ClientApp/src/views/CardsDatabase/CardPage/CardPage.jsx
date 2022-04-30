@@ -70,20 +70,12 @@ const CardPage = (props) => {
                         <p className="subtitle">Inventory</p>
                     </div>
                     <div className="block">
-                        {renderInventoryRows()}
+                        {inventory.printings.length === 0 ? <p>Card not owned</p> : renderInventoryRows()}
                     </div>
                 </div>
                 <hr className="column-separator"/>
             </div>
     );
-
-    const handlePrintingChanged = (ev, printing) => {
-        const {value} = ev.target;
-        let inventoryPrintings = inventory.printings.slice();
-        let selected = inventoryPrintings.find(el => el.cardId == printing.cardId && el.isFoil == printing.isFoil);
-        selected.cardId = value;
-        setInventory(prev => ({...prev, printings: inventoryPrintings}));
-    }
 
     const renderInventoryRows = () => inventory.printings.map((printing, i) =>
         (
@@ -92,6 +84,14 @@ const CardPage = (props) => {
                 <TooltipImage id={`image-tooltip-${i}`}/>
             </div>
         ));
+
+    const handlePrintingChanged = (ev, printing) => {
+        const {value} = ev.target;
+        let inventoryPrintings = inventory.printings.slice();
+        let selected = inventoryPrintings.find(el => el.cardId == printing.cardId && el.isFoil == printing.isFoil);
+        selected.cardId = value;
+        setInventory(prev => ({...prev, printings: inventoryPrintings}));
+    }
 
     const renderCard = () => (
         <div className="box">
@@ -104,7 +104,7 @@ const CardPage = (props) => {
                     <hr/>
                     <div className="columns">
                         <div className="column is-narrow center image-column">
-                            <figure className="image">
+                            <figure className="image card-image">
                                 <img src={card.images.large}/>
                             </figure>
                         </div>
