@@ -37,7 +37,9 @@ public static class CardMapper
     private static CardDetailsModel.CardPrintingDetailsModel MapToPrintingDetails(this CardPrinting printing) => new()
     {
         CardId = printing.CardId,
-        SetName = printing.SetName
+        SetName = printing.SetName,
+        Image = printing.CardImages?.Normal ?? string.Empty,
+        CollectorNumber = printing.CollectorNumber
     };
 
     private static CardImagesModel MapToImages(this CardImages? images) => images == null

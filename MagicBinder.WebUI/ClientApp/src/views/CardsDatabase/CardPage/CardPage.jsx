@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {useDocumentTitle} from "Hooks";
 import {CardsService, InventoriesService} from "Services";
 import {Icon, Loader, TooltipImage} from "components/common";
-import {Select} from "components/forms";
+import {CardPageInventory} from "./CardPageInventory";
 import "./CardPage.scss";
 
 
@@ -62,36 +62,11 @@ const CardPage = (props) => {
         </div>
     );
 
-    const renderCardInventory = () => (
-        !props.user.isLoggedIn ? "" :
-            <div className="column">
-                <div className="card-info">
-                    <div className="block subtitle-block">
-                        <p className="subtitle">Inventory <button className="button is-primary is-small">Edit</button></p>
-                    </div>
-                    <div className="block">
-                        {inventory.printings.length === 0 ? <p>Card not owned</p> : renderInventoryRows()}
-                    </div>
-                </div>
-                <hr className="column-separator"/>
-            </div>
-    );
-
-    const renderInventoryRows = () => inventory.printings.map((printing, i) =>
-        (
-            <div key={i}>
-                <p data-tip={printing.image} data-for={`image-tooltip-${i}`}>{printing.count}x {printing.setName} {printing.isFoil ? " (Foil)" : ""}</p>
-                <TooltipImage id={`image-tooltip-${i}`} place="right"/>
-            </div>
-        ));
-
-    const handlePrintingChanged = (ev, printing) => {
-        const {value} = ev.target;
-        let inventoryPrintings = inventory.printings.slice();
-        let selected = inventoryPrintings.find(el => el.cardId == printing.cardId && el.isFoil == printing.isFoil);
-        selected.cardId = value;
-        setInventory(prev => ({...prev, printings: inventoryPrintings}));
-    }
+    const renderCardInventory = () => (!props.user.isLoggedIn ? "" :
+        <div className="column">
+            <CardPageInventory inventory={inventory} card={card} setInventory={setInventory} isLoading={isLoading}/>
+            <hr className="column-separator"/>
+        </div>);
 
     const renderCard = () => (
         <div className="box">
@@ -99,7 +74,7 @@ const CardPage = (props) => {
                 <div className="is-left">
                     <div className="block card-page-title">
                         <p className="title is-5">{card.name}</p>
-                        <p className="subtitle is-6">{card.setName} #{card.collectorNumber}</p>
+                        <p className="subtitle is-6">{card.setName} - #{card.collectorNumber}</p>
                     </div>
                     <hr/>
                     <div className="columns">
