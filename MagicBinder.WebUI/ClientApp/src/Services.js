@@ -5,3 +5,4 @@ export {UserTokenService} from "./services/UserTokenService";
 export {HttpService} from "./services/HttpService";
 export {AuthHttpService} from "./services/AuthHttpService";
 export {CardsService} from "./services/CardsService";
+export {InventoriesService} from "./services/InventoriesService";

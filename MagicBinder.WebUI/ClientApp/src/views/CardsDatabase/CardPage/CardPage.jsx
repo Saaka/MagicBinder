@@ -1,13 +1,16 @@
 import React, {useState, useEffect} from "react";
 import {useDocumentTitle} from "Hooks";
-import {CardsService} from "Services";
-import {Loader} from "../../../components/Loader/Loader";
+import {CardsService, InventoriesService} from "Services";
+import {Loader} from "components/common";
+import {Select} from "components/forms";
 import "./CardPage.scss";
 
 
 const CardPage = (props) => {
     const cardsService = new CardsService();
+    const inventoriesService = new InventoriesService();
     const [card, setCard] = useState({images: {}});
+    const [inventory, setInventory] = useState({printings: []});
     const [isLoading, setLoading] = useState(true);
     useDocumentTitle(card.name);
 
@@ -20,9 +23,20 @@ const CardPage = (props) => {
             .then(resp => {
                 setCard(resp);
             })
+            .then(loadInventory(oracleId))
             .finally(setLoading(false))
 
     }, []);
+    
+    const loadInventory = (oracleId) => {
+        if(!props.user.isLoggedIn) return;
+        
+        return inventoriesService
+            .getCardInventory(oracleId)
+            .then(resp => {
+                setInventory(resp)
+            });
+    }
 
     const renderLoader = () => <div className="center"><Loader size="xs" dark/></div>;
 
@@ -49,17 +63,31 @@ const CardPage = (props) => {
     );
 
     const renderCardInventory = () => (
-        <div className="card-info">
-            <div className="block subtitle-block">
-                <p className="subtitle">User Inventory</p>
+        !props.user.isLoggedIn ? "" :
+            <div className="column">
+                <div className="card-info">
+                    <div className="block subtitle-block">
+                        <p className="subtitle">Inventory</p>
+                    </div>
+                    <div className="block">
+                        {renderInventoryRows()}
+                    </div>
+                </div>
+                <hr className="column-separator"/>
             </div>
-            <div className="block">
-                <p className="is-6 info-header"><b>Placeholder</b></p>
-                <p>{card.setName}</p>
-            </div>
-            <hr/>
-        </div>
     );
+    
+    const renderInventoryRows = () => inventory.printings.map((printing, i) =>
+        (
+            <div key={i}>
+                {printing.count}
+                {/*<Select name="card-printing-v"*/}
+                {/*        values={card.printings}*/}
+                {/*        value={pagingSettings.pageSize}*/}
+                {/*        disabled={isLoading}*/}
+                {/*        onChange={handlePageSizeChanged}/>*/}
+            </div>
+        ));
 
     const renderCard = () => (
         <div className="box">
@@ -78,11 +106,8 @@ const CardPage = (props) => {
                         </div>
                         <div className="column card-info-columns">
                             <div className="columns">
+                                {renderCardInventory()}
                                 <div className="column">
-                                    {renderCardInventory()}
-                                </div>
-                                <div className="column">
-                                    <hr className="column-separator"/>
                                     {renderCardDetails()}
                                 </div>
                             </div>
