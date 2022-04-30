@@ -29,6 +29,7 @@ Create `.env.{environment}.local` file (for example `.env.development.local`) th
 * REACT_APP_API_URL - url of backend solution (eg. `https://localhost:7270/api/`)
 * REACT_APP_IS_DEBUG - determines if app is local
 * REACT_APP_GOOGLE_ID - Google id of your application, used for logging in with google account
+
 Additional local settings used for https:
 * SSL_CRT_FILE - location of certificate `pem` file
 * SSL_KEY_FILE - location of certificate `key` file
