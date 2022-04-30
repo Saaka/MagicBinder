@@ -29,7 +29,8 @@ public static class CardMapper
             Colors = card.Colors,
             Images = card.LatestPrinting.CardImages.MapToImages(),
             Set = card.LatestPrinting.Set,
-            SetName = card.LatestPrinting.SetName
+            SetName = card.LatestPrinting.SetName,
+            CollectorNumber = card.LatestPrinting.CollectorNumber
         };
 
     private static CardImagesModel MapToImages(this CardImages? images) => images == null

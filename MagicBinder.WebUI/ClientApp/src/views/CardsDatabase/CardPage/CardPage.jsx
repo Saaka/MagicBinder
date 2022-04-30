@@ -65,7 +65,10 @@ const CardPage = (props) => {
         <div className="box">
             <article>
                 <div className="is-left">
-                    <p className="title is-5">{card.name}</p>
+                    <div className="block card-page-title">
+                        <p className="title is-5">{card.name}</p>
+                        <p className="subtitle is-6">{card.setName} #{card.collectorNumber}</p>
+                    </div>
                     <hr/>
                     <div className="columns">
                         <div className="column is-narrow center">
