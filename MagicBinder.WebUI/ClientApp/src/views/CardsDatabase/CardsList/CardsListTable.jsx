@@ -14,7 +14,7 @@ export const CardsListTable = ({cards, pageOptions, isLoading, setIsLoading, onP
                 <td>
                     <Icon data-tip={card.image} data-for={`image-tooltip-${card.oracleId}`} name="image"
                           onClick={(ev) => ev.stopPropagation()}/> {card.name}
-                    <TooltipImage id={`image-tooltip-${card.oracleId}`}/>
+                    <TooltipImage id={`image-tooltip-${card.oracleId}`} place="right"/>
                 </td>
                 <td>{card.typeLine}</td>
             </tr>
