@@ -2,12 +2,12 @@
 
 MagicBinder is website that lets users manage their MTG card collection, create decks and search for cards from entire cards database.
 
-##Setting up project
+## Setting up project
 Project contains of two main parts: 
 * Backend solution written in [.NET6](https://docs.microsoft.com/dotnet) using [MongoDB](https://www.mongodb.com/docs/) for storing data
 * Website using [React](https://reactjs.org/) JavaScript framework and [Bulma](https://bulma.io/) CSS framework
 
-###Backend solution appsettings.json
+### Backend solution appsettings.json
 Create `appsettings.{environment}.json` file for given environment (for example `appsettings.Development.json`) and add all required values found in base `appsetting.json` file.
 * Mongo
   * ConnectionString - your MongoDB server address
