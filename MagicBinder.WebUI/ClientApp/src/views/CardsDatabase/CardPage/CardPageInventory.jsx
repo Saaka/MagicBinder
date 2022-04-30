@@ -23,7 +23,7 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
                     <TooltipImage id={`image-tooltip-${i}`} place="right"/>
                 </div>
                 <div className="control card-count-input">
-                    <input readOnly={!editing} className="input" name="count" type="number" step="1" min="1" max="10000"
+                    <input readOnly={!editing} className={"input " + (!editing ? "edit-disabled" : "")} name="count" type="number" step="1" min="1" max="10000"
                            value={printing.count} onChange={ev => handlePrintingInfoChanged(ev, printing)}
                            onKeyPress={(event) => {
                                if (!/[0-9]/.test(event.key)) event.preventDefault();
@@ -31,7 +31,8 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
                 </div>
                 <div className="control is-expanded">
                     <div className="select is-fullwidth">
-                        <select name="card-printing"
+                        <select className={(!editing ? "edit-disabled" : "")}
+                                name="card-printing"
                                 value={printing.cardId}
                                 onChange={ev => handlePrintingChanged(ev, printing)}
                                 onClick={ev => ev.stopPropagation()}
@@ -40,7 +41,7 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
                                 <option key={i}
                                         value={v.cardId}
                                         data-tip={v.image} data-for={`image-option-tooltip-${i}`}>
-                                    {v.setName} - #{v.collectorNumber} {printing.isFoil ? " (Foil)" : ""}
+                                    {v.setName} - #{v.collectorNumber}
                                 </option>
                             )}
                         </select>
@@ -48,8 +49,8 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
                     </div>
                 </div>
                 <div className="control">
-                    <button  className="button" onClick={toggleFoil(printing)}>
-                        Foil <Icon solid className="icon-is-foil" name={printing.isFoil ? "circle-check" : "square"}/>
+                    <button className={"button foil-control " + (!editing ? "edit-disabled" : "")} onClick={ev => toggleFoil(printing)}>
+                        {printing.isFoil ? <span>Foil <Icon solid className="icon-is-foil" name="check"/></span> : "Non foil"}
                     </button>
                 </div>
             </div>
@@ -83,7 +84,7 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
     const handlePrintingInfoChanged = (ev, printing) => {
         const {value, name} = ev.target;
         let inventoryPrintings = inventory.printings.slice();
-        let selected = inventoryPrintings.find(el => el.cardId == printing.cardId && el.isFoil == printing.isFoil);
+        let selected = inventoryPrintings.find(el => el == printing);
         selected[name] = value;
         setInventory(prev => ({...prev, [name]: value}));
 
@@ -94,14 +95,19 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
 
         const {value} = ev.target;
         let inventoryPrintings = inventory.printings.slice();
-        let selected = inventoryPrintings.find(el => el.cardId == printing.cardId && el.isFoil == printing.isFoil);
+        let selected = inventoryPrintings.find(el => el == printing);
         selected.cardId = value;
         selected.image = card.printings.find(el => el.cardId == selected.cardId).image;
         setInventory(prev => ({...prev, printings: inventoryPrintings}));
     }
-    
+
     const toggleFoil = (printing) => {
-        
+        if (!editing) return;
+
+        let inventoryPrintings = inventory.printings.slice();
+        let selected = inventoryPrintings.find(el => el == printing);
+        selected.isFoil = !selected.isFoil;
+        setInventory(prev => ({...prev, printings: inventoryPrintings}));
     }
 
     return (
@@ -119,8 +125,4 @@ const CardPageInventory = ({inventory, setInventory, card, isLoading}) => {
     );
 };
 
-export
-{
-    CardPageInventory
-}
-    ;
+export {CardPageInventory};
