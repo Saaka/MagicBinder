@@ -67,7 +67,7 @@ const CardPage = (props) => {
             <div className="column">
                 <div className="card-info">
                     <div className="block subtitle-block">
-                        <p className="subtitle">Inventory</p>
+                        <p className="subtitle">Inventory <button className="button is-primary is-small">Edit</button></p>
                     </div>
                     <div className="block">
                         {inventory.printings.length === 0 ? <p>Card not owned</p> : renderInventoryRows()}
