@@ -22,6 +22,6 @@ public class InventoriesController
     [HttpPut]
     public async Task<ActionResult> SaveInventory(SaveCardInventory command) => await _mediator.SendCommand(command);
 
-    [HttpGet("{oracleId}")]
-    public async Task<ActionResult<CardInventoryModel>> GetInventory(Guid oracleId) => await _mediator.SendQuery(new GetCardInventory(oracleId));
+    [HttpGet("cards/{oracleId:guid}")]
+    public async Task<ActionResult<CardInventoryModel>> GetCardInventory(Guid oracleId) => await _mediator.SendQuery(new GetCardInventory(oracleId));
 }

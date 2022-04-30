@@ -24,6 +24,12 @@ Constants.ApiRoutes.CardsDatabase = class CardsDatabaseRoutes {
     }
 }
 
+Constants.ApiRoutes.Inventories = class InventoriesRoutes {
+    static get GET_CARD_INVENTORY() {
+        return "inventories/cards/";
+    }
+}
+
 Constants.ApiRoutes.Admin = class AdminRoutes {
     
 };
