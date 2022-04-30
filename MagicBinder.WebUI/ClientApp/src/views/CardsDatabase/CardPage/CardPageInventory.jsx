@@ -43,7 +43,7 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
                 </div>
                 <div className="control">
                     <button className={"button foil-control " + (!editing ? "edit-disabled" : "")} onClick={ev => toggleFoil(printing)}>
-                        {printing.isFoil ? <span>Foil <Icon solid name="check"/></span> : "Non foil"}
+                        {printing.isFoil ? <span>Foil <Icon solid="true" name="check"/></span> : "Non foil"}
                     </button>
                 </div>
                 {editing ?
