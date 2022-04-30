@@ -5,3 +5,12 @@ button.button-cancel-changes {
 .icon-is-foil {
   margin-left: 5px;
 }
+
+.foil-control {
+  min-width: 100px;
+}
+
+.edit-disabled {
+  pointer-events: none;
+  touch-action: none;
+}
