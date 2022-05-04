@@ -11,9 +11,10 @@ public class Deck
     public FormatType Format { get; private set; }
     public GameType GameType { get; private set; }
 
+    public List<DeckCardCategory> Categories { get; private set; } = new();
     public List<DeckCard> DeckCards { get; private set; } = new();
 
-    public Deck(Guid deckId, string name, FormatType format, GameType gameType)
+    public Deck(Guid deckId, string name, FormatType format, GameType gameType, List<DeckCardCategory> Categories)
     {
         DeckId = deckId;
         Name = name;
@@ -23,7 +24,14 @@ public class Deck
         ValidateCreation();
     }
 
-    public Deck Update(string name, FormatType formatType, GameType gameType)
+    public Deck UpdateDeckList(List<DeckCard> deckCards)
+    {
+        DeckCards = deckCards;
+
+        return this;
+    }
+
+    public Deck UpdateSettings(string name, FormatType formatType, GameType gameType)
     {
         ValidateName(name);
         Name = name;
