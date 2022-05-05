@@ -7,7 +7,7 @@ namespace MagicBinder.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class DictionariesController: ControllerBase
+public class DictionariesController : ControllerBase
 {
     private readonly MediatorCommandSender _mediator;
 
@@ -15,7 +15,7 @@ public class DictionariesController: ControllerBase
     {
         _mediator = mediator;
     }
-    
+
     [HttpGet("sets")]
     public async Task<ActionResult<ICollection<SetModel>>> GetCardDetails() => await _mediator.SendQuery(new GetSets());
 }
