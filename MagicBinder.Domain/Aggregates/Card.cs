@@ -21,9 +21,6 @@ public class Card
     public GameType[] Games { get; set; } = Array.Empty<GameType>();
     public FormatType[] LegalIn { get; set; } = Array.Empty<FormatType>();
     public CardType CardType { get; set; }
-    public bool CanBeCommander { get; set; }
-    public bool IsPartner { get; set; }
-    public string PartnerName { get; set; } = string.Empty;
 
     public CardPrinting LatestPrinting { get; set; } = new();
     public List<CardPrinting> CardPrintings { get; set; } = new();

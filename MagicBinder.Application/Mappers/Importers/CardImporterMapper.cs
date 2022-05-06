@@ -130,7 +130,8 @@ public static class CardImporterMapper
             Games = model.Games.MapToGames(),
             Layout = model.Layout.MapToLayout(),
             LegalIn = model.Legalities.MapToFormatLegality(),
-            Loyalty = model.Loyalty
+            Loyalty = model.Loyalty,
+            CardType = model.TypeLine.MapToCardType()
         };
 
         return card;
@@ -241,4 +242,19 @@ public static class CardImporterMapper
             ScryfallCardsConstants.Colors.Green => ColorType.Green,
             _ => ColorType.Colorless
         };
+
+    private static CardType MapToCardType(this string typeLine) =>
+        typeLine.Split("//")[0] switch
+        {
+            { } @type when @type.ContainsType(CardType.Creature) => CardType.Creature,
+            { } @type when @type.ContainsType(CardType.Artifact) => CardType.Artifact,
+            { } @type when @type.ContainsType(CardType.Enchantment) => CardType.Enchantment,
+            { } @type when @type.ContainsType(CardType.Planeswalker) => CardType.Planeswalker,
+            { } @type when @type.ContainsType(CardType.Instant) => CardType.Instant,
+            { } @type when @type.ContainsType(CardType.Sorcery) => CardType.Sorcery,
+            { } @type when @type.ContainsType(CardType.Land) => CardType.Land,
+            _ => CardType.Other
+        };
+
+    private static bool ContainsType(this string typeLine, CardType cardType) => typeLine.Contains(cardType.ToString().ToLower());
 }
