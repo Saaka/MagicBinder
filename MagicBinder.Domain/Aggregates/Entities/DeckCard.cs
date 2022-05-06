@@ -12,6 +12,7 @@ public class DeckCard
     public decimal Cmc { get; set; }
     public decimal CustomCmc { get; set; }
     public string ManaCost { get; set; } = string.Empty;
+    public CardType CardType { get; set; }
     public ColorType[] Colors { get; set; } = Array.Empty<ColorType>();
     public ColorType[] ColorIdentity { get; set; } = Array.Empty<ColorType>();
 }
