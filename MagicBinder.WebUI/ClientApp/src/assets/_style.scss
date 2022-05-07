@@ -17,6 +17,7 @@ html {
 
 .has-custom-background {
   background: $white-ter;
+  background: linear-gradient(180deg, $white-ter 0%, $grey-lighter 100%);
 }
 
 .is-responsive {
