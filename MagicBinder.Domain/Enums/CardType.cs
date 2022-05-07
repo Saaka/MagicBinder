@@ -9,5 +9,6 @@ public enum CardType
     Enchantment = 4,
     Planeswalker = 5,
     Instant = 6,
-    Sorcery = 7
+    Sorcery = 7,
+    Conspiracy = 8,
 }

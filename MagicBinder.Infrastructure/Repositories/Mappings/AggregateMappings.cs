@@ -41,6 +41,7 @@ public static class AggregateMappings
             cm.GetMemberMap(x => x.Games).SetSerializer(new ArraySerializer<GameType>(new EnumSerializer<GameType>(BsonType.String)));
             cm.GetMemberMap(x => x.Colors).SetSerializer(new ArraySerializer<ColorType>(new EnumSerializer<ColorType>(BsonType.String)));
             cm.GetMemberMap(x => x.ColorIdentity).SetSerializer(new ArraySerializer<ColorType>(new EnumSerializer<ColorType>(BsonType.String)));
+            cm.GetMemberMap(x => x.CardType).SetSerializer(new EnumSerializer<CardType>(BsonType.String));
         });
 
         BsonClassMap.RegisterClassMap<CardPrinting>(cm =>

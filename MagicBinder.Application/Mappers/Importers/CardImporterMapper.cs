@@ -244,7 +244,7 @@ public static class CardImporterMapper
         };
 
     private static CardType MapToCardType(this string typeLine) =>
-        typeLine.Split("//")[0] switch
+        typeLine.ToLower().Split("//")[0] switch
         {
             { } @type when @type.ContainsType(CardType.Creature) => CardType.Creature,
             { } @type when @type.ContainsType(CardType.Artifact) => CardType.Artifact,
@@ -253,6 +253,7 @@ public static class CardImporterMapper
             { } @type when @type.ContainsType(CardType.Instant) => CardType.Instant,
             { } @type when @type.ContainsType(CardType.Sorcery) => CardType.Sorcery,
             { } @type when @type.ContainsType(CardType.Land) => CardType.Land,
+            { } @type when @type.ContainsType(CardType.Conspiracy) => CardType.Conspiracy,
             _ => CardType.Other
         };
 
