@@ -63,12 +63,14 @@ public class ImportCardsFromScryfallFileHandler : RequestHandler<ImportCardsFrom
     }
 
     private static List<IGrouping<Guid, CardModel>> ReturnedFilteredGroups(List<CardModel> cards) =>
-        cards.Where(x => x.SetName != "token"
-                         && x.SetType != "token"
-                         && !x.Oversized &&
-                         x.SetType != "memorabilia"
-                         && Layouts.Contains(x.Layout)
-                         && x.Games.Contains(ScryfallCardsConstants.Games.Paper))
+        cards.Where(x =>
+                // x.SetName != "token" &&
+                // x.SetType != "token" &&
+                !x.SetName.ToLower().Contains("minigames") &&
+                !x.Oversized &&
+                x.SetType != "memorabilia" &&
+                Layouts.Contains(x.Layout) &&
+                x.Games.Contains(ScryfallCardsConstants.Games.Paper))
             .GroupBy(x => x.OracleId).ToList();
 
     private static string[] Layouts => typeof(ScryfallCardsConstants.Layouts).GetFields().Select(x => x.GetValue(x).ToString()).ToArray();

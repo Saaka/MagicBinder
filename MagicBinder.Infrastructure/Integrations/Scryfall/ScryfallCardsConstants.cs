@@ -14,6 +14,15 @@ public class ScryfallCardsConstants
         public const string Class = "class";
         public const string Saga = "saga";
         public const string Adventure = "adventure";
+        public const string Token = "token";
+        public const string DoubleFacedToken = "double_faced_token";
+        public const string Planar = "planar";
+        public const string Scheme = "scheme";
+        public const string Vanguard = "vanguard";
+        public const string Emblem = "emblem";
+        public const string Augment = "augment";
+        public const string Host = "host";
+        public const string Reversible = "reversible_card";
     }
 
     public class Games

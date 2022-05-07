@@ -17,6 +17,7 @@ public static class CardImporterMapper
             LayoutType.Transform => card.MapTransformCardFields(),
             LayoutType.Mdfc => card.MapMdfcCardFields(),
             LayoutType.Meld => card.MapMeldCardFields(),
+            LayoutType.DoubleFacedToken => card.MapDoubleFacedTokenFields(),
             _ => card
         };
 
@@ -84,6 +85,28 @@ public static class CardImporterMapper
 
     public static Card MapMeldCardFields(this Card card)
     {
+        //TODO MELD
+        return card;
+    }
+
+    private static Card MapDoubleFacedTokenFields(this Card card)
+    {
+        var latestPrinting = card.LatestPrinting;
+        var frontFace = latestPrinting.CardFaces.First();
+
+        card.ManaCost = latestPrinting.CardFaces.GetManaCost();
+        card.Power = frontFace.Power;
+        card.Toughness = frontFace.Toughness;
+        card.Loyalty = frontFace.Loyalty;
+        card.Colors = frontFace.Colors;
+
+        card.CardPrintings.ForEach(x =>
+        {
+            var printingFrontFace = x.CardFaces.First();
+            x.OracleText = x.CardFaces.GetOracleText();
+            x.CardImages = printingFrontFace.CardImages;
+            x.FlavorText = printingFrontFace.FlavorText;
+        });
         return card;
     }
 
@@ -205,6 +228,15 @@ public static class CardImporterMapper
             ScryfallCardsConstants.Layouts.Saga => LayoutType.Saga,
             ScryfallCardsConstants.Layouts.Split => LayoutType.Split,
             ScryfallCardsConstants.Layouts.Transform => LayoutType.Transform,
+            ScryfallCardsConstants.Layouts.Token => LayoutType.Token,
+            ScryfallCardsConstants.Layouts.DoubleFacedToken => LayoutType.DoubleFacedToken,
+            ScryfallCardsConstants.Layouts.Planar => LayoutType.Planar,
+            ScryfallCardsConstants.Layouts.Scheme => LayoutType.Scheme,
+            ScryfallCardsConstants.Layouts.Vanguard => LayoutType.Vanguard,
+            ScryfallCardsConstants.Layouts.Emblem => LayoutType.Emblem,
+            ScryfallCardsConstants.Layouts.Augment => LayoutType.Augment,
+            ScryfallCardsConstants.Layouts.Host => LayoutType.Host,
+            ScryfallCardsConstants.Layouts.Reversible => LayoutType.Reversible,
             _ => defaultLayout
         };
 
@@ -244,18 +276,20 @@ public static class CardImporterMapper
         };
 
     private static CardType MapToCardType(this string typeLine) =>
-        typeLine.ToLower().Split("//")[0] switch
-        {
-            { } @type when @type.ContainsType(CardType.Creature) => CardType.Creature,
-            { } @type when @type.ContainsType(CardType.Artifact) => CardType.Artifact,
-            { } @type when @type.ContainsType(CardType.Enchantment) => CardType.Enchantment,
-            { } @type when @type.ContainsType(CardType.Planeswalker) => CardType.Planeswalker,
-            { } @type when @type.ContainsType(CardType.Instant) => CardType.Instant,
-            { } @type when @type.ContainsType(CardType.Sorcery) => CardType.Sorcery,
-            { } @type when @type.ContainsType(CardType.Land) => CardType.Land,
-            { } @type when @type.ContainsType(CardType.Conspiracy) => CardType.Conspiracy,
-            _ => CardType.Other
-        };
+        string.IsNullOrWhiteSpace(typeLine)
+            ? CardType.Other
+            : typeLine.ToLower().Split("//")[0] switch
+            {
+                { } @type when @type.ContainsType(CardType.Creature) => CardType.Creature,
+                { } @type when @type.ContainsType(CardType.Artifact) => CardType.Artifact,
+                { } @type when @type.ContainsType(CardType.Enchantment) => CardType.Enchantment,
+                { } @type when @type.ContainsType(CardType.Planeswalker) => CardType.Planeswalker,
+                { } @type when @type.ContainsType(CardType.Instant) => CardType.Instant,
+                { } @type when @type.ContainsType(CardType.Sorcery) => CardType.Sorcery,
+                { } @type when @type.ContainsType(CardType.Land) => CardType.Land,
+                { } @type when @type.ContainsType(CardType.Conspiracy) => CardType.Conspiracy,
+                _ => CardType.Other
+            };
 
     private static bool ContainsType(this string typeLine, CardType cardType) => typeLine.Contains(cardType.ToString().ToLower());
 }
