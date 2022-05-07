@@ -76,7 +76,7 @@ function Index(props) {
 
     function renderLoader() {
         return (
-            <div className="hero has-background-gradient is-fullheight">
+            <div className="hero has-custom-background is-fullheight">
                 <div className="hero-body center">
                     <Loader/>
                 </div>

@@ -11,7 +11,7 @@ function App(props) {
 
     return (
         <React.Fragment>
-            <div className="app-container has-background-gradient">
+            <div className="app-container has-custom-background">
                 <AppNavbar {...props} user={props.user}/>
                 <div className="app-container-content">
                     <ResponsiveContainer>

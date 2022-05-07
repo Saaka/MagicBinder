@@ -46,7 +46,7 @@ function AppNavbar(props) {
     }
 
     return (
-        <nav className="navbar is-primary" role="navigation" aria-label="main site navigation">
+        <nav className="navbar is-dark" role="navigation" aria-label="main site navigation">
             <div className="container">
                 <div className="navbar-brand">
                     <a className="navbar-item has-text-weight-bold">MagicBinder</a>
@@ -73,10 +73,10 @@ function AppNavbar(props) {
                         <div className="navbar-item">
                             {
                                 props.user.isLoggedIn
-                                    ? (<a className="button is-primary is-inverted is-outlined" onClick={logout}>Log
+                                    ? (<a className="button is-light is-outlined" onClick={logout}>Log
                                         out</a>)
                                     : (
-                                        <a className="button is-primary is-inverted is-outlined" onClick={login}>Log in</a>)
+                                        <a className="button is-light" onClick={login}>Log in</a>)
                             }
                         </div>
                     </div>

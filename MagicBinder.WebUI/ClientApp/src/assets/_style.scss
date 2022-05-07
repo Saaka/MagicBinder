@@ -15,9 +15,8 @@ html {
   align-items: center;
 }
 
-.has-background-gradient {
-  background: $primary-light;
-  background: linear-gradient(180deg, $primary-light 0%, $primary 100%);
+.has-custom-background {
+  background: $white-ter;
 }
 
 .is-responsive {
