@@ -181,11 +181,21 @@ public static class CardImporterMapper
             CardImages = model.ImageUris.MapToCardImages(),
             Games = model.Games.MapToGames(),
             LegalIn = model.Legalities.MapToFormatLegality(),
-            CardFaces = model.CardFaces.Select(MapToCardFace).ToList()
+            CardFaces = model.CardFaces.Select(MapToCardFace).ToList(),
+            AllParts = model.AllParts.Select(MapToCardPart).ToList()
         };
 
         return printing;
     }
+
+    private static CardPart MapToCardPart(this CardPartModel part) => new()
+    {
+        CardId = part.CardId,
+        OracleId = part.CardId,
+        Name = part.Name,
+        TypeLine = part.TypeLine,
+        Component = part.Component.MapToPartComponent()
+    };
 
     private static CardFace MapToCardFace(CardFaceModel face) => new()
     {
@@ -263,7 +273,6 @@ public static class CardImporterMapper
             ? Array.Empty<ColorType>()
             : modelColors.Select(MapToColor).ToArray();
 
-
     private static ColorType MapToColor(string color) =>
         color switch
         {
@@ -292,4 +301,14 @@ public static class CardImporterMapper
             };
 
     private static bool ContainsType(this string typeLine, CardType cardType) => typeLine.Contains(cardType.ToString().ToLower());
+
+    private static PartComponentType MapToPartComponent(this string component) =>
+        component switch
+        {
+            ScryfallCardsConstants.RelatedComponent.Token => PartComponentType.Token,
+            ScryfallCardsConstants.RelatedComponent.MeldPart => PartComponentType.MeldPart,
+            ScryfallCardsConstants.RelatedComponent.MeldResult => PartComponentType.MeldResult,
+            ScryfallCardsConstants.RelatedComponent.ComboPiece => PartComponentType.ComboPiece,
+            _ => PartComponentType.Other
+        };
 }

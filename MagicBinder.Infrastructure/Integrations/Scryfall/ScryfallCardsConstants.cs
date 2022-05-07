@@ -40,4 +40,12 @@ public class ScryfallCardsConstants
         public const string Red = "R";
         public const string Green = "G";
     }
+
+    public class RelatedComponent
+    {
+        public const string Token = "token";
+        public const string MeldPart = "meld_part";
+        public const string MeldResult = "meld_result";
+        public const string ComboPiece = "combo_piece";
+    }
 }

@@ -9,6 +9,7 @@ public static class CardsModelMapper
             .Concat(ImageUrisMapping)
             .Concat(LegalitiesMapping)
             .Concat(CardFacesMapping)
+            .Concat(CardPartsMapping)
             .GroupBy(x => x.Key)
             .ToDictionary(x => x.Key, v => v.First().Value);
 
@@ -45,6 +46,7 @@ public static class CardsModelMapper
         { nameof(CardModel.Oversized), "oversized" },
         { nameof(CardModel.Legalities), "legalities" },
         { nameof(CardModel.CardFaces), "card_faces" },
+        { nameof(CardModel.AllParts), "all_parts" },
     };
 
     public static Dictionary<string, string> ImageUrisMapping { get; } = new()
@@ -82,5 +84,13 @@ public static class CardsModelMapper
         { nameof(CardFaceModel.ImageUris), "image_uris" },
         { nameof(CardFaceModel.OracleText), "oracle_text" },
         { nameof(CardFaceModel.TypeLine), "type_line" },
+    };
+
+    public static Dictionary<string, string> CardPartsMapping { get; } = new()
+    {
+        { nameof(CardPartModel.CardId), "id" },
+        { nameof(CardPartModel.Component), "component" },
+        { nameof(CardPartModel.Name), "name" },
+        { nameof(CardPartModel.TypeLine), "type_line" },
     };
 }

@@ -57,6 +57,12 @@ public static class AggregateMappings
             cm.GetMemberMap(x => x.Layout).SetSerializer(new EnumSerializer<LayoutType>(BsonType.String));
             cm.GetMemberMap(x => x.Colors).SetSerializer(new ArraySerializer<ColorType>(new EnumSerializer<ColorType>(BsonType.String)));
         });
+
+        BsonClassMap.RegisterClassMap<CardPart>(cm =>
+        {
+            cm.AutoMap();
+            cm.GetMemberMap(x => x.Component).SetSerializer(new EnumSerializer<PartComponentType>(BsonType.String));
+        });
     }
 
     private static void RegisterDictionariesMaps()

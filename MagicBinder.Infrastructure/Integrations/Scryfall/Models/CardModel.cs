@@ -33,4 +33,5 @@ public record CardModel
     public ImageUrisModel ImageUris { get; init; }
     public LegalitiesModel Legalities { get; init; }
     public CardFaceModel[] CardFaces { get; init; } = Array.Empty<CardFaceModel>();
+    public CardPartModel[] AllParts { get; init; } = Array.Empty<CardPartModel>();
 }
