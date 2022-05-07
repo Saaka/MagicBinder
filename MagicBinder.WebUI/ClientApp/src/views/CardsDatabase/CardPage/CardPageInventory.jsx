@@ -95,7 +95,10 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
     }
 
     const addCard = () => {
+        let deepCopy = _.cloneDeep(inventory);
+        setCopy(deepCopy);
         if (!editing) setEditing(true)
+        
         const basePrinting = card.printings[0];
         let printing = {count: 1, cardId: basePrinting.cardId, isFoil: false, image: basePrinting.image};
         let inventoryPrintings = inventory.printings.slice();
