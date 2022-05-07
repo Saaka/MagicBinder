@@ -28,7 +28,7 @@ function LoginWithGoogle(props) {
         props.onLogin();
     }
 
-    const renderLoader = () => (<Loader size="xs" dark/>);
+    const renderLoader = () => (<Loader size="xs" />);
 
     return (
         <React.Fragment>
