@@ -7,6 +7,7 @@ public class CardPrinting
     public Guid CardId { get; set; }
     public Guid OracleId { get; set; }
     public string Name { get; set; } = string.Empty;
+    public string Rarity { get; set; }
     public string ReleasedAt { get; set; } = string.Empty;
     public string ScryfallUri { get; set; } = string.Empty;
     public string TypeLine { get; set; } = string.Empty;

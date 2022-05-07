@@ -141,7 +141,6 @@ public static class CardImporterMapper
         {
             OracleId = model.OracleId,
             Name = model.Name,
-            Rarity = model.Rarity,
             Cmc = model.Cmc,
             ManaCost = model.ManaCost,
             Power = model.Power,
@@ -167,6 +166,7 @@ public static class CardImporterMapper
             CardId = model.CardId,
             OracleId = model.OracleId,
             Name = model.Name,
+            Rarity = model.Rarity,
             TypeLine = model.TypeLine,
             ReleasedAt = model.ReleasedAt,
             ScryfallUri = model.ScryfallUri,

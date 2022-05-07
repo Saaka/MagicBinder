@@ -8,7 +8,6 @@ public class Card
     public Guid OracleId { get; set; }
     public LayoutType Layout { get; set; }
     public string Name { get; set; } = string.Empty;
-    public string Rarity { get; set; }
     public decimal Cmc { get; set; }
     public string ManaCost { get; set; } = string.Empty;
     public string Power { get; set; } = string.Empty;

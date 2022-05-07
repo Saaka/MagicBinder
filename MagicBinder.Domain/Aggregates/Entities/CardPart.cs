@@ -8,5 +8,6 @@ public class CardPart
     public Guid OracleId { get; set; }
     public string Name { get; set; } = string.Empty;
     public string TypeLine { get; set; } = string.Empty;
+    public string Rarity { get; set; } = string.Empty;
     public PartComponentType Component { get; set; }
 }
