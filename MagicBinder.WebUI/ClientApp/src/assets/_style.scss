@@ -31,8 +31,17 @@ html {
 }
 
 .is-responsive-medium {
-  @extend .is-three-fifths-fullhd;
-  @extend .is-offset-one-fifth-fullhd;
   @extend .is-two-thirds-widescreen;
   @extend .is-offset-2-widescreen;
+  @extend .is-three-fifths-fullhd;
+  @extend .is-offset-one-fifth-fullhd;
+}
+
+.is-responsive-small {
+  @extend .is-two-thirds-tablet;
+  @extend .is-offset-2-tablet;
+  @extend .is-half-desktop;
+  @extend .is-offset-one-quarter-desktop;
+  @extend .is-one-third-fullhd;
+  @extend .is-offset-one-third-fullhd;
 }

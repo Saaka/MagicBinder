@@ -17,14 +17,14 @@ function Login(props) {
             redirectToAppRoute();
     }, []);
 
-    function redirectToAppRoute(){
+    function redirectToAppRoute() {
         let parsedQuery = queryString.parse(props.location.search);
         if (!!parsedQuery && parsedQuery.redirect)
             redirectToPath(parsedQuery.redirect);
         else
             redirectToMainPage();
     }
-    
+
     function redirectToMainPage() {
         props.history.replace(RouteNames.Dashboard);
     }
@@ -46,12 +46,16 @@ function Login(props) {
     const renderLoader = () => (<Loader/>);
 
     return (
-        <div className="section is-fullheight">
-            <div className="container login-container center">
-                <div className="login-block center">
-                    <h1 className="is-size-4 login-title">Login using options below</h1>
-                    <GoogleLogin onLoggedIn={onLoggedIn} onError={onError} disabled={loginInProgress}
-                                 onLogin={() => setLoginInProgress(true)}/>
+        <div className="columns login-column">
+            <div className="column is-responsive-small">
+                <div className="tile is-parent">
+                    <article className="tile is-dark is-child notification">
+                        <p className="title is-size-4 center">Login using options below</p>
+                        <div className="content center">
+                            <GoogleLogin onLoggedIn={onLoggedIn} onError={onError} disabled={loginInProgress}
+                                         onLogin={() => setLoginInProgress(true)}/>
+                        </div>
+                    </article>
                 </div>
             </div>
         </div>

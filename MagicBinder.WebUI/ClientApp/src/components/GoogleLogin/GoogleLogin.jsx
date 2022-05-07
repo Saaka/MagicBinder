@@ -40,7 +40,7 @@ function LoginWithGoogle(props) {
                          render={renderProps => (
                              <React.Fragment>
                                  <div>
-                                     <button className="button is-primary"
+                                     <button className="button is-light"
                                              disabled={props.disabled}
                                              onClick={() => onClick(renderProps)}><Icon name="google"/><span
                                          className="button-text">Sign in with Google</span>
