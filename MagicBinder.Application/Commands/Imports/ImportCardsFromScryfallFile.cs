@@ -64,8 +64,6 @@ public class ImportCardsFromScryfallFileHandler : RequestHandler<ImportCardsFrom
 
     private static List<IGrouping<Guid, CardModel>> ReturnedFilteredGroups(List<CardModel> cards) =>
         cards.Where(x =>
-                // x.SetName != "token" &&
-                // x.SetType != "token" &&
                 !x.SetName.ToLower().Contains("minigames") &&
                 !x.Oversized &&
                 x.SetType != "memorabilia" &&
