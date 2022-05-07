@@ -12,6 +12,8 @@ const Loader = (props) => {
 
         if (props.dark)
             style += "-dark";
+        else if (props.primary)
+            style += "-primary";
         return style;
     }
 

@@ -149,7 +149,7 @@ const CardPageInventory = ({inventory, setInventory, card}) => {
             <div className="block">
                 {
                     isLoading
-                        ? <div className="center"><Loader dark/></div>
+                        ? <div className="center"><Loader primary/></div>
                         : hasEmptyInventory()
                             ? <p>Card not owned</p>
                             : renderInventoryRows()}
