@@ -110,8 +110,8 @@ function CardsList(props) {
 
     return (
         <React.Fragment>
-            <p className="subtitle has-text-white-bis">Cards database</p>
             <div className="box">
+                <p className="subtitle cards-database-title is-bold">Cards database</p>
                 <div className="card card-filters">
                     <div className="card-header">
                         <p className="card-header-title">

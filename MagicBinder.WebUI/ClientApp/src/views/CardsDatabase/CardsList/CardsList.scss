@@ -12,7 +12,7 @@ div.columns.filter-columns {
   div.column {
     padding-top: 0;
     padding-bottom: 5px;
-    
+
     .field {
       margin-top: 0;
     }
@@ -21,4 +21,10 @@ div.columns.filter-columns {
 
 .card.card-filters {
   margin-bottom: 5px;
+}
+
+div.box {
+  p.cards-database-title {
+    margin-bottom: 1rem;
+  }
 }

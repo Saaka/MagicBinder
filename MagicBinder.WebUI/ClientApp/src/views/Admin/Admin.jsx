@@ -14,7 +14,7 @@ function Admin(props) {
 
     return (
         <React.Fragment>
-            <p className="title has-text-light">Admin Page</p>
+            <p className="title">Admin Page</p>
             <div className="tile is-ancestor">
                 <div className="tile is-parent">
                     <div className="tile box" onClick={() => redirectTo(RouteNames.Dashboard)}>
