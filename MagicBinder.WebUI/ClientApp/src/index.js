@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import {Index} from "layouts/exports"
-import {ScrollToTop} from "components/ScrollToTop/ScrollToTop";
+import {ScrollOnNavigation} from "components/routing";
 import "./assets/vendor/font-awesome";
 
 require("dotenv").config();
@@ -13,7 +13,7 @@ const rootElement = document.getElementById("root");
 
 ReactDOM.render(
     <BrowserRouter basename={baseUrl}>
-        <ScrollToTop/>
+        <ScrollOnNavigation/>
         <Index/>
         <div id="modal-root"/>
     </BrowserRouter>,
