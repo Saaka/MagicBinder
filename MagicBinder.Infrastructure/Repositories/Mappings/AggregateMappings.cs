@@ -16,6 +16,32 @@ public static class AggregateMappings
         RegisterCardsMaps();
         RegisterDictionariesMaps();
         RegisterUsersMaps();
+        RegisterDecksMaps();
+    }
+
+    private static void RegisterDecksMaps()
+    {
+        BsonClassMap.RegisterClassMap<Deck>(cm =>
+        {
+            cm.AutoMap();
+            cm.GetMemberMap(x => x.DeckId).SetIgnoreIfDefault(false);
+            cm.SetIdMember(cm.GetMemberMap(x => x.DeckId));
+            cm.GetMemberMap(x => x.GameType).SetSerializer(new EnumSerializer<GameType>(BsonType.String));
+            cm.GetMemberMap(x => x.Format).SetSerializer(new EnumSerializer<FormatType>(BsonType.String));
+        });
+        
+        BsonClassMap.RegisterClassMap<DeckCard>(cm =>
+        {
+            cm.AutoMap();
+            cm.GetMemberMap(x => x.CardType).SetSerializer(new EnumSerializer<CardType>(BsonType.String));
+            cm.GetMemberMap(x => x.Colors).SetSerializer(new ArraySerializer<ColorType>(new EnumSerializer<ColorType>(BsonType.String)));
+            cm.GetMemberMap(x => x.ColorIdentity).SetSerializer(new ArraySerializer<ColorType>(new EnumSerializer<ColorType>(BsonType.String)));
+        });
+        
+        BsonClassMap.RegisterClassMap<DeckCardCategory>(cm =>
+        {
+            cm.AutoMap();
+        });
     }
 
     private static void RegisterInventoryMappings()

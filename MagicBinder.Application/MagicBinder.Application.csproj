@@ -14,4 +14,8 @@
       <ProjectReference Include="..\MagicBinder.Infrastructure\MagicBinder.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models\Decks" />
+    </ItemGroup>
+
 </Project>

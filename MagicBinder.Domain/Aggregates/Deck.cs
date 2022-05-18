@@ -7,6 +7,7 @@ namespace MagicBinder.Domain.Aggregates;
 public class Deck
 {
     public Guid DeckId { get; private set; }
+    public Guid OwnerId { get; private set; }
     public string Name { get; private set; } = string.Empty;
     public FormatType Format { get; private set; }
     public GameType GameType { get; private set; }
@@ -14,9 +15,10 @@ public class Deck
     public List<DeckCardCategory> Categories { get; private set; } = new();
     public List<DeckCard> DeckCards { get; private set; } = new();
 
-    public Deck(Guid deckId, string name, FormatType format, GameType gameType, List<DeckCardCategory> Categories)
+    public Deck(Guid deckId, Guid ownerId, string name, FormatType format, GameType gameType, List<DeckCardCategory> Categories)
     {
         DeckId = deckId;
+        OwnerId = ownerId;
         Name = name;
         Format = format;
         GameType = gameType;
@@ -44,6 +46,7 @@ public class Deck
     private void ValidateCreation()
     {
         if (DeckId == Guid.Empty) throw new AggregateIdRequiredException(nameof(Deck));
+        if (OwnerId == Guid.Empty) throw new DeckOwnerRequiredException();
         ValidateName(Name);
     }
 
