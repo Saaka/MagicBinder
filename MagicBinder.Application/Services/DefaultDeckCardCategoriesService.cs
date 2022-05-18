@@ -15,16 +15,15 @@ public class DefaultDeckCardCategoriesService
     private static IEnumerable<DeckCardCategory> CommanderCategories =>
         new List<DeckCardCategory>
         {
-            new DeckCardCategory { Name = "Commander", IsInDeck = true },
-            new DeckCardCategory { Name = "Sideboard", IsInDeck = false },
-            new DeckCardCategory { Name = "InConsideration", IsInDeck = false },
+            new() { Name = "Commander", IsInDeck = true, IsCommander = true},
+            new() { Name = "Sideboard", IsInDeck = false },
+            new() { Name = "InConsideration", IsInDeck = false },
         };
 
     private static IEnumerable<DeckCardCategory> DefaultCategories =>
         new List<DeckCardCategory>
         {
-            new DeckCardCategory { Name = "Mainboard", IsInDeck = true },
-            new DeckCardCategory { Name = "Sideboard", IsInDeck = false },
-            new DeckCardCategory { Name = "InConsideration", IsInDeck = false },
+            new() { Name = "Sideboard", IsInDeck = false },
+            new() { Name = "InConsideration", IsInDeck = false },
         };
 }

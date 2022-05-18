@@ -15,13 +15,14 @@ public class Deck
     public List<DeckCardCategory> Categories { get; private set; } = new();
     public List<DeckCard> DeckCards { get; private set; } = new();
 
-    public Deck(Guid deckId, Guid ownerId, string name, FormatType format, GameType gameType, List<DeckCardCategory> Categories)
+    public Deck(Guid deckId, Guid ownerId, string name, FormatType format, GameType gameType, List<DeckCardCategory> categories)
     {
         DeckId = deckId;
         OwnerId = ownerId;
         Name = name;
         Format = format;
         GameType = gameType;
+        Categories = categories.ToList();
 
         ValidateCreation();
     }
