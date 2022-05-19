@@ -43,8 +43,8 @@ public class CardsRepository : IMongoRepository
         var builder = Builders<Card>.Filter;
         var gameFilter = builder.Where(x => x.Games.Contains(GameType.Paper));
         var filter = gameFilter;
-        filter = ApplyRegexFilter(filter, x => x.Name, queryParams.Name);
-        filter = ApplyRegexFilter(filter, x => x.LatestPrinting.TypeLine, queryParams.TypeLine);
+        filter = filter.ApplyRegexFilter(x => x.Name, queryParams.Name);
+        filter = filter.ApplyRegexFilter(x => x.LatestPrinting.TypeLine, queryParams.TypeLine);
 
         if (!string.IsNullOrEmpty(queryParams.OracleText))
         {
@@ -56,16 +56,6 @@ public class CardsRepository : IMongoRepository
         var query = Cards.AsQueryable().OrderBy(x => x.Name).Where(x => filter.Inject());
 
         return await query.ToPagedListAsync(queryParams, cancellationToken);
-    }
-
-    private static FilterDefinition<Card> ApplyRegexFilter(FilterDefinition<Card> filter, Expression<Func<Card, object>> property, string? value)
-    {
-        var builder = Builders<Card>.Filter;
-        if (string.IsNullOrEmpty(value)) return filter;
-
-        var regex = new Regex(value.Trim(), RegexOptions.IgnoreCase);
-        var newFilter = builder.Regex(property, BsonRegularExpression.Create(regex));
-        return builder.And(filter, newFilter);
     }
 
     private IMongoCollection<Card> Cards => _database.GetCollection<Card>("Cards");

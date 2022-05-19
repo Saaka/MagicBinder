@@ -1,4 +1,7 @@
-﻿using MagicBinder.Core.Models;
+﻿using System.Linq.Expressions;
+using System.Text.RegularExpressions;
+using MagicBinder.Core.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
@@ -14,5 +17,15 @@ public static class QueryHelpers
         var items = await pagedDbQuery.ToListAsync(cancellationToken);
 
         return new PagedList<T>(items, request.PageNumber, request.PageSize, totalItemsCount);
+    }
+
+    public static FilterDefinition<T> ApplyRegexFilter<T>(this FilterDefinition<T> filter, Expression<Func<T, object>> property, string? value)
+    {
+        var builder = Builders<T>.Filter;
+        if (string.IsNullOrEmpty(value)) return filter;
+
+        var regex = new Regex(value.Trim(), RegexOptions.IgnoreCase);
+        var newFilter = builder.Regex(property, BsonRegularExpression.Create(regex));
+        return builder.And(filter, newFilter);
     }
 }
