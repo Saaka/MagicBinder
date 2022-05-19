@@ -4,8 +4,8 @@ namespace MagicBinder.Application.Models.Decks;
 
 public record DeckInfoModel
 {
-    public Guid DeckId { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public FormatType Format { get; set; }
-    public GameType GameType { get; set; }
+    public Guid DeckId { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public string Format { get; init; } = string.Empty;
+    public string GameType { get; init; } = string.Empty;
 }

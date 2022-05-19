@@ -14,7 +14,7 @@ public static class DeckMapper
     {
         DeckId = deck.DeckId,
         Name = deck.Name,
-        Format = deck.Format,
-        GameType = deck.GameType
+        Format = deck.Format.ToString(),
+        GameType = deck.GameType.ToString()
     };
 }
