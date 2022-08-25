@@ -1,6 +1,7 @@
 ﻿using MagicBinder.Application.Commands.Inventories;
 using MagicBinder.Application.Models.Inventories;
 using MagicBinder.Application.Queries.Inventories;
+using MagicBinder.Core.Models;
 using MagicBinder.WebApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,4 +25,8 @@ public class InventoriesController
 
     [HttpGet("cards/{oracleId:guid}")]
     public async Task<ActionResult<CardInventoryModel>> GetCardInventory(Guid oracleId) => await _mediator.SendQuery(new GetCardInventory(oracleId));
+    
+
+    [HttpPost("user/list")]
+    public async Task<ActionResult<PagedList<UserInventoryModel>>> GetCards(GetUserInventory query) => await _mediator.SendQuery(query);
 }
