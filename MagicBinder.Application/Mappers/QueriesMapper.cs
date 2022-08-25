@@ -1,5 +1,6 @@
 ﻿using MagicBinder.Application.Queries.Cards;
 using MagicBinder.Application.Queries.Decks;
+using MagicBinder.Application.Queries.Inventories;
 using MagicBinder.Infrastructure.Repositories.Models;
 
 namespace MagicBinder.Application.Mappers;
@@ -21,5 +22,14 @@ public static class QueriesMapper
         Name = query.Name,
         PageSize = query.PageSize,
         PageNumber = query.PageNumber
+    };
+
+    public static UserInventoryQueryParams MapToQueryParams(this GetUserInventory query, Guid userId) => new()
+    {
+        UserId = userId,
+        CardName = query.CardName,
+        SetName = query.SetName,
+        PageNumber = query.PageNumber,
+        PageSize = query.PageSize
     };
 }

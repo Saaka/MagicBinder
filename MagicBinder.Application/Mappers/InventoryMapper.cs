@@ -1,11 +1,24 @@
 ﻿using MagicBinder.Application.Models.Inventories;
 using MagicBinder.Domain.Aggregates;
 using MagicBinder.Domain.Aggregates.Entities;
+using MagicBinder.Infrastructure.Repositories.Models;
 
 namespace MagicBinder.Application.Mappers;
 
 public static class InventoryMapper
 {
+    public static UserInventoryModel MapToUserInventory(this UserInventoryQueryResult model) => new()
+    {
+        CardId = model.CardId,
+        OracleId = model.OracleId,
+        CardName = model.CardName,
+        Count = model.Count,
+        Set = model.Set,
+        SetName = model.SetName,
+        IsFoil = model.IsFoil,
+        Image = model.Image
+    };
+
     public static InventoryPrinting MapToInventoryPrinting(this CardPrinting printing, Guid? cardId, int count, bool isFoil) => new()
     {
         CardId = cardId,
