@@ -1,12 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactTooltip from "react-tooltip";
+import {Loader} from "components/common";
 import "./TooltipImage.scss";
 
 const TooltipImage = (props) => {
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const imageContent = (dataTip) =>
-        (<figure className="image tooltip-image">
-            <img className="image-element" src={dataTip} alt="Image tooltip for current element"/>
+        (<figure className="image tooltip-image center">
+            {isLoaded ? null : <div><Loader primary/></div>}
+            <img className="image-element"
+                 style={isLoaded ? {} : {display: "none"}}
+                 src={dataTip}
+                 alt="Image tooltip for current element"
+                 onLoad={() => setIsLoaded(true)}/>
         </figure>);
 
     const clearSelect = (ev) => {
