@@ -6,13 +6,13 @@ import "./TooltipImage.scss";
 const TooltipImage = (props) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const imageContent = (dataTip) =>
+    const imageContent = (dataTip, description) =>
         (<figure className="image tooltip-image center">
             {isLoaded ? null : <div><Loader primary/></div>}
             <img className="image-element"
                  style={isLoaded ? {} : {display: "none"}}
                  src={dataTip}
-                 alt="Image tooltip for current element"
+                 alt={description ?? "Image tooltip for current element"}
                  onLoad={() => setIsLoaded(true)}/>
         </figure>);
 
@@ -29,7 +29,7 @@ const TooltipImage = (props) => {
                       type="light"
                       border={true}
                       clickable={true}
-                      getContent={(dt) => imageContent(dt)}
+                      getContent={(dt) => imageContent(dt, props.description)}
                       afterHide={clearSelect}>
         </ReactTooltip>
     );
