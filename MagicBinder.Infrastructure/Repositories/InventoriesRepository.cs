@@ -1,6 +1,6 @@
-﻿using MagicBinder.Core.Models;
+﻿using System.Text.RegularExpressions;
+using MagicBinder.Core.Models;
 using MagicBinder.Domain.Aggregates;
-using MagicBinder.Domain.Aggregates.Entities;
 using MagicBinder.Infrastructure.Repositories.Models;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -21,12 +21,15 @@ public class InventoriesRepository : MongoRepository<Inventory>
         if (!string.IsNullOrWhiteSpace(queryParams.CardName))
             filter = filter.ApplyRegexFilter(x => x.CardName, queryParams.CardName);
 
-        var inventoryFilter = Builders<InventoryPrinting>.Filter.Empty;
         if (!string.IsNullOrWhiteSpace(queryParams.SetName))
-            inventoryFilter = inventoryFilter.ApplyRegexFilter(p => p.SetName, queryParams.SetName);
+        {
+            var regex = new Regex(queryParams.SetName.Trim(), RegexOptions.IgnoreCase);
+            var oracleTextFilter = inventoryBuilder.Where(x => x.Printings.Any(p => regex.IsMatch(p.SetName)));
+            filter = inventoryBuilder.And(filter, oracleTextFilter);
+        }
 
         var query = Collection.AsQueryable()
-            .Where(x => filter.Inject() && inventoryFilter.Inject())
+            .Where(x => filter.Inject())
             .SelectMany(i => i.Printings, (i, p) => new UserInventoryQueryResult
             {
                 CardId = p.CardId,

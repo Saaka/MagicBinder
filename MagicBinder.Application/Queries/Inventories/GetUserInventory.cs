@@ -24,12 +24,13 @@ public class GetUserInventoryHandler : RequestHandler<GetUserInventory, PagedLis
         _inventoriesRepository = inventoriesRepository;
         _requestContextService = requestContextService;
     }
-    
+
     public override async Task<RequestResult<PagedList<UserInventoryModel>>> Handle(GetUserInventory request, CancellationToken cancellationToken)
     {
         if (!_requestContextService.CurrentContext.IsAuthorized) throw new UnauthorizedAccessException();
 
-        var inventory = await _inventoriesRepository.GetUserInventoryAsync(request.MapToQueryParams(_requestContextService.CurrentContext.User.Id), cancellationToken);
+        var inventory = await _inventoriesRepository
+            .GetUserInventoryAsync(request.MapToQueryParams(_requestContextService.CurrentContext.User.Id), cancellationToken);
         return request.Success(inventory.MapToResponse(InventoryMapper.MapToUserInventory));
     }
 }
