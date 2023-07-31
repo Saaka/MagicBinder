@@ -247,6 +247,7 @@ public static class CardImporterMapper
             ScryfallCardsConstants.Layouts.Augment => LayoutType.Augment,
             ScryfallCardsConstants.Layouts.Host => LayoutType.Host,
             ScryfallCardsConstants.Layouts.Reversible => LayoutType.Reversible,
+            ScryfallCardsConstants.Layouts.Battle => LayoutType.Battle,
             _ => defaultLayout
         };
 
@@ -297,6 +298,7 @@ public static class CardImporterMapper
                 { } @type when @type.ContainsType(CardType.Sorcery) => CardType.Sorcery,
                 { } @type when @type.ContainsType(CardType.Land) => CardType.Land,
                 { } @type when @type.ContainsType(CardType.Conspiracy) => CardType.Conspiracy,
+                { } @type when @type.ContainsType(CardType.Battle) => CardType.Battle,
                 _ => CardType.Other
             };
 

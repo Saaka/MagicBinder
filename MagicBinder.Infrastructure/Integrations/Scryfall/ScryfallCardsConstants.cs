@@ -23,6 +23,7 @@ public class ScryfallCardsConstants
         public const string Augment = "augment";
         public const string Host = "host";
         public const string Reversible = "reversible_card";
+        public const string Battle = "battle";
     }
 
     public class Games

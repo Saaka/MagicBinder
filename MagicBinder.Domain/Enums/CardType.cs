@@ -11,4 +11,5 @@ public enum CardType
     Instant = 6,
     Sorcery = 7,
     Conspiracy = 8,
+    Battle = 9,
 }

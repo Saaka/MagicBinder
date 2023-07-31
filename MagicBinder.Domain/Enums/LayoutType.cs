@@ -23,4 +23,6 @@ public enum LayoutType
     Augment = 17,
     Host = 18,
     Reversible = 19,
+    
+    Battle = 20,
 }
