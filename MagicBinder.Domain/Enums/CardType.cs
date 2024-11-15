@@ -12,4 +12,11 @@ public enum CardType
     Sorcery = 7,
     Conspiracy = 8,
     Battle = 9,
+    Dungeon = 10,
+    Emblem = 11,
+    Hero = 12,
+    Phenomenon = 13,
+    Plane = 14,
+    Scheme = 15,
+    Vanguard = 16,
 }

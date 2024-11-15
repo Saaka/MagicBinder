@@ -299,6 +299,13 @@ public static class CardImporterMapper
                 { } @type when @type.ContainsType(CardType.Land) => CardType.Land,
                 { } @type when @type.ContainsType(CardType.Conspiracy) => CardType.Conspiracy,
                 { } @type when @type.ContainsType(CardType.Battle) => CardType.Battle,
+                { } @type when @type.ContainsType(CardType.Dungeon) => CardType.Dungeon,
+                { } @type when @type.ContainsType(CardType.Emblem) => CardType.Emblem,
+                { } @type when @type.ContainsType(CardType.Hero) => CardType.Hero,
+                { } @type when @type.ContainsType(CardType.Phenomenon) => CardType.Phenomenon,
+                { } @type when @type.ContainsType(CardType.Plane) => CardType.Plane,
+                { } @type when @type.ContainsType(CardType.Scheme) => CardType.Scheme,
+                { } @type when @type.ContainsType(CardType.Vanguard) => CardType.Vanguard,
                 _ => CardType.Other
             };
 
